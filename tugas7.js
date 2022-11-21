@@ -7,10 +7,10 @@
 
 function printFazzTrack(num) {
   let output = "";
-  for (let i = 0; i < num; i++) {
-    if (num % 3 === 0) output += "fazz";
-    if (num % 5 === 0) output += "track";
-    output += "\n";
+  for (let i = 1; i <= num; i++) {
+    if (i % 3 === 0 && i % 5 === 0) output += "fazztrack ";
+    else if (i % 3 === 0) output += "fazz ";
+    else if (i % 5 === 0) output += "track ";
   }
   console.log(output);
 }
