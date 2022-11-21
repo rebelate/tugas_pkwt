@@ -1,7 +1,17 @@
+// function printFazzTrack(num) {
+//   let output = "";
+//   if (num % 3 === 0) output += "fazz";
+//   if (num % 5 === 0) output += "track";
+//   console.log(output);
+// }
+
 function printFazzTrack(num) {
   let output = "";
-  if (num % 3 === 0) output += "fazz";
-  if (num % 5 === 0) output += "track";
+  for (let i = 0; i < num; i++) {
+    if (num % 3 === 0) output += "fazz";
+    if (num % 5 === 0) output += "track";
+    output += "\n";
+  }
   console.log(output);
 }
 

@@ -10,7 +10,7 @@ function hollow(row) {
     }
     output+="\n"
 }
-console.log(output);
+// console.log(output);
 }
 hollow(3)
 
