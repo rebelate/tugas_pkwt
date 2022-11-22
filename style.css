@@ -1,0 +1,18 @@
+
+.mt-3 {
+  margin-top: 0.7rem !important;
+}
+.mr-3 {
+  margin-right: 2rem !important;
+}
+.ml-3 {
+  margin-left: 2rem !important;
+}
+.navbar {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
+  height: 105px;
+}
+#sidebar {
+  height: 100vh;
+  box-shadow: rgba(0, 0, 0, 0.08) 4px 4px 20px 7px;
+}
