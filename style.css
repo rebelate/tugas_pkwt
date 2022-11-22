@@ -15,6 +15,7 @@ html {
   margin-left: 2rem !important;
 }
 .navbar {
+  background-color: #fff;
   border-bottom: 2px solid #bbb;
   z-index: 1000;
   position: fixed;
@@ -29,6 +30,7 @@ html {
   }
 }
 #sidebar {
+  position: fixed;
   flex: none;
   width: var(--sidebar-width);
   height: 100vh;
@@ -60,12 +62,45 @@ html {
   display: none;
 }
 main {
-  padding-top: calc(var(--navbar-height) + 36px);
+  width: 100%;
   position: relative;
+  left: 0;
+  padding-top: calc(var(--navbar-height) + 36px);
   padding-left: 16px;
   padding-right: 16px;
+}
+main .main-content {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 960px) {
+  main {
+    left: var(--sidebar-width);
+  }
 }
 .side-menu {
   margin-left: -1.5rem;
   cursor: pointer;
+}
+
+.carousel {
+  width: 90%;
+  margin: 0px auto;
+}
+.slick-slide {
+  margin: 10px;
+}
+.slick-slide img {
+  width: 100%;
+  border: 2px solid #fff;
+}
+.book-shelves {
+  width: 100%;
+  padding-top: 20px;
+  text-align: center;
+}
+.book-shelves .slick-dots li button:before {
+  font-size: 20px;
+  color: white;
 }
