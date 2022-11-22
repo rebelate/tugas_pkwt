@@ -1,4 +1,10 @@
-
+html {
+  --sidebar-width: 300px;
+  --navbar-height: 105px;
+}
+#app {
+  display: flex;
+}
 .mt-3 {
   margin-top: 0.7rem !important;
 }
@@ -9,10 +15,57 @@
   margin-left: 2rem !important;
 }
 .navbar {
+  border-bottom: 2px solid #bbb;
+  z-index: 1000;
+  position: fixed;
+  right: 0;
+  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
-  height: 105px;
+  height: var(--navbar-height);
+}
+@media (min-width: 960px) {
+  .navbar {
+    width: calc(100% - var(--sidebar-width));
+  }
 }
 #sidebar {
+  flex: none;
+  width: var(--sidebar-width);
   height: 100vh;
-  box-shadow: rgba(0, 0, 0, 0.08) 4px 4px 20px 7px;
+  box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
+}
+.form-input::placeholder {
+  color: #000000;
+}
+.profile {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.profile h4 {
+  font-weight: 700;
+}
+.profile img {
+  max-width: 45%;
+  margin: 100px 0 20px 0;
+  border-radius: 50%;
+}
+.nav {
+  align-items: baseline;
+  padding-left: 20px;
+}
+.nav a {
+  margin-bottom: 10px;
+}
+#add-book {
+  display: none;
+}
+main {
+  padding-top: calc(var(--navbar-height) + 36px);
+  position: relative;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.side-menu {
+  margin-left: -1.5rem;
+  cursor: pointer;
 }
