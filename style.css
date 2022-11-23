@@ -17,23 +17,20 @@ html {
 .navbar {
   background-color: white;
   border-bottom: 2px solid #bbb;
-  z-index: 1000;
+  z-index: 9;
   position: fixed;
   right: 0;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
   height: var(--navbar-height);
 }
-@media (min-width: 1280px) {
-  .navbar {
-    width: calc(100% - var(--sidebar-width));
-  }
-}
 #sidebar {
   position: fixed;
   flex: none;
   width: var(--sidebar-width);
   height: 100vh;
+  background-color: white;
+  z-index: 10;
   box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
 }
 .form-input::placeholder {
@@ -67,25 +64,20 @@ main {
   position: relative;
   left: 0;
   padding-top: calc(var(--navbar-height) + 32px);
-  /* padding-left: 16px;
-  padding-right: 16px; */
+  padding-bottom: 200px;
 }
 
-@media (min-width: 1280px) {
-  main {
-    width: calc(100% - var(--sidebar-width));
-    left: var(--sidebar-width);
-  }
-}
 .side-menu {
   margin-left: -1.5rem;
   cursor: pointer;
+}
+.side-menu a {
+  font-size: 1.2rem;
 }
 
 /* Default slide */
 #book-carousel .slick-slide {
   /* border-radius: 20px; */
-  /* background-color: #b1b0b05e; */
   color: white;
   width: 600px;
   height: 300px;
@@ -101,6 +93,7 @@ main {
   .slick-slide[aria-hidden="true"]:not(.slick-cloned)
   ~ .slick-cloned[aria-hidden="true"] {
   transform: scale(0.8, 0.8);
+  opacity: 0.8;
   transition: all 0.4s ease-in-out;
 }
 
@@ -109,11 +102,13 @@ main {
 #book-carousel
   .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
   + .slick-cloned[aria-hidden="true"] {
+  opacity: 1;
   transform: scale(1.1);
   /* background-color: black; */
 }
 #book-carousel .slick-current.slick-active {
   transform: scale(1.1);
+  opacity: 1;
   /* background-color: black; */
 }
 
@@ -128,12 +123,16 @@ main {
   background-size: cover;
   overflow: hidden;
 }
-.description {
+.book-carousel-item .description {
   height: 150px;
   margin-top: 150px;
   padding-left: 55px;
   padding-top: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
 }
 .slick-next,
 .slick-prev {
@@ -147,7 +146,6 @@ main {
 }
 .slick-next:before,
 .slick-prev:before {
-  transition: 0.4s;
   font-family: "FontAwesome";
   color: black;
   font-size: 25px;
@@ -166,8 +164,9 @@ main {
 .slick-prev:after {
   display: none;
 }
+
 #book-carousel button {
-  transition: 0.4s;
+  transition: 0.3s cubic-bezier(0.35, 0.11, 0.14, 2.32) 0s;
   background-color: white;
   width: 50px;
   height: 50px;
@@ -175,26 +174,118 @@ main {
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 15px -5px;
 }
 #book-carousel button:hover {
-  background-color: #ebedf5;
-  width: 45px;
+  background-color: #f0f0f3;
+  width: 48px;
 }
 #book-carousel button:active {
-  transition: 0.1s;
-  width: 52px;
+  transition: 0.1s ;
+  width: 62px;
+  background-color: #d1d1d1;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px 1px;
 }
-#book-list{
-  padding-left: 24px;
-  padding-right: 24px;
+#book-list {
+  padding: 32px 24px 24px 24px;
+}
+.book-list-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 20px;
 }
 .book-list-item {
+  padding-top: 32px;
   max-width: 320px;
-  max-height: 340px;
 }
 .book-list-item .image {
-  border-radius: 20px;
-  width: 90%;
-  height: 90%;
+  --book-img-height: 50px;
+  border-radius: 14px;
   background-size: cover;
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0 12px 4px,
+    rgba(0, 0, 0, 0.1) 0px 0 1px 1px;
+  /* transition: 1s; */
+}
+
+.book-list-item .image:hover {
+  --book-img-height: 150px;
+  --book-img-shadow: rgba(0, 0, 0, 0.8) 0px 8px 5px -5px inset;
+  /* transition: 1s; */
+}
+.book-list-item .description {
+  transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s;
+  height: var(--book-img-height);
+  box-shadow: var(--book-img-shadow);
+  margin-top: 150px;
+  padding-top: 10px;
+  background-color: white;
+}
+
+.book-list-item .short {
+  padding: 2px 24px 0 24px;
+  text-align: justify;
+}
+
+#tablet-indicator {
+  display: none;
+}
+
+.backdrop {
+  opacity: 1;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  position: fixed;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+#sidebar:target {
+  display: block !important;
+}
+
+.backdrop {
+  transition: 1s;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: black;
+  opacity: 0.5;
+  /* z-index: 1; */
+}
+
+#sidebar:target + .backdrop {
+  display: block;
+}
+
+@media (max-width: 1280px) {
+  .book-list-item {
+    flex-basis: 50%;
+  }
+  .book-list-item .description {
+    height: 150px;
+  }
+  #tablet-indicator {
+    display: block;
+  }
+}
+@media (min-width: 1280px) {
+  main {
+    width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
+  }
+  .navbar {
+    width: calc(100% - var(--sidebar-width));
+  }
 }

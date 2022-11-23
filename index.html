@@ -33,13 +33,18 @@
 
   <body>
     <div id="app">
+      <div id="tablet-indicator"></div>
       <div class="column navbar">
         <section
           class="navbar-center ml-3"
           style="font-family: Arial, FontAwesome"
         >
           <div class="side-menu show-xl">
-            <a class="text-dark text-bold btn btn-link mr-2" href="#">
+            <a
+              id="sidemenu-toggle"
+              class="text-dark text-bold btn btn-link mr-2"
+              href="#sidebar"
+            >
               &#xf0c9;
             </a>
           </div>
@@ -72,7 +77,8 @@
           <h2 class="text-dark text-bold mt-3">Library</h2>
         </section>
       </div>
-      <div class="column hide-xl text-dark" id="sidebar">
+
+      <div class="column ea hide-xl text-dark" id="sidebar">
         <div class="container">
           <div class="profile">
             <!-- <div class="flex-centered"> -->
@@ -121,6 +127,7 @@
           </div>
         </div> -->
       </div>
+      <a href="#"class="backdrop"></a>
       <main>
         <!-- Carousel -->
         <div id="book-carousel">
@@ -162,12 +169,46 @@
           <!-- Carousel END -->
         </div>
         <div id="book-list">
-          <h2 class="text-bold">Book List</h2>
-          <div class="book-list-item">
-            <div class="image" style="background-image: url('assets/3.png')">
-              <div class="description">
-                <h3 class="title text-bold">Laskar Pelangi</h3>
-                <p class="author">Andrea Hirata</p>
+          <h2 class="text-bold ml-3">Book List</h2>
+          <div class="book-list-container">
+            <div class="column book-list-item">
+              <div class="image" style="background-image: url('assets/1.png')">
+                <div class="description">
+                  <h5 class="title text-bold text-center">Dilan 1990</h5>
+                  <p class="short">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column book-list-item">
+              <div class="image" style="background-image: url('assets/5.png')">
+                <div class="description">
+                  <h5 class="title text-bold text-center">
+                    Sebuah Seni Untuk ...
+                  </h5>
+                  <p class="short">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column book-list-item">
+              <div class="image" style="background-image: url('assets/4.png')">
+                <div class="description">
+                  <h5 class="title text-bold text-center">React Native</h5>
+                  <p class="short">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
