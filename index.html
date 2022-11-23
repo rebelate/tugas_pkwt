@@ -20,12 +20,12 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css"
     />
     <link rel="stylesheet" href="style.css" />
     <title>Library</title>
@@ -38,7 +38,7 @@
           class="navbar-center ml-3"
           style="font-family: Arial, FontAwesome"
         >
-          <div class="side-menu show-lg">
+          <div class="side-menu show-xl">
             <a class="text-dark text-bold btn btn-link mr-2" href="#">
               &#xf0c9;
             </a>
@@ -66,13 +66,13 @@
         </section>
         <section
           class="navbar-center mr-3"
-          style="font-family: Arial, FontAwesome"
+          style="font-family: Arial, FontAwesome; cursor: default"
         >
           <img src="assets/bookshelf.png" />
           <h2 class="text-dark text-bold mt-3">Library</h2>
         </section>
       </div>
-      <div class="column hide-lg text-dark" id="sidebar">
+      <div class="column hide-xl text-dark" id="sidebar">
         <div class="container">
           <div class="profile">
             <!-- <div class="flex-centered"> -->
@@ -81,7 +81,7 @@
               alt=""
               srcset=""
             />
-            <h4>NIKI ZEFANYA</h4>
+            <h3>NIKI ZEFANYA</h3>
           </div>
 
           <div class="nav">
@@ -122,18 +122,52 @@
         </div> -->
       </div>
       <main>
-        <div class="main-content">
-          <h1>HALLO WORLD</h1>
-          <div class="book-shelves">
-            <div class="carousel">
-              <div>
-                <img width="600" height="300" src="assets/1.png" alt="" />
+        <!-- Carousel -->
+        <div id="book-carousel">
+          <div class="book-carousel-item">
+            <div class="image" style="background-image: url('assets/1.png')">
+              <div class="description">
+                <h3 class="title text-bold">Dilan 1990</h3>
+                <p class="author"></p>
               </div>
-              <div>
-                <img width="600" height="300" src="assets/2.png" alt="" />
+            </div>
+          </div>
+
+          <div class="book-carousel-item">
+            <div class="image" style="background-image: url('assets/2.png')">
+              <div class="description">
+                <h3 class="title text-bold">Ubur-ubur Lembur</h3>
+                <p class="author">Raditya Dika</p>
               </div>
-              <div>
-                <img width="600" height="300" src="assets/3.png" alt="" />
+            </div>
+          </div>
+
+          <div class="book-carousel-item">
+            <div class="image" style="background-image: url('assets/4.png')">
+              <div class="description">
+                <h3 class="title text-bold">React Native</h3>
+                <p class="author"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-carousel-item">
+            <div class="image" style="background-image: url('assets/3.png')">
+              <div class="description">
+                <h3 class="title text-bold">Laskar Pelangi</h3>
+                <p class="author">Andrea Hirata</p>
+              </div>
+            </div>
+          </div>
+          <!-- Carousel END -->
+        </div>
+        <div id="book-list">
+          <h2 class="text-bold">Book List</h2>
+          <div class="book-list-item">
+            <div class="image" style="background-image: url('assets/3.png')">
+              <div class="description">
+                <h3 class="title text-bold">Laskar Pelangi</h3>
+                <p class="author">Andrea Hirata</p>
               </div>
             </div>
           </div>

@@ -1,25 +1,16 @@
-$('.book-shelves').slick({
-    centerMode: true,
-    centerPadding: '60px',
+$(document).ready(function(){
+  $('#book-carousel').slick({
     slidesToShow: 3,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px',
-          slidesToShow: 3
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          arrows: false,
-          centerMode: true,
-          centerPadding: '40px',
-          slidesToShow: 1
-        }
-      }
-    ]
+    slidesToScroll: 1,
+    initialSlide:1,
+    centerMode: true,
+    variableWidth:true,
+    arrows: true,
+    dots: false,
+    speed: 300,
+    centerPadding: '0px',
+    infinite: true,
+    autoplaySpeed: 5000,
+    autoplay: true
   });
+});

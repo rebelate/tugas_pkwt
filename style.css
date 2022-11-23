@@ -15,7 +15,7 @@ html {
   margin-left: 2rem !important;
 }
 .navbar {
-  background-color: #fff;
+  background-color: white;
   border-bottom: 2px solid #bbb;
   z-index: 1000;
   position: fixed;
@@ -24,7 +24,7 @@ html {
   box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
   height: var(--navbar-height);
 }
-@media (min-width: 960px) {
+@media (min-width: 1280px) {
   .navbar {
     width: calc(100% - var(--sidebar-width));
   }
@@ -37,13 +37,13 @@ html {
   box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
 }
 .form-input::placeholder {
-  color: #000000;
+  color: black;
 }
 .profile {
   text-align: center;
   margin-bottom: 50px;
 }
-.profile h4 {
+.profile h3 {
   font-weight: 700;
 }
 .profile img {
@@ -57,6 +57,7 @@ html {
 }
 .nav a {
   margin-bottom: 10px;
+  font-size: 1.05rem;
 }
 #add-book {
   display: none;
@@ -65,17 +66,14 @@ main {
   width: 100%;
   position: relative;
   left: 0;
-  padding-top: calc(var(--navbar-height) + 36px);
-  padding-left: 16px;
-  padding-right: 16px;
-}
-main .main-content {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-top: calc(var(--navbar-height) + 32px);
+  /* padding-left: 16px;
+  padding-right: 16px; */
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1280px) {
   main {
+    width: calc(100% - var(--sidebar-width));
     left: var(--sidebar-width);
   }
 }
@@ -84,23 +82,119 @@ main .main-content {
   cursor: pointer;
 }
 
-.carousel {
-  width: 90%;
-  margin: 0px auto;
-}
-.slick-slide {
-  margin: 10px;
-}
-.slick-slide img {
-  width: 100%;
-  border: 2px solid #fff;
-}
-.book-shelves {
-  width: 100%;
-  padding-top: 20px;
-  text-align: center;
-}
-.book-shelves .slick-dots li button:before {
-  font-size: 20px;
+/* Default slide */
+#book-carousel .slick-slide {
+  /* border-radius: 20px; */
+  /* background-color: #b1b0b05e; */
   color: white;
+  width: 600px;
+  height: 300px;
+  margin: 0 15px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.8);
+  transition: all 0.4s ease-in-out;
+}
+#book-carousel .slick-slide,
+#book-carousel
+  .slick-slide[aria-hidden="true"]:not(.slick-cloned)
+  ~ .slick-cloned[aria-hidden="true"] {
+  transform: scale(0.8, 0.8);
+  transition: all 0.4s ease-in-out;
+}
+
+/* Active center slide (You can change anything here for cenetr slide)*/
+#book-carousel .slick-center,
+#book-carousel
+  .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
+  + .slick-cloned[aria-hidden="true"] {
+  transform: scale(1.1);
+  /* background-color: black; */
+}
+#book-carousel .slick-current.slick-active {
+  transform: scale(1.1);
+  /* background-color: black; */
+}
+
+.book-carousel-item {
+  max-width: 600px;
+  max-height: 300px;
+}
+.book-carousel-item .image {
+  border-radius: 20px;
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+  overflow: hidden;
+}
+.description {
+  height: 150px;
+  margin-top: 150px;
+  padding-left: 55px;
+  padding-top: 25px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slick-next,
+.slick-prev {
+  z-index: 5;
+}
+.slick-next {
+  right: 15px;
+}
+.slick-prev {
+  left: 15px;
+}
+.slick-next:before,
+.slick-prev:before {
+  transition: 0.4s;
+  font-family: "FontAwesome";
+  color: black;
+  font-size: 25px;
+}
+.slick-next:hover:before,
+.slick-prev:hover:before {
+  color: rgb(61, 61, 61);
+}
+.slick-prev:before {
+  content: "\F060";
+}
+.slick-next:before {
+  content: "\F061";
+}
+.slick-next:after,
+.slick-prev:after {
+  display: none;
+}
+#book-carousel button {
+  transition: 0.4s;
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 15px -5px;
+}
+#book-carousel button:hover {
+  background-color: #ebedf5;
+  width: 45px;
+}
+#book-carousel button:active {
+  transition: 0.1s;
+  width: 52px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px 1px;
+}
+#book-list{
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.book-list-item {
+  max-width: 320px;
+  max-height: 340px;
+}
+.book-list-item .image {
+  border-radius: 20px;
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+  overflow: hidden;
 }
