@@ -16,7 +16,3 @@ $(document).ready(function () {
   });
 
 });
-function isMobileWidth() {
-  return $('#mobile-indicator').is(':visible');
-}
-console.log(isMobileWidth())

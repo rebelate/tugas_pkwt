@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/spectre.css/dist/spectre.min.css"
-    />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="assets/spectre.min.css" />
     <!-- <link
       rel="stylesheet"
       href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
@@ -30,66 +26,108 @@
     />
     <link rel="stylesheet" href="style.css" />
     <style>
-        .wrapper{
-          padding: 70px 0;
-        }
-        /* Default slide */
-        .center-slider .slick-slide{
-          background-color: #b32532;
-          color: #FFF;
-          height: 200px;
-          margin: 0 15px 0 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transform: scale(0.8);
-          transition: all 0.4s ease-in-out;
-        }
-        .center-slider .slick-slide,
-        .center-slider .slick-slide[aria-hidden="true"]:not(.slick-cloned) ~ .slick-cloned[aria-hidden="true"] {
-          transform: scale(0.8, 0.8);
-          transition: all 0.4s ease-in-out;
-        }
-        
-        /* Active center slide (You can change anything here for cenetr slide)*/
-        .center-slider .slick-center,
-        .center-slider .slick-slide[aria-hidden="true"]:not([tabindex="-1"]) + .slick-cloned[aria-hidden="true"] {
-          transform: scale(1.1);
-          background-color: #000000;
-        }
-        .center-slider .slick-current.slick-active{
-          transform: scale(1.1);
-          background-color: #000000;
-        }
-        
-        .slick-next, .slick-prev{
-          z-index: 5;
-        }
-        .slick-next{
-          right: 15px;
-        }
-        .slick-prev{
-          left: 15px;
-        }
-        .slick-next:before, .slick-prev:before{
-          color: #000;
-          font-size: 26px;
-        }</style>
-</head>
-<body><div class="wrapper">
-    <div id="book-shelves">
-        <div class="carousel">
-          <div>Slide 1</div>
-          <div>Slide 2</div>
-          <div>Slide 3</div>
+      .wrapper {
+        padding: 70px 0;
+      }
+      /* Default slide */
+      .center-slider .slick-slide {
+        background-color: #b32532;
+        color: #fff;
+        height: 200px;
+        margin: 0 15px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.8);
+        transition: all 0.4s ease-in-out;
+      }
+      .center-slider .slick-slide,
+      .center-slider
+        .slick-slide[aria-hidden="true"]:not(.slick-cloned)
+        ~ .slick-cloned[aria-hidden="true"] {
+        transform: scale(0.8, 0.8);
+        transition: all 0.4s ease-in-out;
+      }
+
+      /* Active center slide (You can change anything here for cenetr slide)*/
+      .center-slider .slick-center,
+      .center-slider
+        .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
+        + .slick-cloned[aria-hidden="true"] {
+        transform: scale(1.1);
+        background-color: #000000;
+      }
+      .center-slider .slick-current.slick-active {
+        transform: scale(1.1);
+        background-color: #000000;
+      }
+
+      .slick-next,
+      .slick-prev {
+        z-index: 5;
+      }
+      .slick-next {
+        right: 15px;
+      }
+      .slick-prev {
+        left: 15px;
+      }
+      .slick-next:before,
+      .slick-prev:before {
+        color: #000;
+        font-size: 26px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-page">
+      <div class="box-form">
+        <div class="left">
+          <div class="overlay">
+            <h1>Hello World.</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              et est sed felis aliquet sollicitudin
+            </p>
+            <span>
+              <p>login with social media</p>
+              <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="#"
+                ><i class="fa fa-twitter" aria-hidden="true"></i> Login with
+                Twitter</a
+              >
+            </span>
+          </div>
+        </div>
+        <div class="right">
+          <h5>Login</h5>
+          <p>
+            Don't have an account? <a href="#">Creat Your Account</a> it takes
+            less than a minute
+          </p>
+          <div class="inputs">
+            <input type="text" placeholder="user name" />
+            <br />
+            <input type="password" placeholder="password" />
+          </div>
+          <br /><br />
+          <div class="remember-me--forget-password">
+            <label>
+              <input type="checkbox" name="item" checked="" />
+              <span class="text-checkbox">Remember me</span>
+            </label>
+            <p>forget password?</p>
+          </div>
+          <br />
+          <button>Login</button>
         </div>
       </div>
-      </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
