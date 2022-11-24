@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="assets/spectre.min.css"
-    />
     <!-- <link
       rel="stylesheet"
       href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
@@ -30,7 +26,6 @@
     <link rel="stylesheet" href="style.css" />
     <title>Library</title>
   </head>
-
   <body>
     <div id="app" class="reveal">
       <div class="column navbar">
@@ -93,40 +88,38 @@
             <a href="#" class="text-dark text-bold btn btn-link">Explore</a>
             <a href="#" class="text-dark text-bold btn btn-link">History</a>
 
-            <a href="#" id="add-book" class="text-dark text-bold btn btn-link"
+            <a
+              href="#book-modal"
+              id="add-book"
+              class="text-dark text-bold btn btn-link"
               >Add book *</a
             >
           </div>
         </div>
-        <!-- <div class="accordion">
-          <input
-            id="accordion-getting-started"
-            type="checkbox"
-            name="docs-accordion-checkbox"
-            hidden=""
-          />
-          <label class="accordion-header c-hand" for="accordion-getting-started"
-            >Getting started</label
-          >
-          <div class="accordion-body">
-            <ul class="menu menu-nav">
-              <li class="menu-item">
-                <a href="../getting-started/installation.html">Installation</a>
-              </li>
-              <li class="menu-item">
-                <a href="../getting-started/custom.html">Custom version</a>
-              </li>
-              <li class="menu-item">
-                <a href="../getting-started/browsers.html">Browser support</a>
-              </li>
-              <li class="menu-item">
-                <a href="../getting-started/whatsnew.html">What's new</a>
-              </li>
-            </ul>
-          </div>
-        </div> -->
       </div>
-      <a href="#"class="backdrop"></a>
+      <a href="#" class="backdrop"></a>
+      <div id="book-modal">
+        <div class="columns" style="justify-content: space-between">
+          <h2>Add Book</h2>
+          <a href="#" class="btn btn-link text-dark">X</a>
+        </div>
+        <form>
+          <div class="inputBox">
+            <label>URL</label>
+            <input type="text" placeholder="Image url" />
+          </div>
+          <div class="inputBox">
+            <label>Title</label>
+            <input type="text" placeholder="Book title" />
+          </div><div class="inputBox">
+            <label>Description</label>
+            <textarea placeholder="Book description"></textarea>
+          </form>
+          </div><div class="inputBox">
+            <a href="#" class="btn btn-link text-dark">Save</a>
+          </div>
+      </div>
+      <a href="#" class="backdrop-2"></a>
       <main>
         <!-- Carousel -->
         <div id="book-carousel">

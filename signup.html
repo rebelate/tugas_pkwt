@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="assets/spectre.min.css" />
     <!-- <link
       rel="stylesheet"
       href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
@@ -105,35 +104,48 @@
           </div>
           <h2 class="text-bold">Sign Up</h2>
           <p>Welcome, Let's register your account now</p>
-          <div class="inputs">
-            <input type="text" placeholder="Username" />
-            <br />
-            <input type="text" placeholder="Full Name" />
-            <input type="text" placeholder="Email address" />
-            <br />
-            <input type="password" placeholder="password" />
-          </div>
-          <br /><br />
-          <div class="remember-me--forget-password">
-            <label class="form-checkbox">
-              <input type="checkbox" />
-              <i class="form-icon"></i> Remember me
-            </label>
-          </div>
-          <br />
-          <div class="columns" style="gap: 12px">
-            <div>
-              <button class="btn">Sign Up</button>
+          <div class="container">
+            <form>
+              <div class="inputBox">
+                <input type="text" required="required" />
+                <span>Username</span>
+              </div>
+              <div class="inputBox">
+                <input type="text" required="required" />
+                <span>Full Name</span>
+              </div>
+              <div class="inputBox">
+                <input type="text" required="required" />
+                <span>Email Address</span>
+              </div>
+              <div class="inputBox">
+                <input type="password" required="required" />
+                <span>password</span>
+              </div>
+            </form>
+
+            <br /><br />
+            <div class="remember-me--forget-password">
+              <label class="form-checkbox">
+                <input type="checkbox" />
+                <i class="form-icon"></i> Remember me
+              </label>
             </div>
-            <div>
-              <a href="login.html" class="btn btn-link bg-gray text-dark"
-                >Login</a
-              >
+            <br />
+            <div class="columns" style="gap: 12px;margin: 0;">
+              <div>
+                <button class="btn">Sign Up</button>
+              </div>
+              <div>
+                <a href="login.html" class="btn btn-link text-dark"
+                  >Login</a
+                >
+              </div>
+              <p>
+                By signing up, you agree to Book’s Terms and Conditions &
+                Privacy Policy
+              </p>
             </div>
-            <p>
-              By signing up, you agree to Book’s Terms and Conditions & Privacy
-              Policy
-            </p>
           </div>
         </div>
       </div>

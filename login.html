@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="assets/spectre.min.css" />
     <!-- <link
       rel="stylesheet"
       href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
@@ -25,59 +24,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css"
     />
     <link rel="stylesheet" href="style.css" />
-    <style>
-      .wrapper {
-        padding: 70px 0;
-      }
-      /* Default slide */
-      .center-slider .slick-slide {
-        background-color: #b32532;
-        color: #fff;
-        height: 200px;
-        margin: 0 15px 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: scale(0.8);
-        transition: all 0.4s ease-in-out;
-      }
-      .center-slider .slick-slide,
-      .center-slider
-        .slick-slide[aria-hidden="true"]:not(.slick-cloned)
-        ~ .slick-cloned[aria-hidden="true"] {
-        transform: scale(0.8, 0.8);
-        transition: all 0.4s ease-in-out;
-      }
-
-      /* Active center slide (You can change anything here for cenetr slide)*/
-      .center-slider .slick-center,
-      .center-slider
-        .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
-        + .slick-cloned[aria-hidden="true"] {
-        transform: scale(1.1);
-        background-color: #000000;
-      }
-      .center-slider .slick-current.slick-active {
-        transform: scale(1.1);
-        background-color: #000000;
-      }
-
-      .slick-next,
-      .slick-prev {
-        z-index: 5;
-      }
-      .slick-next {
-        right: 15px;
-      }
-      .slick-prev {
-        left: 15px;
-      }
-      .slick-next:before,
-      .slick-prev:before {
-        color: #000;
-        font-size: 26px;
-      }
-    </style>
   </head>
   <body>
     <div id="login-page">
@@ -105,26 +51,36 @@
           </div>
           <h2 class="text-bold">Login</h2>
           <p>Welcome Back, Please Login to your account</p>
-          <div class="inputs">
-            <input type="text" placeholder="Email address" />
-            <br />
-            <input type="password" placeholder="password" />
-          </div>
-          <br /><br />
-          <div class="remember-me--forget-password">
-            <label class="form-checkbox">
-              <input type="checkbox" />
-              <i class="form-icon"></i> Remember me
-            </label>
-            <p>forget password?</p>
-          </div>
-          <br />
-          <div class="columns" style="gap: 12px;">
-            <div>
-              <button class="btn">Login</button>
+          <div class="container">
+            <form>
+              <div class="inputBox">
+                <input type="text" required="required" />
+                <span>Email Address</span>
+              </div>
+              <div class="inputBox">
+                <input type="password" required="required" />
+                <span>password</span>
+              </div>
+            </form>
+
+            <br /><br />
+            <div class="remember-me--forget-password">
+              <label class="form-checkbox">
+                <input type="checkbox" />
+                <i class="form-icon"></i> Remember me
+              </label>
+              <p>forget password?</p>
             </div>
-            <div>
-              <a href="signup.html" class="btn btn-link bg-gray text-dark">Sign Up</a>
+            <br />
+            <div class="columns" style="gap: 12px; margin: 0">
+              <div>
+                <button class="btn">Login</button>
+              </div>
+              <div>
+                <a href="signup.html" class="btn btn-link text-dark"
+                  >Sign Up</a
+                >
+              </div>
             </div>
           </div>
         </div>
