@@ -124,42 +124,14 @@ h5 {
 p {
   margin: 0 0 1.2rem;
 }
-a {
-  -webkit-text-decoration-skip: ink edges;
-  text-decoration-skip: ink edges;
-}
-html:lang(zh),
-html:lang(zh-Hans) {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue",
-    sans-serif;
-}
-html:lang(zh-Hant) {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "PingFang TC", "Hiragino Sans CNS", "Microsoft JhengHei", "Helvetica Neue",
-    sans-serif;
-}
-html:lang(ja) {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Hiragino Sans", "Hiragino Kaku Gothic Pro", "Yu Gothic", YuGothic, Meiryo,
-    "Helvetica Neue", sans-serif;
-}
-html:lang(ko) {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Malgun Gothic", "Helvetica Neue", sans-serif;
-}
-:lang(ja) s + s,
-:lang(zh) s + s {
-  margin-left: 0.125em;
-}
 .btn {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background: #fff;
-  border: 0.05rem solid #5755d9;
+  border: 0.05rem solid #000000;
   border-radius: 0.1rem;
-  color: #5755d9;
+  color: #000000;
   cursor: pointer;
   display: inline-block;
   font-size: 0.8rem;
@@ -178,17 +150,20 @@ html:lang(ko) {
   white-space: nowrap;
 }
 .btn:focus {
-  box-shadow: 0 0 0 0.1rem rgba(87, 85, 217, 0.2);
+  box-shadow: none;
 }
 .btn:focus,
 .btn:hover {
-  background: #f1f1fc;
-  border-color: #4b48d6;
+  opacity: .9;
+  box-shadow: 0 0 0.1rem 0.1rem rgba(173, 173, 173, 0.5);
+  background: #f7f7f7;
+  border-color: #000000;
   text-decoration: none;
 }
 .btn:active {
-  background: #4b48d6;
-  border-color: #3634d2;
+  box-shadow: none;
+  background: #dddddd;
+  border-color: #000000;
   color: #fff;
   text-decoration: none;
 }
@@ -200,12 +175,12 @@ html:lang(ko) {
 .btn.btn-link {
   background: 0 0;
   border-color: transparent;
-  color: #5755d9;
+  color: #000000;
 }
 .btn.btn-link:active,
 .btn.btn-link:focus,
 .btn.btn-link:hover {
-  color: #302ecd;
+  color: #646464;
 }
 .form-input {
   -webkit-appearance: none;
@@ -452,9 +427,6 @@ a.text-dark:hover {
 a.text-dark:visited {
   color: #455060;
 }
-.bg-gray {
-  background: #f7f8f9 !important;
-}
 .flex-centered {
   align-items: center;
   display: -ms-flexbox;
@@ -487,9 +459,6 @@ html {
 }
 .ml-3 {
   margin-left: 2rem !important;
-}
-.btn:focus {
-  box-shadow: 0 0 0 0.1rem rgba(173, 173, 173, 0.2);
 }
 .form-checkbox input:checked + .form-icon,
 .form-radio input:checked + .form-icon,
@@ -540,13 +509,6 @@ html {
   font-size: 1.05rem;
 }
 
-#add-book {
-  display: none;
-}
-
-#add-book:target {
-  display: block;
-}
 #book-modal {
   box-shadow: #0003 0px 0px 10px 3px;
   display: none;
@@ -574,14 +536,17 @@ html {
 }
 #book-modal .inputBox textarea {
   font-size: inherit;
+  font-family: inherit;
   height: 120px;
 }
 #book-modal .inputBox label {
+  font-size: 1 rem;
   padding: 0.5em 1em 0.5em 0;
   flex: 1;
 }
 #book-modal .inputBox input,
 #book-modal .inputBox textarea {
+  font-weight: inherit;
   border-radius: 6px;
   border: 1px solid grey;
   padding: 0.5em;
@@ -834,7 +799,6 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: "Open Sans", sans-serif;
   color: #333333;
   overflow-y: scroll;
 }
@@ -855,7 +819,7 @@ main {
   height: auto;
 }
 .box-form .left {
-  /* width: 70%; */
+  width: 70%;
   color: #ffffff;
   background-size: cover;
   background-repeat: no-repeat;
@@ -871,29 +835,9 @@ main {
   overflow: hidden;
   box-sizing: border-box;
 }
-.box-form .left .overlay h1 {
-  font-size: 10vmax;
-  line-height: 1;
-  font-weight: 900;
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
 .box-form .left .overlay span p {
   margin-top: 30px;
   font-weight: 900;
-}
-.box-form .left .overlay span a {
-  background: #3b5998;
-  color: #ffffff;
-  margin-top: 10px;
-  padding: 14px 50px;
-  border-radius: 100px;
-  display: inline-block;
-  box-shadow: 0 3px 6px 1px #042d4657;
-}
-.box-form .left .overlay span a:last-child {
-  background: #1dcaff;
-  margin-left: 30px;
 }
 .box-form .right {
   width: 500px;
@@ -1011,4 +955,158 @@ main {
   transform: translateX(-10px) translateY(-20px);
   color: rgb(172, 172, 172);
   font-size: 14px;
+}
+
+/* Dilan */
+#book-dilan {
+  height: 100vh;
+  background-image: linear-gradient(
+    76deg,
+    rgba(128, 157, 173, 1) 0%,
+    rgba(222, 222, 222, 1) 100%,
+    rgba(239, 239, 239, 1) 100%
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Open Sans", sans-serif;
+  color: #333333;
+  overflow-y: scroll;
+  font-weight: 600;
+}
+
+.book-box {
+  margin: 2% auto;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 0 20px 6px rgba(128, 157, 173, 0.5);
+
+  width: 95%;
+  height: auto;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.book-box .tags {
+  border: 0;
+  color: white;
+  font-weight: 700;
+  border-radius: 25px;
+  width: 100px;
+  background-color: rgb(128, 157, 173);
+}
+.book-box .title {
+  line-height: 65px;
+  font-size: 50px;
+  color: black;
+  font-weight: 700;
+}
+.book-box div {
+  height: auto;
+}
+.book-box .top {
+  /* width: 70%; */
+  color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("assets/1.png");
+  overflow: hidden;
+}
+.book-box .description {
+  margin-top: 32px;
+  /* width: 800px; */
+  text-align: justify;
+}
+.book-box .status {
+  flex: 0 0 20%;
+  font-weight: inherit;
+  color: chartreuse;
+}
+.book-box .top .overlay {
+  position: relative;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.521);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.book-box .top .overlay h1 {
+  font-size: 10vmax;
+  line-height: 1;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.book-box .top .overlay span p {
+  margin-top: 30px;
+  font-weight: 900;
+}
+.book-box .top .overlay span a {
+  background: #3b5998;
+  color: #ffffff;
+  margin-top: 10px;
+  padding: 14px 50px;
+  border-radius: 100px;
+  display: inline-block;
+  box-shadow: 0 3px 6px 1px #042d4657;
+}
+.book-box .top .overlay span a:last-child {
+  background: #1dcaff;
+  margin-left: 30px;
+}
+.book-box .top {
+  height: 500px;
+  width: 100%;
+}
+.book-box .bottom {
+  padding-top: 10px;
+  padding: 40px;
+  /* overflow: hidden; */
+}
+
+.book-box .book-cover {
+  transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 2.32) 0s;
+  position: absolute;
+  top: -183px;
+  right: 0;
+}
+.book-box .book-cover:hover {
+  transform: rotate(3deg) scale(0.99);
+}
+.book-box .borrow-btn {
+  color: white;
+  font-weight: inherit;
+  border: 0;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(128, 157, 173);
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0 2px 8px -2px; */
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+}
+@media (max-width: 1280px) {
+  .book-box .borrow-btn {
+    position: inherit;
+  }
+  .reveal {
+    animation-name: none !important;
+  }
+  .book-box .top {
+    height: 560px;
+  }
+  .book-box .status {
+    flex: 0 0 20%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .book-box .top {
+    height: 380px;
+  }
 }

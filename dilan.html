@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
+    /> -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="book-modal">
+      <div class="columns" style="justify-content: space-between">
+        <h2>Edit Book</h2>
+        <a href="#" class="btn btn-link text-dark">X</a>
+      </div>
+      <form>
+        <div class="inputBox">
+          <label>URL</label>
+          <input type="text" placeholder="Image url" value="dilan.jpg" />
+        </div>
+        <div class="inputBox">
+          <label>Title</label>
+          <input type="text" placeholder="Book title" value="Dilan 1990"/>
+        </div><div class="inputBox">
+          <label>Description</label>
+          <textarea placeholder="Book description" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin acdiam eget est rutrum ultrices. Donec laoreet enim a massa dapibus,cursus  dui . Proin sit amet accumsan lectus.Nullam auctor auctor consequat.</textarea>
+        </form>
+        </div><div class="inputBox">
+          <a href="#" class="btn btn-link text-dark">Save</a>
+        </div>
+    </div>
+    <a href="#" class="backdrop-2"></a>
+    <div id="book-dilan">
+      <div class="book-box reveal">
+        <div class="top"></div>
+        <div class="columns bottom">
+          <div class="column">
+            <button class="tags">Novel</button>
+            <div class="columns">
+              <div class="title column">DILAN 1990</div>
+              <h2 class="status column">Available</h2>
+
+            <button class="btn borrow-btn show-xl" >Borrow</button>
+            </div>
+            <div class="date">30 Juni 2019</div>
+            <p class="description">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
+              diam eget est rutrum ultrices. Donec laoreet enim a massa dapibus,
+              cursus egestas dui pulvinar. Proin sit amet accumsan lectus.
+              Nullam auctor auctor consequat. Donec semper magna erat, sed
+              fringilla lacus pretium eget. Cras porttitor, nibh sit amet
+              interdum bibendum, nibh velit accumsan tellus, vel vehicula tellus
+              leo vitae ipsum. Praesent sit amet libero sed orci ullamcorper
+              efficitur. Pellentesque in euismod purus, sit amet ultrices
+              tortor. Vestibulum ante dui, tempor at dui id, tincidunt euismod
+              diam. Integer pellentesque massa nibh, ac eleifend odio malesuada
+              sed. Phasellus orci sem, cursus nec orci ut, accumsan facilisis
+              lacus. Nullam at elementum nibh, ac gravida felis. In sagittis
+              rhoncus nisi tempus dignissim. Sed fringilla consequat ante vitae
+              lobortis. Cras posuere ligula vel enim suscipit malesuada. Vivamus
+              non nulla ut ante imperdiet euismod quis nec massa.
+            </p>
+          </div>
+          <div class="column hide-xl" style="flex: 0 0 20%; position: relative">
+            <div class="book-cover ">
+              <img src="assets/1mini.png" alt="" srcset="" />
+            </div>
+            <button class="btn borrow-btn" >Borrow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>
