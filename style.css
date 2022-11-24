@@ -318,8 +318,7 @@ main {
 .box-form {
   margin: 5% auto;
   width: 1200px;
-  height: 85%;
-  /* height: 600px; */
+  height: 850px;
   background: #ffffff;
   border-radius: 10px;
   overflow: hidden;
@@ -378,6 +377,9 @@ main {
   overflow: hidden;
 }
 @media (max-width: 1280px) {
+  .reveal {
+    animation-name: none !important;
+  }
   .box-form {
     margin-top: 2%;
     width: 95%;
@@ -431,4 +433,21 @@ main {
 .box-form .right a {
   border: 1px solid gray;
   border-radius: 5px;
+}
+.reveal {
+  animation-duration: .3s;
+  opacity: 1;
+  animation-name: reveal;
+}
+@keyframes reveal {
+  from {
+    width: 1000px;
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    /* width: 1200px; */
+    opacity: 1;
+    transform: none;
+  }
 }
