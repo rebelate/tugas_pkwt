@@ -423,6 +423,13 @@ input:disabled + .form-icon {
 .text-white {
   color: #ffffff !important;
 }
+.bg-dark {
+  background-color: #1b1b1b !important;
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+}
 a.text-dark:focus,
 a.text-dark:hover {
   color: #303742;
@@ -1092,9 +1099,7 @@ main {
   height: 500px;
   width: 100%;
 }
-.book-box .bottom {
-  padding-top: 10px;
-  padding: 40px;
+.book-box .bottom {padding: 10px 40px 40px 40px;
   /* overflow: hidden; */
 }
 
@@ -1120,7 +1125,7 @@ main {
   right: 20px;
   bottom: 0;
 }
-.book-box .edit-btn, .book-box .delete-btn{
+.book-box .edit-btn, .book-box .delete-btn, .book-box .back-btn{
   color: white;
   font-weight: inherit;
   border: 0;
@@ -1130,7 +1135,15 @@ main {
 }
 
 .book-box .edit-btn {
-  border-bottom-left-radius: 50px;
+  border-bottom-left-radius: 50px 20px;
+}
+.book-box .back-btn {
+  margin: 10px 10px;
+  color: black;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
 }
 @media (max-width: 1280px) {
   .book-box .borrow-btn {
