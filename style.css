@@ -14,6 +14,15 @@ html {
 .ml-3 {
   margin-left: 2rem !important;
 }
+.btn:focus {
+  box-shadow: 0 0 0 0.1rem rgba(173, 173, 173, 0.2);
+}
+.form-checkbox input:checked + .form-icon,
+.form-radio input:checked + .form-icon,
+.form-switch input:checked + .form-icon {
+  background: #000000;
+  border-color: #696969;
+}
 .navbar {
   background-color: white;
   border-bottom: 2px solid #bbb;
@@ -56,9 +65,15 @@ html {
   margin-bottom: 10px;
   font-size: 1.05rem;
 }
+
 #add-book {
   display: none;
 }
+
+#add-book:target {
+  display: block;
+}
+
 main {
   width: 100%;
   position: relative;
@@ -285,7 +300,6 @@ main {
 
 /* LOGIN */
 #login-page {
-  /* position: fixed; */
   height: 100vh;
   background-image: linear-gradient(
     -10deg,
@@ -295,39 +309,30 @@ main {
   );
   background-size: cover;
   background-repeat: no-repeat;
-  /*! background-attachment: fixed; */
+  background-attachment: fixed;
   font-family: "Open Sans", sans-serif;
   color: #333333;
+  overflow-y: scroll;
 }
 
 .box-form {
-  margin: 10vh auto;
-  width: 80%;
+  margin: 5% auto;
+  width: 1200px;
+  height: 85%;
   /* height: 600px; */
   background: #ffffff;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  position: absolute;
   box-shadow: 0 0 20px 6px rgb(70, 41, 8);
 }
-@media (max-width: 980px) {
-  .box-form {
-    flex-flow: wrap;
-    text-align: center;
-    align-items: center;
-  }
-}
+
 .box-form div {
   height: auto;
 }
 .box-form .left {
+  /* width: 70%; */
   color: #ffffff;
   background-size: cover;
   background-repeat: no-repeat;
@@ -335,6 +340,7 @@ main {
   overflow: hidden;
 }
 .box-form .left .overlay {
+  position: relative;
   padding: 30px;
   width: 100%;
   height: 100%;
@@ -367,17 +373,28 @@ main {
   margin-left: 30px;
 }
 .box-form .right {
+  width: 500px;
   padding: 40px;
   overflow: hidden;
 }
-@media (max-width: 980px) {
-  .box-form .right {
+@media (max-width: 1280px) {
+  .box-form {
+    margin-top: 2%;
+    width: 95%;
+    height: auto;
+    flex-flow: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .box-form .left {
+    height: 200px;
     width: 100%;
   }
-}
-.box-form .right h5 {
-  font-size: 6vmax;
-  line-height: 0;
+  .box-form .right {
+    padding-top:10px;
+    width: 95%;
+  }
 }
 .box-form .right p {
   font-size: 14px;
@@ -395,67 +412,23 @@ main {
   outline: none;
   border-bottom: 2px solid #b0b3b9;
 }
-.box-form .right .remember-me--forget-password {
+.remember-me--forget-password {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.box-form .right .remember-me--forget-password input {
+.remember-me--forget-password p {
   margin: 0;
-  margin-right: 7px;
-  width: auto;
+  cursor: pointer;
 }
 .box-form .right button {
-  float: right;
-  color: #fff;
-  font-size: 16px;
-  padding: 12px 35px;
-  border-radius: 50px;
-  display: inline-block;
-  border: 0;
-  outline: 0;
-  box-shadow: 0px 4px 20px 0px #49c628a6;
-  background-image: linear-gradient(135deg, #70f570 10%, #49c628 100%);
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 100px;
 }
-
-label {
-  display: block;
-  position: relative;
-  margin-left: 30px;
-}
-
-label::before {
-  content: " \f00c";
-  position: absolute;
-  font-family: FontAwesome;
-  background: transparent;
-  border: 3px solid #70f570;
-  border-radius: 4px;
-  color: transparent;
-  left: -30px;
-  transition: all 0.2s linear;
-}
-
-label:hover::before {
-  font-family: FontAwesome;
-  content: " \f00c";
-  color: #fff;
-  cursor: pointer;
-  background: #70f570;
-}
-
-label:hover::before .text-checkbox {
-  background: #70f570;
-}
-
-label span.text-checkbox {
-  display: inline-block;
-  height: auto;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.2s linear;
-}
-
-label input[type="checkbox"] {
-  display: none;
+.box-form .right a {
+  border: 1px solid gray;
+  border-radius: 5px;
 }
