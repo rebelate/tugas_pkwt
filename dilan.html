@@ -38,19 +38,42 @@
         </div>
         <div class="inputBox">
           <label>Title</label>
-          <input type="text" placeholder="Book title" value="Dilan 1990"/>
-        </div><div class="inputBox">
-          <label>Description</label>
-          <textarea placeholder="Book description" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin acdiam eget est rutrum ultrices. Donec laoreet enim a massa dapibus,cursus  dui . Proin sit amet accumsan lectus.Nullam auctor auctor consequat.</textarea>
-        </form>
-        </div><div class="inputBox">
-          <a href="#" class="btn btn-link text-dark">Save</a>
+          <input type="text" placeholder="Book title" value="Dilan 1990" />
         </div>
+        <div class="inputBox">
+          <label>Description</label>
+          <textarea placeholder="Book description">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin acdiam eget est rutrum ultrices. Donec laoreet enim a massa dapibus,cursus  dui . Proin sit amet accumsan lectus.Nullam auctor auctor consequat.</textarea
+          >
+        </div>
+      </form>
+      <div class="inputBox">
+        <a href="#" class="btn btn-link text-white">Save</a>
+      </div>
     </div>
+    <a href="#" class="backdrop-2"></a>
+    <div id="delete-modal" style="text-align: center">
+      <div class="columns" style="justify-content: space-between">
+        <h2></h2>
+        <a href="#" class="btn btn-link text-dark">X</a>
+      </div>
+
+      <img style="padding-top: 50px" src="assets/checked.png" alt="" />
+      <h3 style="padding-top: 50px">
+        Buku <b> Dilan 1990 </b>
+        berhasil dihapus !
+      </h3>
+    </div>
+
     <a href="#" class="backdrop-2"></a>
     <div id="book-dilan">
       <div class="book-box reveal">
-        <div class="top"></div>
+        <div class="top" style="position: relative">
+          <div style="position: absolute; right: 0">
+            <a href="#book-modal" class="btn edit-btn">Edit</a>
+            <a href="#delete-modal" class="btn delete-btn">Delete</a>
+          </div>
+        </div>
         <div class="columns bottom">
           <div class="column">
             <button class="tags">Novel</button>
@@ -58,7 +81,7 @@
               <div class="title column">DILAN 1990</div>
               <h2 class="status column">Available</h2>
 
-            <button class="btn borrow-btn show-xl" >Borrow</button>
+              <button class="btn borrow-btn show-xl">Borrow</button>
             </div>
             <div class="date">30 Juni 2019</div>
             <p class="description">
@@ -80,10 +103,10 @@
             </p>
           </div>
           <div class="column hide-xl" style="flex: 0 0 20%; position: relative">
-            <div class="book-cover ">
+            <div class="book-cover">
               <img src="assets/1mini.png" alt="" srcset="" />
             </div>
-            <button class="btn borrow-btn" >Borrow</button>
+            <button class="btn borrow-btn">Borrow</button>
           </div>
         </div>
       </div>

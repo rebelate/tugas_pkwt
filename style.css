@@ -79,7 +79,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 a {
-  color: #5755d9;
+  color: #000000;
   outline: 0;
   text-decoration: none;
 }
@@ -89,11 +89,11 @@ a:focus {
 a:active,
 a:focus,
 a:hover {
-  color: #302ecd;
+  color: #3b3b3b;
   text-decoration: underline;
 }
 a:visited {
-  color: #807fe2;
+  color: #000000;
 }
 h2,
 h3,
@@ -420,6 +420,9 @@ input:disabled + .form-icon {
 .text-dark {
   color: #3b4351 !important;
 }
+.text-white {
+  color: #ffffff !important;
+}
 a.text-dark:focus,
 a.text-dark:hover {
   color: #303742;
@@ -529,6 +532,26 @@ html {
   z-index: 11;
 }
 
+#delete-modal {
+  box-shadow: #0003 0px 0px 10px 3px;
+  display: none;
+  border-radius: 20px;
+  padding: 24px 24px;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 11;
+}
+
 #book-modal .inputBox {
   display: flex;
   justify-content: flex-end;
@@ -556,6 +579,7 @@ html {
   border: 1px solid gray;
   border-radius: 5px;
   width: 100px;
+  background-color: rgb(128, 157, 173);
 }
 
 #book-modal:target {
@@ -568,6 +592,12 @@ html {
   font-weight: 700;
 }
 
+#delete-modal:target {
+  display: block;
+}
+#delete-modal:target + .backdrop-2 {
+  display: block;
+}
 main {
   width: 100%;
   position: relative;
@@ -1089,6 +1119,18 @@ main {
   position: absolute;
   right: 20px;
   bottom: 0;
+}
+.book-box .edit-btn, .book-box .delete-btn{
+  color: white;
+  font-weight: inherit;
+  border: 0;
+  height: 40px;
+  width: 80px;
+  background-color: rgb(128, 157, 173);
+}
+
+.book-box .edit-btn {
+  border-bottom-left-radius: 50px;
 }
 @media (max-width: 1280px) {
   .book-box .borrow-btn {
