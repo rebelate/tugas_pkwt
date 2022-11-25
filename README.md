@@ -12,3 +12,6 @@ live on : https://rebelate.github.io/tugas_pkwt
 
 ### Login
 ![image](https://user-images.githubusercontent.com/29569798/203896344-4301a157-e504-45d1-b876-fc3cf62faea1.png)
+
+### Book detail
+![image](https://user-images.githubusercontent.com/29569798/203896541-52401079-c0e2-4385-b3b8-7d43dc68e22a.png)
