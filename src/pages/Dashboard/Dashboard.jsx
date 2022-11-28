@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { Backdrop } from "../../components";
+import Slider from "react-slick";
 import "./style.css";
 
 const slideRight = keyframes`
@@ -34,6 +35,20 @@ export default function Dashboard() {
   const backdrop = (visible, zIndex = backdropOption.zIndex) => {
     setBackdrop({ visible, zIndex });
   };
+  const sliderSetting = {slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    centerMode: true,
+    variableWidth: true,
+    arrows: true,
+    dots: false,
+    speed: 300,
+    centerPadding: "0px",
+    infinite: true,
+    autoplaySpeed: 3000,
+    // autoplay: true,
+  };
+
   return (
     <>
       <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
@@ -45,7 +60,7 @@ export default function Dashboard() {
           <div className="side-menu show-xl">
             <a
               className="text-dark text-bold btn btn-link mr-2"
-              onClick={() => backdrop(true,10)}
+              onClick={() => backdrop(true, 10)}
             >
               &#xf0c9;
             </a>
@@ -107,6 +122,83 @@ export default function Dashboard() {
           </div>
         </div>
       </Section>
+      <main>
+        {/* <!-- Carousel --> */}
+        <div id="book-carousel">
+          <Slider {...sliderSetting}>
+            
+          <div className="book-carousel-item">
+            <div
+              className="image"
+              style={{backgroundImage: "url('assets/1.png')"}}
+            >
+              <div className="description">
+                <h3 className="title text-bold">Dilan 1990</h3>
+                <p className="author"></p>
+              </div>
+            </div>
+          </div>
+
+          <div className="book-carousel-item">
+            <div
+              className="image"
+              style={{backgroundImage: "url('assets/2.png')"}}
+            >
+              <div className="description">
+                <h3 className="title text-bold">Ubur-ubur Lembur</h3>
+                <p className="author">Raditya Dika</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="book-carousel-item">
+            <div
+              className="image"
+              style={{backgroundImage: "url('assets/4.png')"}}
+            >
+              <div className="description">
+                <h3 className="title text-bold">React Native</h3>
+                <p className="author"></p>
+              </div>
+            </div>
+          </div>
+
+          <div className="book-carousel-item">
+            <div
+              className="image"
+              style={{backgroundImage: "url('assets/3.png')"}}
+            >
+              <div className="description">
+                <h3 className="title text-bold">Laskar Pelangi</h3>
+                <p className="author">Andrea Hirata</p>
+              </div>
+            </div>
+          </div>
+          </Slider>
+          {/* <!-- Carousel END --> */}
+        </div>
+        <div id="book-list">
+          <h2 className="text-bold ml-3">Book List</h2>
+          <div className="book-list-container">
+            <div className="column book-list-item">
+              <div
+                className="image"
+                // style="background-image: url('assets/1.png');cursor: pointer;"
+                // onClick="location.href='dilan.html'"
+              >
+                <div className="description">
+                  <h5 className="title text-bold text-center">Dilan 1990</h5>
+                  <p className="short">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   );
 }
