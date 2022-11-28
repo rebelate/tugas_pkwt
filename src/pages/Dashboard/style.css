@@ -289,12 +289,15 @@ main {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: space-between; */
   column-gap: 20px;
 }
 .book-list-item {
+  flex: 1 1 50%;
   padding-top: 32px;
+  min-width: 300px;
   max-width: 320px;
+  min-height: 350px;
 }
 .book-list-item .image {
   --book-img-height: 50px;
