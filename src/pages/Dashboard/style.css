@@ -1,319 +1,357 @@
-
 .navbar {
-    background-color: white;
-    border-bottom: 2px solid #bbb;
-    z-index: 9;
-    position: fixed;
-    right: 0;
-    width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
-    height: var(--navbar-height);
-  }
-  #sidebar {
-    position: fixed;
-    flex: none;
-    width: var(--sidebar-width);
-    height: 100vh;
-    background-color: white;
-    z-index: 10;
-    box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
-  }
-  .form-input::placeholder {
-    color: black;
-  }
-  .profile {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  .profile h3 {
-    font-weight: 700;
-  }
-  .profile img {
-    max-width: 45%;
-    margin: 100px 0 20px 0;
-    border-radius: 50%;
-  }
-  .nav {
-    align-items: baseline;
-    padding-left: 20px;
-  }
-  .nav a {
-    margin-bottom: 10px;
-    font-size: 1.05rem;
-  }
-  
-  #book-modal {
-    box-shadow: #0003 0px 0px 10px 3px;
-    display: none;
-    border-radius: 20px;
-    padding: 24px 24px;
-    width: 800px;
-    height: 500px;
-    background-color: white;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
-    max-width: 100%;
-    max-height: 100%;
-    z-index: 11;
-  }
-  
-  #delete-modal {
-    box-shadow: #0003 0px 0px 10px 3px;
-    display: none;
-    border-radius: 20px;
-    padding: 24px 24px;
-    width: 800px;
-    height: 500px;
-    background-color: white;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
-    max-width: 100%;
-    max-height: 100%;
-    z-index: 11;
-  }
-  
-  #book-modal .inputBox {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0.5em;
-  }
-  #book-modal .inputBox textarea {
-    font-size: inherit;
-    font-family: inherit;
-    height: 120px;
-  }
-  #book-modal .inputBox label {
-    font-size: 1 rem;
-    padding: 0.5em 1em 0.5em 0;
-    flex: 1;
-  }
-  #book-modal .inputBox input,
-  #book-modal .inputBox textarea {
-    font-weight: inherit;
-    border-radius: 6px;
-    border: 1px solid grey;
-    padding: 0.5em;
-    flex: 2;
-  }
-  #book-modal .inputBox a {
-    border: 1px solid gray;
-    border-radius: 5px;
-    width: 100px;
-    background-color: rgb(128, 157, 173);
-  }
-  
-  #book-modal:target {
-    display: block;
-  }
-  #book-modal:target + .backdrop-2 {
-    display: block;
-  }
-  #book-modal {
-    font-weight: 700;
-  }
-  
-  #delete-modal:target {
-    display: block;
-  }
-  #delete-modal:target + .backdrop-2 {
-    display: block;
-  }
-  main {
-    width: 100%;
-    position: relative;
-    left: 0;
-    padding-top: calc(var(--navbar-height) + 32px);
-    padding-bottom: 200px;
-  }
-  
-  .side-menu {
-    margin-left: -1.5rem;
-    cursor: pointer;
-  }
-  .side-menu a {
-    font-size: 1.2rem;
-  }
-  
-  /* Default slide */
-  #book-carousel .slick-slide {
-    /* border-radius: 20px; */
-    color: white;
-    width: 600px;
-    height: 300px;
-    margin: 0 15px 0 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0.8);
-    transition: all 0.4s ease-in-out;
-  }
-  #book-carousel .slick-slide,
-  #book-carousel
-    .slick-slide[aria-hidden="true"]:not(.slick-cloned)
-    ~ .slick-cloned[aria-hidden="true"] {
-    transform: scale(0.8, 0.8);
-    opacity: 0.8;
-    transition: all 0.4s ease-in-out;
-  }
-  
-  /* Active center slide (You can change anything here for cenetr slide)*/
-  #book-carousel .slick-center,
-  #book-carousel
-    .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
-    + .slick-cloned[aria-hidden="true"] {
-    opacity: 1;
-    transform: scale(1.1);
-    /* background-color: black; */
-  }
-  #book-carousel .slick-current.slick-active {
-    transform: scale(1.1);
-    opacity: 1;
-    /* background-color: black; */
-  }
-  
-  .book-carousel-item {
-    max-width: 600px;
-    max-height: 300px;
-  }
-  .book-carousel-item .image {
-    border-radius: 20px;
-    width: 90%;
-    height: 90%;
-    background-size: cover;
-    overflow: hidden;
-  }
-  .book-carousel-item .description {
-    height: 150px;
-    margin-top: 150px;
-    padding-left: 55px;
-    padding-top: 25px;
-    background-image: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 1) 10%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-  }
-  .slick-next,
-  .slick-prev {
-    z-index: 5;
-  }
-  .slick-next {
-    right: 15px;
-  }
-  .slick-prev {
-    left: 15px;
-  }
-  .slick-next:before,
-  .slick-prev:before {
-    font-family: "FontAwesome";
-    color: black;
-    font-size: 25px;
-  }
-  .slick-next:hover:before,
-  .slick-prev:hover:before {
-    color: rgb(61, 61, 61);
-  }
-  .slick-prev:before {
-    content: "\F060";
-  }
-  .slick-next:before {
-    content: "\F061";
-  }
-  .slick-next:after,
-  .slick-prev:after {
-    display: none;
-  }
-  
-  #book-carousel button {
-    transition: 0.3s cubic-bezier(0.35, 0.11, 0.14, 2.32) 0s;
-    background-color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 15px -5px;
-  }
-  #book-carousel button:hover {
-    background-color: #f0f0f3;
-    width: 48px;
-  }
-  #book-carousel button:active {
-    transition: 0.1s;
-    width: 55px;
-    background-color: #d1d1d1;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px 1px;
-  }
-  #book-list {
-    padding: 32px 24px 24px 24px;
-  }
-  .book-list-container {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    justify-content: center;
-    column-gap: 20px;
-  }
+  background-color: white;
+  border-bottom: 2px solid #bbb;
+  z-index: 9;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
+  height: var(--navbar-height);
+  align-items: stretch;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: stretch;
+  -ms-flex-pack: justify;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.navbar .navbar-section {
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  -ms-flex-align: center;
+}
+.navbar .navbar-section:not(:first-child):last-child {
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.navbar .navbar-center {
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-align: center;
+}
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0.2rem 0;
+}
+.nav .nav {
+  margin-bottom: 0.4rem;
+  margin-left: 0.8rem;
+}
+#sidebar {
+  position: fixed;
+  flex: none;
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: white;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
+}
+.form-input::placeholder {
+  color: black;
+}
+.profile {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.profile h3 {
+  font-weight: 700;
+}
+.profile img {
+  max-width: 45%;
+  margin: 100px 0 20px 0;
+  border-radius: 50%;
+}
+.nav {
+  align-items: baseline;
+  padding-left: 20px;
+}
+.nav a {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+#book-modal {
+  box-shadow: #0003 0px 0px 10px 3px;
+  display: none;
+  border-radius: 20px;
+  padding: 24px 24px;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 11;
+}
+
+#delete-modal {
+  box-shadow: #0003 0px 0px 10px 3px;
+  display: none;
+  border-radius: 20px;
+  padding: 24px 24px;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 11;
+}
+
+#book-modal .inputBox {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em;
+}
+#book-modal .inputBox textarea {
+  font-size: inherit;
+  font-family: inherit;
+  height: 120px;
+}
+#book-modal .inputBox label {
+  font-size: 1 rem;
+  padding: 0.5em 1em 0.5em 0;
+  flex: 1;
+}
+#book-modal .inputBox input,
+#book-modal .inputBox textarea {
+  font-weight: inherit;
+  border-radius: 6px;
+  border: 1px solid grey;
+  padding: 0.5em;
+  flex: 2;
+}
+#book-modal .inputBox a {
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 100px;
+  background-color: rgb(128, 157, 173);
+}
+
+#book-modal:target {
+  display: block;
+}
+#book-modal:target + .backdrop-2 {
+  display: block;
+}
+#book-modal {
+  font-weight: 700;
+}
+
+#delete-modal:target {
+  display: block;
+}
+#delete-modal:target + .backdrop-2 {
+  display: block;
+}
+main {
+  width: 100%;
+  position: relative;
+  left: 0;
+  padding-top: calc(var(--navbar-height) + 32px);
+  padding-bottom: 200px;
+}
+
+.side-menu {
+  margin-left: -1.5rem;
+  cursor: pointer;
+}
+.side-menu a {
+  font-size: 1.2rem;
+}
+
+/* Default slide */
+#book-carousel .slick-slide {
+  /* border-radius: 20px; */
+  color: white;
+  width: 600px;
+  height: 300px;
+  margin: 0 15px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.8);
+  transition: all 0.4s ease-in-out;
+}
+#book-carousel .slick-slide,
+#book-carousel
+  .slick-slide[aria-hidden="true"]:not(.slick-cloned)
+  ~ .slick-cloned[aria-hidden="true"] {
+  transform: scale(0.8, 0.8);
+  opacity: 0.8;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Active center slide (You can change anything here for cenetr slide)*/
+#book-carousel .slick-center,
+#book-carousel
+  .slick-slide[aria-hidden="true"]:not([tabindex="-1"])
+  + .slick-cloned[aria-hidden="true"] {
+  opacity: 1;
+  transform: scale(1.1);
+  /* background-color: black; */
+}
+#book-carousel .slick-current.slick-active {
+  transform: scale(1.1);
+  opacity: 1;
+  /* background-color: black; */
+}
+
+.book-carousel-item {
+  max-width: 600px;
+  max-height: 300px;
+}
+.book-carousel-item .image {
+  border-radius: 20px;
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+  overflow: hidden;
+}
+.book-carousel-item .description {
+  height: 150px;
+  margin-top: 150px;
+  padding-left: 55px;
+  padding-top: 25px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+.slick-next,
+.slick-prev {
+  z-index: 5;
+}
+.slick-next {
+  right: 15px;
+}
+.slick-prev {
+  left: 15px;
+}
+.slick-next:before,
+.slick-prev:before {
+  font-family: "FontAwesome";
+  color: black;
+  font-size: 25px;
+}
+.slick-next:hover:before,
+.slick-prev:hover:before {
+  color: rgb(61, 61, 61);
+}
+.slick-prev:before {
+  content: "\F060";
+}
+.slick-next:before {
+  content: "\F061";
+}
+.slick-next:after,
+.slick-prev:after {
+  display: none;
+}
+
+#book-carousel button {
+  transition: 0.3s cubic-bezier(0.35, 0.11, 0.14, 2.32) 0s;
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 15px -5px;
+}
+#book-carousel button:hover {
+  background-color: #f0f0f3;
+  width: 48px;
+}
+#book-carousel button:active {
+  transition: 0.1s;
+  width: 55px;
+  background-color: #d1d1d1;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 5px 1px;
+}
+#book-list {
+  padding: 32px 24px 24px 24px;
+}
+.book-list-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 20px;
+}
+.book-list-item {
+  padding-top: 32px;
+  max-width: 320px;
+}
+.book-list-item .image {
+  --book-img-height: 50px;
+  border-radius: 14px;
+  background-size: cover;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0 12px 4px,
+    rgba(0, 0, 0, 0.1) 0px 0 1px 1px;
+  /* transition: 1s; */
+}
+
+.book-list-item .image:hover {
+  --book-img-height: 150px;
+  --book-img-shadow: rgba(0, 0, 0, 0.8) 0px 8px 5px -5px inset;
+  /* transition: 1s; */
+}
+.book-list-item .description {
+  transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s;
+  height: var(--book-img-height);
+  box-shadow: var(--book-img-shadow);
+  margin-top: 150px;
+  padding-top: 10px;
+  background-color: white;
+}
+
+.book-list-item .short {
+  padding: 2px 24px 0 24px;
+  text-align: justify;
+}
+
+@media (max-width: 1280px) {
   .book-list-item {
-    padding-top: 32px;
-    max-width: 320px;
-  }
-  .book-list-item .image {
-    --book-img-height: 50px;
-    border-radius: 14px;
-    background-size: cover;
-    overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0 12px 4px,
-      rgba(0, 0, 0, 0.1) 0px 0 1px 1px;
-    /* transition: 1s; */
-  }
-  
-  .book-list-item .image:hover {
-    --book-img-height: 150px;
-    --book-img-shadow: rgba(0, 0, 0, 0.8) 0px 8px 5px -5px inset;
-    /* transition: 1s; */
+    flex-basis: 50%;
   }
   .book-list-item .description {
-    transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s;
-    height: var(--book-img-height);
-    box-shadow: var(--book-img-shadow);
-    margin-top: 150px;
-    padding-top: 10px;
-    background-color: white;
+    height: 150px;
   }
-  
-  .book-list-item .short {
-    padding: 2px 24px 0 24px;
-    text-align: justify;
+}
+@media (min-width: 1281px) {
+  main {
+    width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
   }
-  
-  @media (max-width: 1280px) {
-    .book-list-item {
-      flex-basis: 50%;
-    }
-    .book-list-item .description {
-      height: 150px;
-    }
+  .navbar {
+    width: calc(100% - var(--sidebar-width));
   }
-  @media (min-width: 1280px) {
-    main {
-      width: calc(100% - var(--sidebar-width));
-      left: var(--sidebar-width);
-    }
-    .navbar {
-      width: calc(100% - var(--sidebar-width));
-    }
-  }
-  
+}

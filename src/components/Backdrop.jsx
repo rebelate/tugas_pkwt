@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import React from "react";
 
 const fadeIn = keyframes`
   0% {
@@ -21,21 +22,27 @@ const fadeOut = keyframes`
   }
 
 `;
-const Div = styled.div(({ visible }) => {
+const Div = styled.div(({ visible,zIndex }) => {
   const animation = visible ? fadeIn : fadeOut;
-  console.log("backdrop-visible:" + visible);
+  console.debug("backdrop-visible:" + visible);
   return {
-    animation: `${animation} 400ms`,
+    animation: animation + " 300ms",
     visibility: visible ? "visible" : "hidden",
-    transitionDuration: "200ms",
+    opacity: visible ? 1 : 0,
+    transitionDuration: "300ms",
+    transitionDelay: "10ms",
     position: "fixed",
     alignItems: "center",
     inset: "0px",
     backgroundColor: "rgba(0, 0, 0, 0.6)",
-    zIndex: 10,
+    zIndex: zIndex,
+    "@media (min-width: 1281px)": {
+      zIndex:11
+    }
   };
 });
 
-export default function Backdrop({ visible, onClick: clickEvent }) {
-  return <Div onClick={clickEvent} visible={visible} />;
+export default function Backdrop({ option, onClick: clickEvent }) {
+  const {visible,zIndex}=option
+  return <Div onClick={clickEvent} visible={visible} zIndex={zIndex} />;
 }
