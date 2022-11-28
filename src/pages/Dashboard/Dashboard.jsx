@@ -6,27 +6,6 @@ import Slider from "react-slick";
 import "./style.css";
 import { books } from "../../books";
 
-// console.log(books);
-const slideRight = keyframes`
-  0% {
-    transform:translateX(-300px) !important;
-  }
-
-  100%{
-    opacity: 1;
-  }
-`;
-const Section = styled.section(({ visible }) => {
-  return {
-    transition: ".3s cubic-bezier(.86,0,.07,1)",
-    "@media (max-width: 1280px)": {
-      animation: visible ? slideRight + ".3s " : "none",
-      transform: !visible ? "translateX(-300px)" : "none",
-      visibility: visible ? "visible" : "hidden",
-    },
-  };
-});
-
 function BooksCarousel() {
   const sliderSetting = {
     slidesToShow: 3,
@@ -39,13 +18,13 @@ function BooksCarousel() {
     speed: 300,
     centerPadding: "0px",
     infinite: true,
-    autoplaySpeed: 3000,
-    // autoplay: true,
+    autoplaySpeed: 2500,
+    autoplay: true,
   };
 
   return (
     <div id="book-carousel">
-      <Slider {...sliderSetting}>
+      <Slider {...sliderSetting} >
         {books.map((book, index) => (
           <div key={index} className="book-carousel-item">
             <div
@@ -91,6 +70,27 @@ function BooksList() {
     </div>
   );
 }
+
+const slideRight = keyframes`
+  0% {
+    transform:translateX(-300px) !important;
+  }
+
+  100%{
+    opacity: 1;
+  }
+`;
+const Section = styled.section(({ visible }) => {
+  return {
+    transition: ".3s cubic-bezier(.86,0,.07,1)",
+    "@media (max-width: 1280px)": {
+      animation: visible ? slideRight + ".3s " : "none",
+      transform: !visible ? "translateX(-300px)" : "none",
+      visibility: visible ? "visible" : "hidden",
+    },
+  };
+});
+
 export default function Dashboard() {
   const [backdropOption, setBackdrop] = useState({
     visible: false,
@@ -151,7 +151,8 @@ export default function Dashboard() {
       <Section id="sidebar" visible={visibility}>
         <div className="container">
           <div className="profile">
-            <img src="assets/profile.png" />
+            {/* <img src="assets/profile.png" /> */}
+            <img src="https://pbs.twimg.com/media/D7ShRPYXoAA-XXB.jpg" />
             <h3>NIKI ZEFANYA</h3>
             <a href="login.html">&#xf08b; Logout</a>
           </div>

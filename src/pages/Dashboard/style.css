@@ -293,11 +293,11 @@ main {
   column-gap: 20px;
 }
 .book-list-item {
-  flex: 1 1 50%;
+  flex: 1;
   padding-top: 32px;
-  min-width: 300px;
-  max-width: 320px;
-  min-height: 350px;
+  min-width: 250px;
+  max-width: 300px;
+  min-height: 370px;
 }
 .book-list-item .image {
   --book-img-height: 50px;
@@ -310,7 +310,7 @@ main {
 }
 
 .book-list-item .image:hover {
-  --book-img-height: 150px;
+  --book-img-height: 170px;
   --book-img-shadow: rgba(0, 0, 0, 0.8) 0px 8px 5px -5px inset;
   /* transition: 1s; */
 }
@@ -329,9 +329,6 @@ main {
 }
 
 @media (max-width: 1280px) {
-  .book-list-item {
-    flex-basis: 50%;
-  }
   .book-list-item .description {
     height: 150px;
   }

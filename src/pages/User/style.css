@@ -1,0 +1,168 @@
+#login-page {
+    height: 100vh;
+    background-image: linear-gradient(
+      -10deg,
+      rgba(75, 55, 38, 1) 0%,
+      rgb(174, 129, 87) 99%,
+      rgba(150, 99, 46, 1) 100%
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #333333;
+    overflow-y: scroll;
+  }
+  
+  .box-form {
+    margin: 5% auto;
+    width: 1200px;
+    height: 850px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 0 20px 6px rgb(70, 41, 8);
+  }
+  
+  .box-form div {
+    height: auto;
+  }
+  .box-form .left {
+    width: 70%;
+    color: #ffffff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("assets/6.png");
+    overflow: hidden;
+  }
+  .box-form .left .overlay {
+    position: relative;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.521);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .box-form .left .overlay span p {
+    margin-top: 30px;
+    font-weight: 900;
+  }
+  .box-form .right {
+    width: 500px;
+    padding: 40px;
+    overflow: hidden;
+  }
+  @media (max-width: 1280px) {
+    .reveal {
+      animation-name: none !important;
+    }
+    .box-form {
+      margin-top: 2%;
+      width: 95%;
+      height: auto;
+      flex-flow: wrap;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    .box-form .left {
+      height: 140px;
+      width: 100%;
+    }
+    .box-form .right {
+      padding-top: 10px;
+      width: 95%;
+    }
+  }
+  .box-form .right p {
+    font-size: 14px;
+    color: #b0b3b9;
+  }
+  .box-form .right .inputs {
+    overflow: hidden;
+  }
+  .remember-me--forget-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .remember-me--forget-password p {
+    margin: 0;
+    cursor: pointer;
+  }
+  .box-form .right button {
+    background-color: black;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100px;
+  }
+  .box-form .right a {
+    color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100px;
+  }
+  .reveal {
+    animation-duration: 0.3s;
+    opacity: 1;
+    animation-name: reveal;
+  }
+  @keyframes reveal {
+    from {
+      width: 1000px;
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    to {
+      /* width: 1200px; */
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  .container .inputBox {
+    position: relative;
+    /* width: 300px; */
+    height: 70px;
+    /* margin-bottom: 35px; */
+    border-radius: 4px;
+    border: 1px solid rgb(211, 211, 211);
+  }
+  /* .container .inputBox:last-child {
+    margin-bottom: 0px;
+  } */
+  .container .inputBox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 0;
+    margin-top: 16px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+    color: #111;
+    font-weight: 600;
+  }
+  .container .inputBox span {
+    position: absolute;
+    top: 10px;
+    left: 6px;
+    padding: 10px;
+    display: inline-block;
+    font-size: 16px;
+    color: rgb(141, 141, 141);
+    font-weight: 700;
+    transition: 0.3s;
+    pointer-events: none;
+  }
+  .container .inputBox input:focus ~ span,
+  .container .inputBox input:valid ~ span {
+    transform: translateX(-10px) translateY(-20px);
+    color: rgb(172, 172, 172);
+    font-size: 14px;
+  }

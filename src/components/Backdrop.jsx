@@ -22,7 +22,7 @@ const fadeOut = keyframes`
   }
 
 `;
-const Div = styled.div(({ visible,zIndex }) => {
+const Div = styled.div(({ visible, zIndex }) => {
   const animation = visible ? fadeIn : fadeOut;
   console.debug("backdrop-visible:" + visible);
   return {
@@ -37,12 +37,12 @@ const Div = styled.div(({ visible,zIndex }) => {
     backgroundColor: "rgba(0, 0, 0, 0.6)",
     zIndex: zIndex,
     "@media (min-width: 1281px)": {
-      zIndex:11
-    }
+      zIndex: !visible && 11,
+    },
   };
 });
 
 export default function Backdrop({ option, onClick: clickEvent }) {
-  const {visible,zIndex}=option
+  const { visible, zIndex } = option;
   return <Div onClick={clickEvent} visible={visible} zIndex={zIndex} />;
 }
