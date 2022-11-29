@@ -103,6 +103,7 @@
 }
 .book-box .bottom {
   padding: 10px 40px 40px 40px;
+  width: 100%;
   /* overflow: hidden; */
 }
 

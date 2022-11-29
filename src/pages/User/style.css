@@ -33,7 +33,7 @@
   color: #ffffff;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("assets/6.png");
+  background-image: url("/assets/6.png");
   overflow: hidden;
 }
 .box-form .left .overlay {
