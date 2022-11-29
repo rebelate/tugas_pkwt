@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { useSetAtom } from "jotai";
-import { books as booksAtom } from "../books";
+import booksAtom from "../books";
 import { useState } from "react";
-import { delay } from "../helper";
+import { delay, makeid } from "../helper";
 
 const InputBox = styled.div`
   display: flex;
@@ -84,23 +84,14 @@ export function AddBookModal({ visible, onClick: clickEvent }) {
     const datas = new FormData(ev.target);
     const title = datas.get("title");
     const author = datas.get("author");
+    const description = datas.get("description");
     const image_url1 = datas.get("image_url1");
     const image_url2 = datas.get("image_url2");
-    const description = datas.get("description");
     (async function () {
       toggleInputDisable(true);
       setButtonStatus("Saving");
       await delay(500);
-      setBooks((old) => [
-        ...old,
-        {
-          title,
-          author,
-          description,
-          image_url1,
-          image_url2,
-        },
-      ]);
+      setBooks((map) => map.set(makeid(),{title,author,description,image_url1,image_url2}));
       await delay(250);
       setButtonStatus("Saved");
       await delay(250);

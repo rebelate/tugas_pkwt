@@ -258,7 +258,7 @@ main {
 }
 .book-list-item .description {
   transition: height 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s,
-    box-shadow 0.6s cubic-bezier(.71,.75,0,1.12) 0.2s;
+    box-shadow 0.6s cubic-bezier(0.71, 0.75, 0, 1.12) 0.2s;
   height: var(--book-img-height);
   box-shadow: var(--book-img-shadow);
   /* margin-top: 150px; */

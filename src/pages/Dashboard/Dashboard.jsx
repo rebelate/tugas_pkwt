@@ -3,9 +3,10 @@ import { AddBookModal, Backdrop } from "../../components";
 import Slider from "react-slick";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { books as booksAtom } from "../../books";
+import booksAtom from "../../books";
 import { useAtomValue } from "jotai";
 import "./style.css";
+import { useLocation } from "wouter";
 
 function BooksCarousel() {
   const sliderSetting = {
@@ -23,11 +24,12 @@ function BooksCarousel() {
     autoplay: true,
   };
   const books = useAtomValue(booksAtom);
+
   return (
     <div id="book-carousel">
       <Slider {...sliderSetting}>
-        {books.map((book, index) => (
-          <div key={index} className="book-carousel-item">
+        {Array.from(books).map(([key, book]) => (
+          <div key={key} className="book-carousel-item">
             <div
               className="image"
               style={{ backgroundImage: `url(${book.image_url1})` }}
@@ -45,25 +47,24 @@ function BooksCarousel() {
 }
 
 function BooksList() {
+  const [location, setLocation] = useLocation();
   const books = useAtomValue(booksAtom);
   return (
     <div id="book-list">
       <h2 className="text-bold ml-3">Book List</h2>
       <div className="book-list-container">
-        {books.map((book, index) => (
-          <div key={index} className="book-list-item">
-            {/* <div
-              className="image"
-              style={{
-                backgroundImage: `url(${book.image_url1})`,
-                cursor: "pointer",
-              }}
-              // onClick="location.href='dilan.html'"
-            > */}
-            <div>
-              <div className="image" style={{
-                backgroundImage: `url(${book.image_url1})`,
-                cursor: "pointer",}} />
+        {Array.from(books).map(([key, book]) => (
+          <div key={key} className="book-list-item">
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => (setLocation("books/" + key))}
+            >
+              <div
+                className="image"
+                style={{
+                  backgroundImage: `url(${book.image_url1})`,
+                }}
+              />
               <div className="description">
                 <h5 className="title text-bold text-center">{book.title}</h5>
                 <p className="short">{book.description}</p>
@@ -98,6 +99,7 @@ const Sidebar = styled.section(({ visible }) => {
   };
 });
 export default function Dashboard() {
+  const [location, setLocation] = useLocation();
   const [backdropOption, setBackdrop] = useState({
     visible: false,
     zIndex: 10,
@@ -167,7 +169,7 @@ export default function Dashboard() {
             {/* <img src="assets/profile.png" /> */}
             <img src="https://pbs.twimg.com/media/D7ShRPYXoAA-XXB.jpg" />
             <h3>NIKI ZEFANYA</h3>
-            <a href="login">&#xf08b; Logout</a>
+            <a style={{cursor:"pointer"}} onClick={()=>setLocation("/login")}>&#xf08b; Logout</a>
           </div>
 
           <div className="nav">

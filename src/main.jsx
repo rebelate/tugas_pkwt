@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route } from "wouter";
-import {Dashboard, Login, Register} from "./pages";
+import {Book, Dashboard, Login, Register} from "./pages";
 import "./index.css";
 
 ReactDOM.render(
@@ -9,7 +9,7 @@ ReactDOM.render(
     <Route path="/" component={Dashboard}/>
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
-    <Route path="/books/:book"/>
+    <Route path="/books/:book" component={Book}/>
   </React.StrictMode>,
   document.getElementById("root")
 );
