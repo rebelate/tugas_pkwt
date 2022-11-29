@@ -3,6 +3,7 @@ import { keyframes } from "@emotion/react";
 import { useSetAtom } from "jotai";
 import { books as booksAtom } from "../books";
 import { useState } from "react";
+import { delay } from "../helper";
 
 const InputBox = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ const InputBox = styled.div`
   }
   & input,
   & textarea {
-    width:100%;
+    width: 100%;
     font-weight: inherit;
     border-radius: 6px;
     border: 1px solid grey;
@@ -86,8 +87,10 @@ export function AddBookModal({ visible, onClick: clickEvent }) {
     const image_url1 = datas.get("image_url1");
     const image_url2 = datas.get("image_url2");
     const description = datas.get("description");
-    toggleInputDisable(true);
-    setTimeout(() => {
+    (async function () {
+      toggleInputDisable(true);
+      setButtonStatus("Saving");
+      await delay(500);
       setBooks((old) => [
         ...old,
         {
@@ -98,12 +101,14 @@ export function AddBookModal({ visible, onClick: clickEvent }) {
           image_url2,
         },
       ]);
+      await delay(250);
       setButtonStatus("Saved");
-      setTimeout(() => {
-        clickEvent();
-        toggleInputDisable(false);
-      }, 500);
-    }, 350);
+      await delay(250);
+      clickEvent();
+      await delay(250);
+      toggleInputDisable(false);
+    })();
+
   };
   return (
     <Modal visible={visible}>
