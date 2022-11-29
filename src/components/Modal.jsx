@@ -21,6 +21,7 @@ const InputBox = styled.div`
   & button {
     border: 1px solid gray !important;
     border-radius: 5px;
+    padding-bottom:20px;
     width: 100px;
     background-color: rgb(128, 157, 173) !important;
   }
@@ -63,7 +64,7 @@ const Modal = styled.div(({ visible }) => {
     opacity: visible ? 1 : 0,
     visibility: !visible && "hidden",
     width: "800px",
-    height: "500px",
+    height: "550px",
     boxShadow: "#0003 0px 0px 10px 3px",
     borderRadius: "20px",
     padding: "24px 24px",
@@ -78,6 +79,10 @@ const Modal = styled.div(({ visible }) => {
     maxWidth: "100%",
     maxHeight: "100%",
     zIndex: "12",
+    "@media (max-width: 1280px)": {
+      marginTop:"20%",
+      width:"60%"
+    },
   };
 });
 export function AddBookModal({ visible, onClick: clickEvent }) {

@@ -14,8 +14,8 @@
   }
   
   .box-form {
-    margin: 5% auto;
-    width: 1200px;
+    margin: 2% auto;
+    width: 1300px;
     height: 850px;
     background: #ffffff;
     border-radius: 10px;
@@ -24,9 +24,9 @@
     align-items: stretch;
     box-shadow: 0 0 20px 6px rgb(70, 41, 8);
   }
-  
-  .box-form div {
+  .box-form .columns {
     height: auto;
+    margin-bottom: 60px;
   }
   .box-form .left {
     width: 70%;
@@ -59,16 +59,10 @@
       animation-name: none !important;
     }
     .box-form {
-      margin-top: 2%;
+      margin-top: 5%;
       width: 95%;
-      height: auto;
-      flex-flow: wrap;
-      text-align: center;
-      align-items: center;
-      justify-content: center;
     }
     .box-form .left {
-      height: 140px;
       width: 100%;
     }
     .box-form .right {
