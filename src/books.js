@@ -37,7 +37,7 @@ export const books = atom([
   },
 
   {
-    title: "Sebuah Seni utk...",
+    title: "Sebuah Seni Untuk Bersikap Bodo Amat",
     author: "lorem",
     description:
       "    Lorem Ipsum is simply dummy text of the printing and    typesetting industry. Lorem Ipsum has been the industry's    standard dummy text.",

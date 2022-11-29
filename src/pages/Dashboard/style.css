@@ -81,7 +81,6 @@
   font-size: 1.05rem;
 }
 
-
 #delete-modal {
   box-shadow: #0003 0px 0px 10px 3px;
   display: none;
@@ -229,34 +228,49 @@ main {
   column-gap: 20px;
 }
 .book-list-item {
-  flex: 1 1 20%;
+  flex: 1;
   padding-top: 32px;
   min-width: 200px;
-  max-width: 250px;
+  max-width: 210px;
   min-height: 300px;
 }
-.book-list-item .image {
+.book-list-item > div {
   --book-img-height: 50px;
   border-radius: 14px;
-  background-size: cover;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0 12px 4px,
     rgba(0, 0, 0, 0.1) 0px 0 1px 1px;
   /* transition: 1s; */
 }
 
-.book-list-item .image:hover {
+.book-list-item > div:hover {
   --book-img-height: 170px;
   --book-img-shadow: rgba(0, 0, 0, 0.8) 0px 8px 5px -5px inset;
   /* transition: 1s; */
 }
+
+.book-list-item > div > .image {
+  width: 100%;
+  height: 150px;
+  background-size: cover;
+  overflow: hidden;
+  /* transition: 1s; */
+}
 .book-list-item .description {
-  transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s;
+  transition: height 0.6s cubic-bezier(0.35, 0.11, 0.14, 1.32) 0.1s,
+    box-shadow 0.6s cubic-bezier(.71,.75,0,1.12) 0.2s;
   height: var(--book-img-height);
   box-shadow: var(--book-img-shadow);
-  margin-top: 150px;
+  /* margin-top: 150px; */
   padding-top: 10px;
   background-color: white;
+}
+.book-list-item h5 {
+  margin-left: 20px;
+  margin-right: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .book-list-item .short {

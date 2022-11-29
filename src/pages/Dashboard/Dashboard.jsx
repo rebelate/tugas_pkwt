@@ -22,7 +22,6 @@ function BooksCarousel() {
     autoplaySpeed: 2500,
     autoplay: true,
   };
-
   const books = useAtomValue(booksAtom);
   return (
     <div id="book-carousel">
@@ -53,14 +52,18 @@ function BooksList() {
       <div className="book-list-container">
         {books.map((book, index) => (
           <div key={index} className="book-list-item">
-            <div
+            {/* <div
               className="image"
               style={{
                 backgroundImage: `url(${book.image_url1})`,
                 cursor: "pointer",
               }}
               // onClick="location.href='dilan.html'"
-            >
+            > */}
+            <div>
+              <div className="image" style={{
+                backgroundImage: `url(${book.image_url1})`,
+                cursor: "pointer",}} />
               <div className="description">
                 <h5 className="title text-bold text-center">{book.title}</h5>
                 <p className="short">{book.description}</p>
@@ -86,7 +89,7 @@ const slideRight = keyframes`
 const Sidebar = styled.section(({ visible }) => {
   return {
     transition: ".3s cubic-bezier(.86,0,.07,1)",
-    overflowY:"scroll",
+    overflowY: "scroll",
     "@media (max-width: 1280px)": {
       animation: visible ? slideRight + ".3s " : "none",
       transform: !visible ? "translateX(-300px)" : "none",
@@ -108,7 +111,7 @@ export default function Dashboard() {
   };
   return (
     <>
-        <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
+      <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
       <AddBookModal
         visible={bookModalVisibility}
         onClick={() => backdrop(false)}
