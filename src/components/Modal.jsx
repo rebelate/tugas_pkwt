@@ -40,32 +40,9 @@ const InputBox = styled.div`
   }
 `;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-
-  100%{
-    opacity: 1;
-  }
-
-`;
-const fadeOut = keyframes`
-  0% {
-    opacity: 1;
-  }
-
-  100%{
-    opacity: 0;
-  }
-
-`;
 const Modal = styled.div(({ visible }) => {
-  const animation = visible ? fadeIn : fadeOut;
   return {
-    animation: animation + " 300ms",
-    transitionDuration: "300ms",
-    transitionDelay: "10ms",
+    transition: "300ms ",
     opacity: visible ? 1 : 0,
     visibility: !visible && "hidden",
     width: "800px",

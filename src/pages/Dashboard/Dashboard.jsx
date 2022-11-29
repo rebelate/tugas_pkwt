@@ -100,6 +100,7 @@ export default function Dashboard() {
     zIndex: 10,
   });
   const sidebarVisibility = backdropOption.visible;
+  console.debug(sidebarVisibility);
   const [bookModalVisibility, setBookModalVisibility] = useState(false);
   const backdrop = (visible, zIndex = backdropOption.zIndex) => {
     if (bookModalVisibility) setBookModalVisibility(false);
@@ -107,12 +108,12 @@ export default function Dashboard() {
   };
   return (
     <>
+        <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
       <AddBookModal
         visible={bookModalVisibility}
         onClick={() => backdrop(false)}
       />
 
-      <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
       <header
         className="column navbar"
         style={{ transition: "width .3s ease" }}
