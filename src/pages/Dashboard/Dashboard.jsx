@@ -86,6 +86,7 @@ const slideRight = keyframes`
 const Sidebar = styled.section(({ visible }) => {
   return {
     transition: ".3s cubic-bezier(.86,0,.07,1)",
+    overflowY:"scroll",
     "@media (max-width: 1280px)": {
       animation: visible ? slideRight + ".3s " : "none",
       transform: !visible ? "translateX(-300px)" : "none",

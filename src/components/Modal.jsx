@@ -8,6 +8,7 @@ const InputBox = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0.5em;
+
   & textarea {
     font-size: inherit;
     font-family: inherit;
@@ -17,16 +18,20 @@ const InputBox = styled.div`
     font-size: 1 rem;
     padding: 0.5em 1em 0.5em 0;
     flex: 1;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   & button {
     border: 1px solid gray !important;
     border-radius: 5px;
-    padding-bottom:20px;
+    padding-bottom: 20px;
     width: 100px;
     background-color: rgb(128, 157, 173) !important;
   }
   & input,
   & textarea {
+    width:100%;
     font-weight: inherit;
     border-radius: 6px;
     border: 1px solid grey;
@@ -76,12 +81,11 @@ const Modal = styled.div(({ visible }) => {
     top: "0",
     bottom: "0",
     margin: "auto",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    // maxWidth: "100%",
+    // maxHeight: "100%",
     zIndex: "12",
     "@media (max-width: 1280px)": {
-      marginTop:"20%",
-      width:"60%"
+      maxWidth: "80%",
     },
   };
 });
