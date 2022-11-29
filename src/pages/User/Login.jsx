@@ -1,4 +1,5 @@
 import './style.css'
+
 export default function Login() {
     return (<div id="login-page">
     <div className="box-form reveal">
@@ -19,18 +20,10 @@ export default function Login() {
             <img src="assets/bookshelf.png" />
           </div>
         </div>
-        <h2 className="text-bold">Sign Up</h2>
-        <p>Welcome, Let's register your account now</p>
+        <h2 className="text-bold">Login</h2>
+          <p>Welcome Back, Please Login to your account</p>
         <div className="container">
-          <form>
-            <div className="inputBox">
-              <input type="text" required="required" />
-              <span>Username</span>
-            </div>
-            <div className="inputBox">
-              <input type="text" required="required" />
-              <span>Full Name</span>
-            </div>
+          <form action='/'>
             <div className="inputBox">
               <input type="text" required="required" />
               <span>Email Address</span>
@@ -39,28 +32,20 @@ export default function Login() {
               <input type="password" required="required" />
               <span>password</span>
             </div>
-          </form>
 
-          <br /><br />
           <div className="remember-me--forget-password">
             <label className="form-checkbox">
               <input type="checkbox" />
               <i className="form-icon"></i> Remember me
             </label>
+              <p>forget password?</p>
           </div>
           <br />
           <div className="columns" style={{gap: '12px', margin: 0}}>
-            <div>
-              <a href="login.html" className="btn bg-dark">Sign Up</a>
-            </div>
-            <div>
-              <a href="login.html" className="btn text-dark">Login</a>
-            </div>
-            <p>
-              By signing up, you agree to Book’s Terms and Conditions &
-              Privacy Policy
-            </p>
-          </div>
+              <button className="btn bg-dark" type='submit'>Login</button>
+              <button onClick={(e)=>{e.preventDefault();location.href='register'}} className="btn text-dark">Sign Up</button>
+          </div><br/>
+          </form>
         </div>
       </div>
     </div>

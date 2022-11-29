@@ -1,10 +1,11 @@
-export const books = [
+import { atom } from "jotai";
+export const books = atom([
   {
     title: "Dilan 1990",
     author: "Marijn Haverbeke",
     description:
-    "    Lorem Ipsum is simply dummy text of the printing and    typesetting industry. Lorem Ipsum has been the industry's    standard dummy text.",
-  image_url1: "assets/1.png",
+      "    Lorem Ipsum is simply dummy text of the printing and    typesetting industry. Lorem Ipsum has been the industry's    standard dummy text.",
+    image_url1: "assets/1.png",
     image_url2: "assets/1mini.png",
   },
 
@@ -36,11 +37,11 @@ export const books = [
   },
 
   {
-    title: "Sebuah Seni Untuk Bersikap Bodo Amat",
+    title: "Sebuah Seni utk...",
     author: "lorem",
     description:
       "    Lorem Ipsum is simply dummy text of the printing and    typesetting industry. Lorem Ipsum has been the industry's    standard dummy text.",
     image_url1: "assets/5.png",
     image_url2: "",
   },
-];
+]);

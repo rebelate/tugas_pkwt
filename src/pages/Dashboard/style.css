@@ -81,25 +81,6 @@
   font-size: 1.05rem;
 }
 
-#book-modal {
-  box-shadow: #0003 0px 0px 10px 3px;
-  display: none;
-  border-radius: 20px;
-  padding: 24px 24px;
-  width: 800px;
-  height: 500px;
-  background-color: white;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
-  max-width: 100%;
-  max-height: 100%;
-  z-index: 11;
-}
 
 #delete-modal {
   box-shadow: #0003 0px 0px 10px 3px;
@@ -121,58 +102,12 @@
   z-index: 11;
 }
 
-#book-modal .inputBox {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5em;
-}
-#book-modal .inputBox textarea {
-  font-size: inherit;
-  font-family: inherit;
-  height: 120px;
-}
-#book-modal .inputBox label {
-  font-size: 1 rem;
-  padding: 0.5em 1em 0.5em 0;
-  flex: 1;
-}
-#book-modal .inputBox input,
-#book-modal .inputBox textarea {
-  font-weight: inherit;
-  border-radius: 6px;
-  border: 1px solid grey;
-  padding: 0.5em;
-  flex: 2;
-}
-#book-modal .inputBox a {
-  border: 1px solid gray;
-  border-radius: 5px;
-  width: 100px;
-  background-color: rgb(128, 157, 173);
-}
-
-#book-modal:target {
-  display: block;
-}
-#book-modal:target + .backdrop-2 {
-  display: block;
-}
-#book-modal {
-  font-weight: 700;
-}
-
-#delete-modal:target {
-  display: block;
-}
-#delete-modal:target + .backdrop-2 {
-  display: block;
-}
 main {
   width: 100%;
   position: relative;
   left: 0;
   padding-top: calc(var(--navbar-height) + 32px);
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 }
 
 .side-menu {
@@ -219,6 +154,7 @@ main {
   overflow: hidden;
 }
 .book-carousel-item .description {
+  font-size: 1rem;
   height: 150px;
   margin-top: 150px;
   padding-left: 55px;
@@ -282,9 +218,9 @@ main {
   padding: 32px 24px 24px 24px;
 }
 .book-list-container {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  margin-left: 30px;
+  margin-right: 30px;
+  /* width: 100%; */
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -293,11 +229,11 @@ main {
   column-gap: 20px;
 }
 .book-list-item {
-  flex: 1;
+  flex: 1 1 20%;
   padding-top: 32px;
-  min-width: 250px;
-  max-width: 300px;
-  min-height: 370px;
+  min-width: 200px;
+  max-width: 250px;
+  min-height: 300px;
 }
 .book-list-item .image {
   --book-img-height: 50px;
@@ -330,7 +266,7 @@ main {
 
 @media (max-width: 1280px) {
   .book-list-item .description {
-    height: 150px;
+    height: 170px;
   }
 }
 @media (min-width: 1281px) {

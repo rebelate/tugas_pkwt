@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { AddBookModal, Backdrop } from "../../components";
+import Slider from "react-slick";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { Backdrop } from "../../components";
-import Slider from "react-slick";
+import { books as booksAtom } from "../../books";
+import { useAtomValue } from "jotai";
 import "./style.css";
-import { books } from "../../books";
 
 function BooksCarousel() {
   const sliderSetting = {
@@ -22,9 +23,10 @@ function BooksCarousel() {
     autoplay: true,
   };
 
+  const books = useAtomValue(booksAtom);
   return (
     <div id="book-carousel">
-      <Slider {...sliderSetting} >
+      <Slider {...sliderSetting}>
         {books.map((book, index) => (
           <div key={index} className="book-carousel-item">
             <div
@@ -32,7 +34,7 @@ function BooksCarousel() {
               style={{ backgroundImage: `url(${book.image_url1})` }}
             >
               <div className="description">
-                <h3 className="title text-bold">{book.title}</h3>
+                <h2 className="title text-bold">{book.title}</h2>
                 <p className="author">{book.author}</p>
               </div>
             </div>
@@ -44,27 +46,27 @@ function BooksCarousel() {
 }
 
 function BooksList() {
+  const books = useAtomValue(booksAtom);
   return (
     <div id="book-list">
       <h2 className="text-bold ml-3">Book List</h2>
       <div className="book-list-container">
         {books.map((book, index) => (
-          <>
-            <div className="book-list-item">
-              <div
-                className="image"
-                style={{backgroundImage: `url(${book.image_url1})`, cursor: 'pointer'}}
-                // onClick="location.href='dilan.html'"
-              >
-                <div className="description">
-                  <h5 className="title text-bold text-center">{book.title}</h5>
-                  <p className="short">
-                    {book.description}
-                  </p>
-                </div>
+          <div key={index} className="book-list-item">
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url(${book.image_url1})`,
+                cursor: "pointer",
+              }}
+              // onClick="location.href='dilan.html'"
+            >
+              <div className="description">
+                <h5 className="title text-bold text-center">{book.title}</h5>
+                <p className="short">{book.description}</p>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>
@@ -72,37 +74,43 @@ function BooksList() {
 }
 
 const slideRight = keyframes`
-  0% {
-    transform:translateX(-300px) !important;
-  }
+0% {
+  transform:translateX(-300px) !important;
+}
 
-  100%{
-    opacity: 1;
-  }
+100%{
+  opacity: 1;
+}
 `;
-const Section = styled.section(({ visible }) => {
+
+const Sidebar = styled.section(({ visible }) => {
   return {
     transition: ".3s cubic-bezier(.86,0,.07,1)",
     "@media (max-width: 1280px)": {
       animation: visible ? slideRight + ".3s " : "none",
       transform: !visible ? "translateX(-300px)" : "none",
-      visibility: visible ? "visible" : "hidden",
+      visibility: !visible && "hidden",
     },
   };
 });
-
 export default function Dashboard() {
   const [backdropOption, setBackdrop] = useState({
     visible: false,
     zIndex: 10,
   });
-  const visibility = backdropOption.visible;
-
+  const sidebarVisibility = backdropOption.visible;
+  const [bookModalVisibility, setBookModalVisibility] = useState(false);
   const backdrop = (visible, zIndex = backdropOption.zIndex) => {
+    if (bookModalVisibility) setBookModalVisibility(false);
     setBackdrop({ visible, zIndex });
   };
   return (
     <>
+      <AddBookModal
+        visible={bookModalVisibility}
+        onClick={() => backdrop(false)}
+      />
+
       <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
       <header
         className="column navbar"
@@ -148,13 +156,13 @@ export default function Dashboard() {
           </h2>
         </div>
       </header>
-      <Section id="sidebar" visible={visibility}>
+      <Sidebar id="sidebar" visible={sidebarVisibility}>
         <div className="container">
           <div className="profile">
             {/* <img src="assets/profile.png" /> */}
             <img src="https://pbs.twimg.com/media/D7ShRPYXoAA-XXB.jpg" />
             <h3>NIKI ZEFANYA</h3>
-            <a href="login.html">&#xf08b; Logout</a>
+            <a href="login">&#xf08b; Logout</a>
           </div>
 
           <div className="nav">
@@ -166,7 +174,10 @@ export default function Dashboard() {
             </a>
 
             <a
-              onClick={() => backdrop(true, 11)}
+              onClick={() => {
+                backdrop(true, 11);
+                setBookModalVisibility(true);
+              }}
               id="add-book"
               className="text-dark text-bold btn btn-link"
             >
@@ -174,7 +185,7 @@ export default function Dashboard() {
             </a>
           </div>
         </div>
-      </Section>
+      </Sidebar>
       <main>
         <BooksCarousel />
         <BooksList />

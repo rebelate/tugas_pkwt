@@ -203,7 +203,7 @@ p {
   width: 100%;
 }
 .form-input:focus {
-  border-color: #5755d9;
+  border-color: #696969;
   box-shadow: 0 0 0 0.1rem rgba(87, 85, 217, 0.2);
 }
 .form-input:-ms-input-placeholder {
@@ -232,12 +232,12 @@ p {
   width: 1px;
 }
 .form-checkbox input:focus + .form-icon {
-  border-color: #5755d9;
+  border-color: #696969;
   box-shadow: 0 0 0 0.1rem rgba(87, 85, 217, 0.2);
 }
 .form-checkbox input:checked + .form-icon {
-  background: #5755d9;
-  border-color: #5755d9;
+  background: #000000;
+  border-color: #696969;
 }
 .form-checkbox .form-icon {
   border: 0.05rem solid #bcc3ce;
@@ -275,8 +275,8 @@ p {
   width: 6px;
 }
 .form-checkbox input:indeterminate + .form-icon {
-  background: #5755d9;
-  border-color: #5755d9;
+  background: #000000;
+  border-color: #696969;
 }
 .form-checkbox input:indeterminate + .form-icon::before {
   background: #fff;
@@ -302,6 +302,12 @@ p {
 .form-input:not(:placeholder-shown):invalid:focus {
   background: #fffaf7;
   box-shadow: 0 0 0 0.1rem rgba(232, 86, 0, 0.2);
+}
+.form-checkbox input:checked + .form-icon,
+.form-radio input:checked + .form-icon,
+.form-switch input:checked + .form-icon {
+  background: #000000;
+  border-color: #696969;
 }
 .form-input:disabled {
   background-color: #eef0f3;
