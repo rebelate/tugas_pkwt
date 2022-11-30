@@ -7,10 +7,10 @@
 - Has books state
 
 ## Stack
-- ![Wouter](https://github.com/molefrog/wouter)
-- ![Slick](https://github.com/akiran/react-slick)
-- ![Jotai](https://github.com/pmndrs/jotai)
-- ![Emotion](https://github.com/emotion-js/emotion)
+- [Wouter](https://github.com/molefrog/wouter)
+- [Slick](https://github.com/akiran/react-slick)
+- [Jotai](https://github.com/pmndrs/jotai)
+- [Emotion](https://github.com/emotion-js/emotion)
 
 live on : https://arsilreact-library.netlify.app/
 
