@@ -28,10 +28,13 @@ export default function Book({ params: { book: currentBook } }) {
     setBackdrop({ visible, zIndex });
   };
   const deleteBook = () =>
+  setTimeout(() => {
     setBooksMap((map) => {
       map.delete(currentBook);
       return map;
     });
+    setLocation("/")
+  }, 1500);
   return (
     <div id="book-page">
       <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
