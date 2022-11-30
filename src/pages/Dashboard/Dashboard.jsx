@@ -1,81 +1,9 @@
-import { useEffect, useState } from "react";
-import { AddBookModal, Backdrop } from "../../components";
-import Slider from "react-slick";
+import {  useState } from "react";
+import { AddBookModal, Backdrop, BooksCarousel, BooksList } from "../../components";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import booksAtom from "../../books";
-import { useAtomValue } from "jotai";
 import "./style.css";
 import { useLocation } from "wouter";
-
-function BooksCarousel() {
-  const sliderSetting = {
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    centerMode: true,
-    variableWidth: true,
-    arrows: true,
-    dots: false,
-    speed: 300,
-    centerPadding: "0px",
-    infinite: true,
-    autoplaySpeed: 2500,
-    autoplay: true,
-  };
-  const books = useAtomValue(booksAtom);
-
-  return (
-    <div id="book-carousel">
-      <Slider {...sliderSetting}>
-        {Array.from(books).map(([key, book]) => (
-          <div key={key} className="book-carousel-item">
-            <div
-              className="image"
-              style={{ backgroundImage: `url(${book.image_url1})` }}
-            >
-              <div className="description">
-                <h2 className="title text-bold">{book.title}</h2>
-                <p className="author">{book.author}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
-  );
-}
-
-function BooksList() {
-  const [location, setLocation] = useLocation();
-  const books = useAtomValue(booksAtom);
-  return (
-    <div id="book-list">
-      <h2 className="text-bold ml-3">Book List</h2>
-      <div className="book-list-container">
-        {Array.from(books).map(([key, book]) => (
-          <div key={key} className="book-list-item">
-            <div
-              style={{ cursor: "pointer" }}
-              onClick={() => (setLocation("books/" + key))}
-            >
-              <div
-                className="image"
-                style={{
-                  backgroundImage: `url(${book.image_url1})`,
-                }}
-              />
-              <div className="description">
-                <h5 className="title text-bold text-center">{book.title}</h5>
-                <p className="short">{book.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 const slideRight = keyframes`
 0% {
