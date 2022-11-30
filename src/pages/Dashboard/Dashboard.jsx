@@ -105,7 +105,6 @@ export default function Dashboard() {
     zIndex: 10,
   });
   const sidebarVisibility = backdropOption.visible;
-  console.debug(sidebarVisibility);
   const [bookModalVisibility, setBookModalVisibility] = useState(false);
   const backdrop = (visible, zIndex = backdropOption.zIndex) => {
     if (bookModalVisibility) setBookModalVisibility(false);

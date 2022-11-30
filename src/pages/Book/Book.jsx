@@ -1,17 +1,51 @@
+import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useAtomValue } from "jotai";
+import { useState } from "react";
 import { useLocation } from "wouter";
 import booksAtom from "../../books";
+import { Backdrop } from "../../components";
+import { EditBookModal, DeleteBookModal } from "../../components/Modals";
 import "./style.css";
 
 export default function Book({ params: { book: currentBook } }) {
   const [location, setLocation] = useLocation();
+  const [booksMap,setBooksMap] = useAtom(booksAtom);
+  const data = Object.assign({}, booksMap.get(currentBook));
   const navigateToIndex = () => {
     setLocation("/");
   };
-  const books = useAtomValue(booksAtom);
-  const data = books.get(currentBook);
+  const [backdropOption, setBackdrop] = useState({
+    visible: false,
+    zIndex: 10,
+  });
+  const [editBookModalVisibility, setEditBookModalVisibility] = useState(false);
+  const [deleteBookModalVisibility, setDeleteBookModalVisibility] =
+    useState(false);
+  const backdrop = (visible, zIndex = backdropOption.zIndex) => {
+    if (editBookModalVisibility) setEditBookModalVisibility(false);
+    if (deleteBookModalVisibility) setDeleteBookModalVisibility(false);
+    setBackdrop({ visible, zIndex });
+  };
+  const deleteBook = () =>
+    setBooksMap((map) => {
+      map.delete(currentBook);
+      return map;
+    });
   return (
     <div id="book-page">
+      <Backdrop option={backdropOption} onClick={() => backdrop(false)} />
+      <EditBookModal
+        visible={editBookModalVisibility}
+        bookKey={currentBook}
+        book={data}
+        onClick={() => backdrop(false)}
+      />
+      <DeleteBookModal
+        title={data.title}
+        visible={deleteBookModalVisibility}
+        onClick={() => backdrop(false)}
+      />
       <div className="book-box reveal">
         <div
           className="top"
@@ -21,10 +55,23 @@ export default function Book({ params: { book: currentBook } }) {
           }}
         >
           <div style={{ position: "absolute", right: "0" }}>
-            <a href="#book-modal" className="btn edit-btn">
+            <a
+              onClick={() => {
+                backdrop(true);
+                setEditBookModalVisibility(true);
+              }}
+              className="btn edit-btn"
+            >
               Edit
             </a>
-            <a href="#delete-modal" className="btn delete-btn">
+            &nbsp;
+            <a
+              onClick={() => {
+                backdrop(true);
+                setDeleteBookModalVisibility(true);deleteBook()
+              }}
+              className="btn delete-btn"
+            >
               Delete
             </a>
           </div>
@@ -59,7 +106,7 @@ export default function Book({ params: { book: currentBook } }) {
             )}
             <button
               className={
-                "btn borrow-btn " + (!data.image_url2 ? " borrow-btn-up" :"")
+                "btn borrow-btn " + (!data.image_url2 ? " borrow-btn-up" : "")
               }
             >
               Borrow

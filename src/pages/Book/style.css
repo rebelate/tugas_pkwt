@@ -142,7 +142,7 @@
   border: 0;
   height: 40px;
   width: 80px;
-  background-color: rgb(128, 157, 173);
+  background-color: rgb(128, 157, 173) !important;
 }
 
 .book-box .edit-btn {
@@ -150,11 +150,11 @@
 }
 .book-box .back-btn {
   margin: 10px 10px;
-  color: black;
+  color: rgb(71, 71, 71);
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.726) !important;
 }
 @media (max-width: 1280px) {
   .book-box .borrow-btn {

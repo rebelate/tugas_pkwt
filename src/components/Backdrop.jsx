@@ -3,7 +3,7 @@ import { keyframes } from "@emotion/react";
 import React from "react";
 
 const Div = styled.div(({ visible, zIndex }) => {
-  console.debug("backdrop-visible:" + visible);
+  // console.debug("backdrop-visible:" + visible);
   return {
     transition: "300ms",
     visibility: visible ? "visible" : "hidden",

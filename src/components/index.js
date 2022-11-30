@@ -1,3 +1,3 @@
 import Backdrop from "./Backdrop";
-import { AddBookModal } from "./Modals";
-export { Backdrop, AddBookModal };
+import { AddBookModal,EditBookModal ,DeleteBookModal} from "./Modals";
+export { Backdrop, AddBookModal, EditBookModal,DeleteBookModal };
