@@ -1,0 +1,181 @@
+#book-page {
+  height: 100vh;
+  background-image: linear-gradient(
+    76deg,
+    rgba(128, 157, 173, 1) 0%,
+    rgba(222, 222, 222, 1) 100%,
+    rgba(239, 239, 239, 1) 100%
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Open Sans", sans-serif;
+  color: #333333;
+  overflow-y: scroll;
+  font-weight: 600;
+}
+
+.book-box {
+  margin: 2% auto;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 0 20px 6px rgba(128, 157, 173, 0.5);
+
+  width: 95%;
+  height: auto;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.book-box .tags {
+  border: 0;
+  color: white;
+  font-weight: 700;
+  border-radius: 25px;
+  width: 100px;
+  background-color: rgb(128, 157, 173);
+}
+.book-box .title {
+  line-height: 65px;
+  font-size: 50px;
+  color: black;
+  font-weight: 700;
+}
+.book-box div {
+  height: auto;
+}
+.book-box .top {
+  /* width: 70%; */
+  color: #ffffff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.book-box .description {
+  margin-top: 32px;
+  /* width: 800px; */
+  text-align: justify;
+}
+.book-box .status {
+  flex: 0 0 20%;
+  font-weight: inherit;
+  color: chartreuse;
+}
+.book-box .top .overlay {
+  position: relative;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.521);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.book-box .top .overlay h1 {
+  font-size: 10vmax;
+  line-height: 1;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.book-box .top .overlay span p {
+  margin-top: 30px;
+  font-weight: 900;
+}
+.book-box .top .overlay span a {
+  background: #3b5998;
+  color: #ffffff;
+  margin-top: 10px;
+  padding: 14px 50px;
+  border-radius: 100px;
+  display: inline-block;
+  box-shadow: 0 3px 6px 1px #042d4657;
+}
+.book-box .top .overlay span a:last-child {
+  background: #1dcaff;
+  margin-left: 30px;
+}
+.book-box .top {
+  height: 500px;
+  width: 100%;
+}
+.book-box .bottom {
+  padding: 10px 40px 40px 40px;
+  width: 100%;
+  min-height: 380px;
+  /* overflow: hidden; */
+}
+
+.book-box .book-cover {
+  transition: 0.6s cubic-bezier(0.35, 0.11, 0.14, 2.32) 0s;
+  position: absolute;
+  top: -183px;
+  right: 0;
+  width: 230px;
+  height: 320px;
+  border-radius: 20px;
+  background-size: cover;
+}
+.book-box .book-cover:hover {
+  transform: rotate(3deg) scale(0.99);
+}
+.book-box .borrow-btn {
+  color: white;
+  font-weight: inherit;
+  border: 0;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+  background-color: rgb(128, 157, 173) !important;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0 2px 8px -2px; */
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+}
+.book-box .borrow-btn-up {
+  top: 20px;
+}
+.book-box .edit-btn,
+.book-box .delete-btn,
+.book-box .back-btn {
+  color: white;
+  font-weight: inherit;
+  border: 0;
+  height: 40px;
+  width: 80px;
+  background-color: rgb(128, 157, 173) !important;
+}
+
+.book-box .edit-btn {
+  border-bottom-left-radius: 50px 20px;
+}
+.book-box .back-btn {
+  margin: 10px 10px;
+  color: rgb(71, 71, 71);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.726) !important;
+}
+@media (max-width: 1280px) {
+  .book-box .borrow-btn {
+    position: inherit;
+  }
+  .reveal {
+    animation-name: none !important;
+  }
+  .book-box .top {
+    height: 560px;
+  }
+  .book-box .status {
+    flex: 0 0 20%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .book-box .top {
+    height: 380px;
+  }
+}

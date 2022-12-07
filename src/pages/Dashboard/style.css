@@ -1,0 +1,128 @@
+.navbar {
+  background-color: white;
+  border-bottom: 2px solid #bbb;
+  z-index: 9;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 16px 2px;
+  height: var(--navbar-height);
+  align-items: stretch;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: stretch;
+  -ms-flex-pack: justify;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.navbar .navbar-section {
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  -ms-flex-align: center;
+}
+.navbar .navbar-section:not(:first-child):last-child {
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.navbar .navbar-center {
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-align: center;
+}
+.nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0.2rem 0;
+}
+.nav .nav {
+  margin-bottom: 0.4rem;
+  margin-left: 0.8rem;
+}
+#sidebar {
+  position: fixed;
+  flex: none;
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: white;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.3) -7px 0 9px -7px inset;
+}
+.form-input::placeholder {
+  color: black;
+}
+.profile {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.profile h3 {
+  font-weight: 700;
+}
+.profile img {
+  max-width: 45%;
+  margin: 100px 0 20px 0;
+  border-radius: 50%;
+}
+.nav {
+  align-items: baseline;
+  padding-left: 20px;
+}
+.nav a {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+#delete-modal {
+  box-shadow: #0003 0px 0px 10px 3px;
+  display: none;
+  border-radius: 20px;
+  padding: 24px 24px;
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 11;
+}
+
+main {
+  width: 100%;
+  position: relative;
+  left: 0;
+  padding-top: calc(var(--navbar-height) + 32px);
+  padding-bottom: 100px;
+}
+
+.side-menu {
+  margin-left: -1.5rem;
+  cursor: pointer;
+}
+.side-menu a {
+  font-size: 1.2rem;
+}
+
+@media (min-width: 1281px) {
+  main {
+    width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
+  }
+  .navbar {
+    width: calc(100% - var(--sidebar-width));
+  }
+}
