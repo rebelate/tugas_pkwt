@@ -7,7 +7,7 @@ export function Navbar({ onClick: clickEvent }) {
   const [, setLocation, query] = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const handleQuery = debounce((value) => {
-    setLocation(`?search=${value}&sort=${query.sort}&page=${query.page}`);
+    setLocation(`?search=${value}&sort=${query.sort}`);
   }, 400);
 
   const onSearchChange = useCallback(
