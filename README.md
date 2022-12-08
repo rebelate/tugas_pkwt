@@ -9,7 +9,7 @@
 ## Stack
 - [Wouter](https://github.com/molefrog/wouter)
 - [Slick](https://github.com/akiran/react-slick)
-- [Jotai](https://github.com/pmndrs/jotai)
+- [Redux](https://github.com/reduxjs/redux-toolkit)
 - [Emotion](https://github.com/emotion-js/emotion)
 
 live on : https://arsilreact-library.netlify.app/
