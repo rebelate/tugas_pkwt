@@ -11,6 +11,9 @@
 - [Slick](https://github.com/akiran/react-slick)
 - [Redux](https://github.com/reduxjs/redux-toolkit)
 - [Emotion](https://github.com/emotion-js/emotion)
+- [react-paginate](https://github.com/AdeleD/react-paginate)
+- [react-select](https://github.com/JedWatson/react-select)
+- [formik](https://github.com/jaredpalmer/formik)
 
 live on : https://arsilreact-library.netlify.app/
 
