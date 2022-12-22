@@ -104,6 +104,10 @@ class MainApplication {
                     Prism prism = new Prism();
                     prism.draw();
                     prism.properties();
+                    System.out.print("Input alas: ");
+                    prism.setBase(Integer.parseInt(input()));
+                    System.out.print("Input tinggi: ");
+                    prism.setHeight(Integer.parseInt(input()));
                     System.out.print("Input panjang: ");
                     prism.setLength(Integer.parseInt(input()));
                     prism.areaOfSurface();

@@ -70,13 +70,13 @@ class Square extends Figure2D {
         @Override
         public void areaOfSurface() {
             System.out.println("Formula: 6 x a^2");
-            System.out.println("Area of Cube is " + Math.round(6 * Math.pow(side, 2)));
+            System.out.println("Area of surface is " + Math.round(6 * Math.pow(side, 2)));
         }
 
         @Override
         public void volume() {
             System.out.println("Formula: a^3");
-            System.out.println("Volume of Square is " + Math.round(Math.pow(side, 3)));
+            System.out.println("Volume is " + Math.round(Math.pow(side, 3)));
         }
     }
 }

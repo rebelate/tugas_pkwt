@@ -64,13 +64,13 @@ class Ball extends Circle implements Figure3D {
     @Override
     public void areaOfSurface() {
         System.out.println("Formula: 4 x π x r^2");
-        System.out.println("Area of Circle is " + String.format("%.2f", 4 * Math.PI * Math.pow(getRadius(), 2)));
+        System.out.println("Area of surface is " + String.format("%.2f", 4 * Math.PI * Math.pow(getRadius(), 2)));
     }
 
     @Override
     public void volume() {
         System.out.println("Formula: 4/3 x π x r^3");
-        System.out.println("Perimeter of Circle is " + String.format("%.2f", (4 / 3 * Math.PI * Math.pow(getRadius(), 3))));
+        System.out.println("Volume is " + String.format("%.2f", (4 / 3 * Math.PI * Math.pow(getRadius(), 3))));
     }
 }
 

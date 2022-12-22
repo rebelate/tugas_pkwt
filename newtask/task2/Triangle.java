@@ -2,6 +2,15 @@ package task2;
 
 class Triangle extends Figure2D {
     private int base = -1;
+    private int height = -1;
+
+    public long computeArea() {
+        return Math.round(.5 * (base * height));
+    }
+
+    public int computePerimeter() {
+        return base * 3;
+    }
 
     public int getBase() {
         return base;
@@ -10,19 +19,6 @@ class Triangle extends Figure2D {
     public int getHeight() {
         return height;
     }
-
-    private int height = -1;
-    private long computedArea = -1;
-
-    public long getComputedArea() {
-        return computedArea;
-    }
-
-    public int getComputedPerimeter() {
-        return computedPerimeter;
-    }
-
-    private int computedPerimeter = -1;
 
     public void setBase(int base) {
         this.base = base;
@@ -53,16 +49,14 @@ class Triangle extends Figure2D {
 
     @Override
     void area() {
-        computedArea = Math.round(.5 * (base * height));
         System.out.println("Formula: 1/2 x base x height");
-        System.out.println("Area of Triangle is " + computedArea);
+        System.out.println("Area of Triangle is " + computeArea());
     }
 
     @Override
     void perimeter() {
-        computedPerimeter = base * 3;
         System.out.println("Formula: a + b + c");
-        System.out.println("Perimeter of Triangle is " + computedPerimeter);
+        System.out.println("Perimeter of Triangle is " + computePerimeter());
     }
 }
 
@@ -100,12 +94,12 @@ class Prism extends Triangle implements Figure3D {
     @Override
     public void areaOfSurface() {
         System.out.println("Formula: 2 x base area + perimeter");
-        System.out.println("Area of Triangle is " + (2 * getComputedArea()) + getComputedPerimeter());
+        System.out.println("Area of surface is " + (2 * computeArea()) + computePerimeter());
     }
 
     @Override
     public void volume() {
         System.out.println("Formula: 1/2 x base x height x length");
-        System.out.println("Volume of Triangle is " + Math.round(.5 * (getBase() * getHeight() * getLength())));
+        System.out.println("Volume is " + Math.round(.5 * (getBase() * getHeight() * getLength())));
     }
 }
