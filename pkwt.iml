@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Bio" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/array" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bio" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/newtask" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/profile" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
