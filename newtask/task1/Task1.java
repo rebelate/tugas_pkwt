@@ -75,14 +75,6 @@ class Person extends Pendidikan {
 class MainApplication {
     static Scanner scanner = new Scanner(System.in);
 
-    private static void println(Object object) {
-        System.out.println(object);
-    }
-
-    private static void printf(String format, Object... object) {
-        System.out.printf(format, object);
-    }
-
     private static String input() {
         return scanner.nextLine();
     }
@@ -95,16 +87,16 @@ class MainApplication {
     }
 
     private static void welcomeMenu() {
-        println("=======================");
-        printf("%-3s%s%3s%n", "=", "APLIKASI BIODATA ", "=");
-        println("=======================");
-        printf("%-9s%s%9s%n", "=", "MENU ", "=");
-        println("=======================");
+        System.out.println("=======================");
+        System.out.printf("%-3s%s%3s%n", "=", "APLIKASI BIODATA ", "=");
+        System.out.println("=======================");
+        System.out.printf("%-9s%s%9s%n", "=", "MENU ", "=");
+        System.out.println("=======================");
         String[] menus = {"1. Person", "2. Pendidikan", "3. Tampilkan Data", "4. Exit"};
         for (String item : menus) {
             System.out.printf("%-2s%-20s%s%n", "=", item, "=");
         }
-        println("=======================");
+        System.out.println("=======================");
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -113,32 +105,32 @@ class MainApplication {
         do {
             clearScr();
             welcomeMenu();
-            printf("%s", "Menu: ");
+            System.out.printf("%s", "Menu: ");
             input = Integer.parseInt(input());
             switch (input) {
                 case 1:
-                    printf("%s", "First Name: ");
+                    System.out.printf("%s", "First Name: ");
                     person.setFirstName(input());
-                    printf("%s", "Last Name: ");
+                    System.out.printf("%s", "Last Name: ");
                     person.setLastName(input());
-                    printf("%s", "Domicile: ");
+                    System.out.printf("%s", "Domicile: ");
                     person.setDomicile(input());
-                    printf("%s", "Birth Year: ");
+                    System.out.printf("%s", "Birth Year: ");
                     person.setBirthYear(input());
-                    println("Saved!");
+                    System.out.println("Saved!");
                     Thread.sleep(1000);
                     break;
                 case 2:
-                    println("Enter your education, press enter twice to finish");
+                    System.out.println("Enter your education, press enter twice to finish");
                     boolean done = false;
                     while (!done) {
-                        printf("%s", "Add Education: ");
+                        System.out.printf("%s", "Add Education: ");
                         String education = input();
                         if (!education.isBlank())
                             person.addEducation(education);
                         else done = true;
                     }
-                    println("Saved!");
+                    System.out.println("Saved!");
                     Thread.sleep(1000);
                     break;
                 case 3:
@@ -150,6 +142,6 @@ class MainApplication {
                     }
             }
         } while (input != 4);
-        println("Thanks for using this app");
+        System.out.println("Thanks for using this app");
     }
 }

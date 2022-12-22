@@ -1,9 +1,13 @@
 package task2;
 
 class Circle extends Figure2D {
-    private final int radius;
+    private int radius = -1;
 
-    public Circle(int radius) {
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
         this.radius = radius;
     }
 
@@ -37,3 +41,36 @@ class Circle extends Figure2D {
         System.out.println("Perimeter of Circle is " + String.format("%.2f", (2 * Math.PI * radius)));
     }
 }
+
+class Ball extends Circle implements Figure3D {
+    @Override
+    public void draw() {
+        System.out.println("""
+                   ******
+                **        **
+                *          *
+                **        **
+                   ******
+                 """);
+    }
+
+    @Override
+    public void properties() {
+        System.out.println("Angles formed by the same arc on the circumference of the circle is always equal");
+        System.out.println("Has a total angle of 180 degrees");
+        System.out.println("Has a constant diameter");
+    }
+
+    @Override
+    public void areaOfSurface() {
+        System.out.println("Formula: 4 x π x r^2");
+        System.out.println("Area of Circle is " + String.format("%.2f", 4 * Math.PI * Math.pow(getRadius(), 2)));
+    }
+
+    @Override
+    public void volume() {
+        System.out.println("Formula: 4/3 x π x r^3");
+        System.out.println("Perimeter of Circle is " + String.format("%.2f", (4 / 3 * Math.PI * Math.pow(getRadius(), 3))));
+    }
+}
+

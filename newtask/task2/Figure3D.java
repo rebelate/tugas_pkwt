@@ -1,12 +1,13 @@
 package task2;
 
-abstract class Figure3D {
-    abstract void draw();
+interface Figure3D {
 
-    abstract void properties();
+    void draw();
 
-    abstract void area();
+    void properties();
 
-    abstract void volume();
+    void areaOfSurface();
+
+    void volume();
 
 }

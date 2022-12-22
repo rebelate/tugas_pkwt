@@ -1,10 +1,10 @@
 package task2;
 
 class Square extends Figure2D {
-    private static int side;
+    private int side = -1;
 
-    Square(int side) {
-        Square.side = side;
+    public void setSide(int side) {
+        this.side = side;
     }
 
     @Override
@@ -36,11 +36,18 @@ class Square extends Figure2D {
         System.out.println("Perimeter of Square is " + (4 * side));
     }
 
+    class Cube extends Square implements Figure3D {
 
-    class Cube extends Figure3D {
+        public int getSide() {
+            return side;
+        }
+
+        protected boolean checkValue() {
+            return side != -1;
+        }
 
         @Override
-        void draw() {
+        public void draw() {
             System.out.println("""
                        .+------+
                      .' |    .'|
@@ -50,23 +57,24 @@ class Square extends Figure2D {
                     |.'    | .'
                     +------+'
                     """);
+
         }
 
         @Override
-        void properties() {
+        public void properties() {
             System.out.println("It is a three-dimensional, square-shaped figure");
             System.out.println("It has 6 faces, 12 edges, and 8 vertices");
             System.out.println("All faces are in the shape of a square");
         }
 
         @Override
-        void area() {
+        public void areaOfSurface() {
             System.out.println("Formula: 6 x a^2");
             System.out.println("Area of Cube is " + Math.round(6 * Math.pow(side, 2)));
         }
 
         @Override
-        void volume() {
+        public void volume() {
             System.out.println("Formula: a^3");
             System.out.println("Volume of Square is " + Math.round(Math.pow(side, 3)));
         }
