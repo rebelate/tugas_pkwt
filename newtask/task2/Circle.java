@@ -56,9 +56,9 @@ class Ball extends Circle implements Figure3D {
 
     @Override
     public void properties() {
-        System.out.println("Angles formed by the same arc on the circumference of the circle is always equal");
-        System.out.println("Has a total angle of 180 degrees");
-        System.out.println("Has a constant diameter");
+        System.out.println("Has a single side");
+        System.out.println("Has a single centre point");
+        System.out.println("Has no corner point");
     }
 
     @Override
