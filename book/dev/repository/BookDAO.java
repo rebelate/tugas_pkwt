@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookDAO {
     List<Book> findAll();
 
-    Book findById(String id);
+    Book findByTitle(String title);
 
     void create(Book book);
 

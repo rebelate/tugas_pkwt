@@ -39,9 +39,9 @@ public class BookRepository implements BookDAO {
     }
 
     @Override
-    public Book findById(String id) {
+    public Book findByTitle(String title) {
         for (Book book : books) {
-            if (book.getId().equals(id)) {
+            if (book.getTitle().equals(title)) {
                 return book;
             }
         }

@@ -14,8 +14,8 @@ public record BookController(BookRepository bookRepository) {
         return bookRepository.findAll();
     }
 
-    public Book findBookById(String id) {
-        return bookRepository.findById(id);
+    public Book findBookByTitle(String id) {
+        return bookRepository.findByTitle(id);
     }
 
     public void createBook(String title, String author) {
