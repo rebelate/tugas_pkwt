@@ -49,6 +49,17 @@ public class BookRepository implements BookDAO {
     }
 
     @Override
+    public List<Book> findByAuthor(String author) {
+        List<Book> books = new ArrayList<>();
+        for (Book book : this.books) {
+            if (book.getAuthor().equals(author)) {
+                books.add(book);
+            }
+        }
+        return books;
+    }
+
+    @Override
     public void create(Book book) {
         books.add(book);
         writeBooksToFile(books);

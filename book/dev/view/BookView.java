@@ -19,6 +19,30 @@ public record BookView(BookController bookController) {
         return scanner.nextLine();
     }
 
+    /**
+     * Strict input for the defined types
+     */
+    private static String input(String out, String... types) {
+        System.out.print(out + ": ");
+        String input = scanner.nextLine();
+        String parsedType = String.join(" | ", types);
+        boolean ok = false;
+        while (!ok) {
+            for (String type : types
+            ) {
+                if (input.equals(type)) {
+                    ok = true;
+                    break;
+                }
+            }
+            if (!ok) {
+                System.out.print("Input should either be (" + parsedType + "): ");
+                input = scanner.nextLine();
+            }
+        }
+        return input;
+    }
+
     private static String inputNotEmpty(String out) {
         System.out.print(out + ": ");
         String input = scanner.nextLine();
@@ -51,7 +75,7 @@ public record BookView(BookController bookController) {
         line();
         System.out.printf("%-25s%s%25s%n", "=", "Commands", "=");
         line();
-        String[] menus = {"list", "create", "update", "delete", "exit"
+        String[] menus = {"list", "find", "create", "update", "delete", "exit"
         };
         for (String item : menus) {
             System.out.printf("%-2s%-55s%s%n", "=", item, "=");
@@ -60,16 +84,46 @@ public record BookView(BookController bookController) {
     }
 
     public void displayBooks() throws IOException, InterruptedException {
-        List<Book> books = bookController.listBooks();
         clearScr();
         header();
         line();
         System.out.printf("%-24s%s%25s%n", "=", "BOOK LIST", "=");
         line();
+        List<Book> books = bookController.listBooks();
 
         for (Book book : books) {
             String item = "(" + book.getId() + ") " + "'" + book.getTitle() + "'" + " by " + book.getAuthor();
             System.out.printf("%-2s%-55s%s%n", "=", item, "=");
+        }
+        line();
+    }
+
+    private void displayBook(String searchBy, String input) throws IOException, InterruptedException {
+        clearScr();
+        header();
+        line();
+        if (searchBy.equals("title")) {
+            System.out.printf("%-21s%s%22s%n", "=", "Search by title", "=");
+            line();
+            Book book = bookController.findBookByTitle(input);
+            if (book == null) {
+                System.out.println("Book not found.");
+                return;
+            }
+            String item = "(" + book.getId() + ") " + "'" + book.getTitle() + "'" + " by " + book.getAuthor();
+            System.out.printf("%-2s%-55s%s%n", "=", item, "=");
+        } else {
+            System.out.printf("%-21s%s%21s%n", "=", "Search by author", "=");
+            line();
+            List<Book> books = bookController.findBookByAuthor(input);
+            if (books.isEmpty()) {
+                System.out.println("No book authored by " + input + ".");
+                return;
+            }
+            for (Book book : books) {
+                String item = "(" + book.getId() + ") " + "'" + book.getTitle() + "'" + " by " + book.getAuthor();
+                System.out.printf("%-2s%-55s%s%n", "=", item, "=");
+            }
         }
         line();
     }
@@ -116,6 +170,12 @@ public record BookView(BookController bookController) {
             switch (command) {
                 case "list":
                     displayBooks();
+                    input();
+                    break;
+                case "find":
+                    String findBy = input("Find by (title|author)", "title", "author");
+                    String input = input(findBy);
+                    displayBook(findBy, input);
                     input();
                     break;
                 case "create":

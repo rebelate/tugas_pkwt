@@ -1,4 +1,5 @@
 package dev.model;
+
 public class Book {
     private String id;
     private String title;

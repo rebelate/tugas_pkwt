@@ -17,6 +17,9 @@ public record BookController(BookRepository bookRepository) {
     public Book findBookByTitle(String id) {
         return bookRepository.findByTitle(id);
     }
+    public List<Book> findBookByAuthor(String author) {
+        return bookRepository.findByAuthor(author);
+    }
 
     public void createBook(String title, String author) {
 

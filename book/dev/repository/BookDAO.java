@@ -9,6 +9,8 @@ public interface BookDAO {
 
     Book findByTitle(String title);
 
+    List<Book> findByAuthor(String author);
+
     void create(Book book);
 
     void update(Book book);
