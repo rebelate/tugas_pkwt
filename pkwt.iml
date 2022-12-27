@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/newtask" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/profile" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/book" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/restaurant" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
