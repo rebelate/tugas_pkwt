@@ -18,11 +18,9 @@ public record Order(List<MenuItem> items, double totalCost) {
         return new Order(newItems, totalCost - item.price());
     }
 
-    public List<MenuItem> getItems() {
+    @Override
+    public List<MenuItem> items() {
         return Collections.unmodifiableList(items);
     }
 
-    public double getTotalCost() {
-        return totalCost;
-    }
 }
