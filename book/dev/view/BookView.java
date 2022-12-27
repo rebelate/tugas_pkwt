@@ -137,13 +137,17 @@ public record BookView(BookController bookController) {
 
     public void updateBook() {
         String title = input("Enter book title");
+        if (title.isEmpty()) {
+            System.out.println("Cancelled");
+            return;
+        }
         Book book = bookController.findBookByTitle(title);
         if (book == null) {
             System.out.println("Book not found.");
             return;
         }
-        String newTitle = input("Enter new book title");
-        String author = input("Enter new book author");
+        String newTitle = inputNotEmpty("Enter new book title");
+        String author = inputNotEmpty("Enter new book author");
         book.setTitle(newTitle);
         book.setAuthor(author);
         bookController.updateBook(book);
@@ -152,6 +156,10 @@ public record BookView(BookController bookController) {
 
     public void deleteBook() {
         String title = input("Enter book title");
+        if (title.isEmpty()) {
+            System.out.println("Cancelled");
+            return;
+        }
         Book book = bookController.findBookByTitle(title);
         if (book == null) {
             System.out.println("Book not found.");

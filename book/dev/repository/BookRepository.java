@@ -14,7 +14,7 @@ public class BookRepository implements BookDAO {
         init();
     }
 
-    public void init() {
+    private void init() {
         File dataFile = new File(DATA_FILE_NAME);
         if (dataFile.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(dataFile))) {
@@ -41,7 +41,7 @@ public class BookRepository implements BookDAO {
     @Override
     public Book findByTitle(String title) {
         for (Book book : books) {
-            if (book.getTitle().equals(title)) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
                 return book;
             }
         }
@@ -50,13 +50,14 @@ public class BookRepository implements BookDAO {
 
     @Override
     public List<Book> findByAuthor(String author) {
-        List<Book> books = new ArrayList<>();
-        for (Book book : this.books) {
-            if (book.getAuthor().equals(author)) {
-                books.add(book);
-            }
-        }
-        return books;
+//        List<Book> books = new ArrayList<>();
+//        for (Book book : this.books) {
+//            if (book.getAuthor().equalsIgnoreCase(author)) {
+//                books.add(book);
+//            }
+//        }
+        return this.books.stream().filter(
+                book -> book.getAuthor().equalsIgnoreCase(author)).toList();
     }
 
     @Override

@@ -7,22 +7,21 @@ import java.util.List;
 
 import static dev.utils.Utils.generateUuid;
 
-
 public record BookController(BookRepository bookRepository) {
 
     public List<Book> listBooks() {
         return bookRepository.findAll();
     }
 
-    public Book findBookByTitle(String id) {
-        return bookRepository.findByTitle(id);
+    public Book findBookByTitle(String title) {
+        return bookRepository.findByTitle(title);
     }
+
     public List<Book> findBookByAuthor(String author) {
         return bookRepository.findByAuthor(author);
     }
 
     public void createBook(String title, String author) {
-
         Book book = new Book(generateUuid(), title, author);
         bookRepository.create(book);
     }
