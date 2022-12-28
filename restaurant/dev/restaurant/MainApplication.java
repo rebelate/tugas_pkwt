@@ -8,10 +8,8 @@ import dev.restaurant.service.OrderService;
 import dev.restaurant.view.CashierView;
 import dev.restaurant.view.ReceiptView;
 
-import java.io.IOException;
-
 public class MainApplication {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
         OrderRepository orderRepository = new OrderRepository();
         MenuRepository menuRepository = new MenuRepository();
 
@@ -20,6 +18,6 @@ public class MainApplication {
         CashierView cashierView = new CashierView();
         ReceiptView receiptView = new ReceiptView();
         CashierController cashierController = new CashierController(orderService, menuService, cashierView, receiptView);
-        cashierController.handleViewMenuRequest();
+        cashierController.handleStartCashierApp();
     }
 }

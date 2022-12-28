@@ -28,7 +28,6 @@ public class MenuService implements IMenuService {
                 new MenuItem(8, "Tahu", "makanan", 1500),
                 new MenuItem(9, "Tempe", "makanan", 1500),
 
-
                 new MenuItem(1, "Teh Manis Panas", "minuman", 3000),
                 new MenuItem(2, "Teh Manis Dingin", "minuman", 3000),
                 new MenuItem(3, "Fanta", "minuman", 5000),

@@ -35,12 +35,7 @@ public record CashierController(
         orderService.clearCurrentOrder();
     }
 
-    public void handleViewOrderRequest() {
-        Order order = orderService.getCurrentOrder();
-        cashierView.displayOrder(order);
-    }
-
-    public void handleViewMenuRequest() {
-        cashierView.displayMenu(menuService);
+    public void handleStartCashierApp() {
+        cashierView.mainMenu(menuService, orderService);
     }
 }
