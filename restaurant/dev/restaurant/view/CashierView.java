@@ -1,14 +1,13 @@
 package dev.restaurant.view;
 
 import dev.restaurant.model.MenuItem;
-import dev.restaurant.model.Order;
 import dev.restaurant.service.MenuService;
 import dev.restaurant.service.OrderService;
 import dev.restaurant.utils.Utils;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class CashierView {
     private static final Scanner scanner = new Scanner(System.in);
@@ -59,7 +58,7 @@ public class CashierView {
         return input;
     }
 
-    private static void clearScr() {
+    public static void clearScr() {
         if (System.getProperty("os.name").equals("Linux")) {
             System.out.print("\033\143");
         }
@@ -77,49 +76,95 @@ public class CashierView {
 
     public static void displayOrder() {
         line();
-        System.out.printf("%-42s%s%41s%n", "=", "Current Order", "=");
-        for (MenuItem item : orderService.getCurrentOrder().items()
-        ) {
-            System.out.printf("%-2s%-100s%s%n", "=", item.name(), "=");
+        System.out.printf("%-45s%s%45s%n", "=", "Current Order", "=");
+        line();
+        List<MenuItem> items = orderService.getCurrentOrder().items();
+        List<MenuItem> uniques = orderService.getCurrentOrderDistinctList();
+        for (int i = 0; i < uniques.size(); i++) {
+            MenuItem item = uniques.get(i);
+            long count = items.stream().filter(menuItem -> menuItem.id() == item.id()).count();
+            System.out.printf("%-2s%-3s%-97s%s%n", "=", i + 1, item.name(), "=");
+            System.out.printf("%-5s%s%-96s%s%n", "=", count, " x " + item.price() + ": " + item.price() * count, "=");
         }
     }
 
     public static void showOrderMenu() {
+        clearScr();
+        showMenu();
+        if (!orderService.getCurrentOrder().items().isEmpty()) {
+            displayOrder();
+            line();
+        }
         String order = handleInput("Enter your orders (eg: geprek, lele, kopi)");
         if (order.isEmpty()) {
-            System.out.println("Cancelled");
+            if (!orderService.getCurrentOrder().items().isEmpty())
+                System.out.println("Done");
+            else
+                System.out.println("Cancelled");
+            handleInput();
             return;
         }
         String[] parsed = order.split(",");
-        Set<MenuItem> tempOrder = new HashSet<>();
+        List<MenuItem> tempOrder = new ArrayList<>();
         for (String item : parsed
         ) {
             menuService.getAll().stream().filter(menuItem -> {
                 boolean bool = false;
                 if (Utils.isContain(menuItem.name().toLowerCase(), item.strip().toLowerCase())) {
                     bool = true;
-                    if (menuItem.type().equals("paket") && !item.strip().toLowerCase().startsWith("paket"))
+                    if (menuItem.type().equals("paket") && !item.strip().toLowerCase().startsWith("paket") || tempOrder.contains(menuItem))
                         bool = false;
                 }
                 return bool;
             }).findFirst().ifPresent(tempOrder::add);
+        }
+        if (tempOrder.isEmpty()) {
+            System.out.println("Nothing found.");
         }
         for (MenuItem item : tempOrder
         ) {
             String input = handleInput("Enter quantity for " + item.name() + " (default is 1)");
             int quantity;
             if (input.isBlank()) quantity = 1;
-            else
-                quantity = Integer.parseInt(input);
-            for (int i = 0; i < quantity; i++) {
-                orderService.addItem(item);
-            }
+            else quantity = Integer.parseInt(input);
+            orderService.addMultipleItem(item, quantity);
             System.out.println(quantity);
         }
-        displayOrder(orderService.getCurrentOrder());
+        displayOrder();
+        line();
+        showOrderMenu();
     }
 
     public static void showChangeMenu() {
+        if (!orderService.getCurrentOrder().items().isEmpty()) {
+            displayOrder();
+            line();
+        } else {
+            System.out.println("You haven't ordered anything");
+            handleInput();
+            return;
+        }
+        String order = handleInput("Order id that you want to change (eg: 2)");
+        if (order.isEmpty()) {
+            System.out.println("Cancelled");
+            handleInput();
+            return;
+        }
+        try {
+            MenuItem item = orderService.getCurrentOrderDistinctList().get(Integer.parseInt(order) - 1);
+            String input = handleInput("Enter new quantity for " + item.name());
+            if (input.isEmpty() || input.equals("0")) {
+                System.out.println("Cancelled");
+                handleInput();
+                return;
+            }
+            orderService.removeMultipleItem(item.id());
+            orderService.addMultipleItem(item, Integer.parseInt(input));
+            System.out.println("Updated order for " + item.name());
+            handleInput();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No matching order");
+        }
     }
 
     public static void welcomeMenu() {

@@ -39,19 +39,17 @@ public record CashierController(
         try {
             blockMenu:
             while (true) {
+                CashierView.clearScr();
                 CashierView.welcomeMenu();
                 String command = CashierView.handleInput("Enter command");
                 switch (command) {
                     case "1":
                     case "order":
-                        CashierView.showMenu();
                         CashierView.showOrderMenu();
-                        CashierView.handleInput();
                         break;
                     case "2":
                     case "change":
                         CashierView.showChangeMenu();
-                        CashierView.handleInput();
                         break;
                     case "3":
                     case "remove":

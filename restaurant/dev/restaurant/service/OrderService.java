@@ -23,11 +23,28 @@ public class OrderService extends OrderRepository implements IOrderService {
         orderRepository.updateCurrentOrder(order);
     }
 
+    public void addMultipleItem(MenuItem item, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            addItem(item);
+        }
+    }
+
     @Override
     public void removeItem(int menuItemId) {
         MenuItem menuItem = menuRepository.getById(menuItemId);
         Order order = orderRepository.getCurrentOrder();
         order = order.removeItem(menuItem);
+        orderRepository.updateCurrentOrder(order);
+    }
+
+    public void removeMultipleItem(int menuItemId) {
+        MenuItem menuItem = menuRepository.getById(menuItemId);
+        Order order = orderRepository.getCurrentOrder();
+
+        long count = order.items().stream().filter(item -> item.id() == menuItemId).count();
+        for (int i = 0; i < count; i++) {
+            order = order.removeItem(menuItem);
+        }
         orderRepository.updateCurrentOrder(order);
     }
 
@@ -45,4 +62,5 @@ public class OrderService extends OrderRepository implements IOrderService {
     public List<MenuItem> getCurrentOrderDistinctList() {
         return orderRepository.getCurrentOrder().items().stream().distinct().toList();
     }
+
 }
