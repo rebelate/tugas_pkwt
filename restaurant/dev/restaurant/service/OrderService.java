@@ -1,11 +1,11 @@
-package service;
+package dev.restaurant.service;
 
-import model.MenuItem;
-import model.Order;
-import repository.MenuRepository;
-import repository.OrderRepository;
+import dev.restaurant.model.MenuItem;
+import dev.restaurant.model.Order;
+import dev.restaurant.repository.MenuRepository;
+import dev.restaurant.repository.OrderRepository;
 
-public class OrderService {
+public class OrderService extends OrderRepository implements IOrderService {
     private OrderRepository orderRepository;
     private MenuRepository menuRepository;
 
@@ -14,6 +14,7 @@ public class OrderService {
         this.menuRepository = menuRepository;
     }
 
+    @Override
     public void addItem(int menuItemId) {
         MenuItem menuItem = menuRepository.getById(menuItemId);
         Order order = orderRepository.getCurrentOrder();
@@ -21,6 +22,7 @@ public class OrderService {
         orderRepository.updateCurrentOrder(order);
     }
 
+    @Override
     public void removeItem(int menuItemId) {
         MenuItem menuItem = menuRepository.getById(menuItemId);
         Order order = orderRepository.getCurrentOrder();
@@ -28,11 +30,13 @@ public class OrderService {
         orderRepository.updateCurrentOrder(order);
     }
 
+    @Override
     public void checkout() {
         Order order = orderRepository.getCurrentOrder();
         orderRepository.clearCurrentOrder();
     }
 
+    @Override
     public Order getCurrentOrder() {
         return orderRepository.getCurrentOrder();
     }

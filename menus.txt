@@ -1,0 +1,19 @@
+1,Ayam Geprek,makanan,14000
+2,Lele,makanan,10000
+3,Nasi Putih,makanan,4000
+4,Sate Usus,makanan,3000
+5,Sate Kulit,makanan,3000
+6,Sate Ati Ampela,makanan,3000
+7,Sate Telor Puyuh,makanan,4000
+8,Tahu,makanan,1500
+9,Tempe,makanan,1500
+1,Teh Manis Panas,minuman,3000
+2,Teh Manis Dingin,minuman,3000
+3,Fanta,minuman,5000
+4,Sprite,minuman,5000
+5,Coca Cola,minuman,5000
+6,Air Mineral,minuman,2500
+7,Kopi Hitam,makanan,3000
+1,(Paket A) Ayam Geprek + Nasi + Es Teh Manis,paket,20000
+2,(Paket B) Ayam Geprek + Nasi + Tahu + Tempe + Es Teh Manis,paket,23000
+3,(Paket C) Ayam Geprek + Nasi + Tahu + Tempe + Sate(Kulit/Usus/Ati Ampela) + Es Teh Manis,paket,25000

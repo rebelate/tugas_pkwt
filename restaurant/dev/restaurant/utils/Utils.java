@@ -1,4 +1,4 @@
-package utils;
+package dev.restaurant.utils;
 
 public class Utils {
     public static String generateUuid() {

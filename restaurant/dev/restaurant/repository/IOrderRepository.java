@@ -1,6 +1,6 @@
-package repository;
+package dev.restaurant.repository;
 
-import model.Order;
+import dev.restaurant.model.Order;
 
 public interface IOrderRepository {
     Order getCurrentOrder();

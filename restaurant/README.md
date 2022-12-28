@@ -5,6 +5,8 @@
 |   +-- CashierController.java
 |
 +-- service/
+|   +-- IMenuService.java
+|   +-- IOrderService.java
 |   +-- MenuService.java
 |   +-- OrderService.java
 |
