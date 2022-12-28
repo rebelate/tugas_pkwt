@@ -78,14 +78,18 @@ public class CashierView {
         line();
         System.out.printf("%-45s%s%45s%n", "=", "Current Order", "=");
         line();
-        List<MenuItem> items = orderService.getCurrentOrder().items();
         List<MenuItem> uniques = orderService.getCurrentOrderDistinctList();
         for (int i = 0; i < uniques.size(); i++) {
             MenuItem item = uniques.get(i);
-            long count = items.stream().filter(menuItem -> menuItem.id() == item.id()).count();
+            int count = orderService.orderedItemQuantity(item.id());
             System.out.printf("%-2s%-3s%-97s%s%n", "=", i + 1, item.name(), "=");
             System.out.printf("%-5s%s%-96s%s%n", "=", count, " x " + item.price() + ": " + item.price() * count, "=");
         }
+    }
+
+    public static void showTotal() {
+        System.out.printf("%-42s%s%43s%n", "=", "Total Cost: " +
+                orderService.getCurrentOrder().totalCost(), "=");
     }
 
     public static void showOrderMenu() {
@@ -94,7 +98,9 @@ public class CashierView {
         if (!orderService.getCurrentOrder().items().isEmpty()) {
             displayOrder();
             line();
+            showTotal();
         }
+        line();
         String order = handleInput("Enter your orders (eg: geprek, lele, kopi)");
         if (order.isEmpty()) {
             if (!orderService.getCurrentOrder().items().isEmpty())
@@ -130,8 +136,6 @@ public class CashierView {
             orderService.addMultipleItem(item, quantity);
             System.out.println(quantity);
         }
-        displayOrder();
-        line();
         showOrderMenu();
     }
 
@@ -201,7 +205,6 @@ public class CashierView {
         for (MenuItem item : menuService.getPaket()) {
             System.out.printf("%-2s%-3s%-91s%s%2s%n", "=", item.id(), item.name(), item.price(), "=");
         }
-        line();
     }
 
 }

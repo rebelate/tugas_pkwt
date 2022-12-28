@@ -41,11 +41,15 @@ public class OrderService extends OrderRepository implements IOrderService {
         MenuItem menuItem = menuRepository.getById(menuItemId);
         Order order = orderRepository.getCurrentOrder();
 
-        long count = order.items().stream().filter(item -> item.id() == menuItemId).count();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < orderedItemQuantity(menuItemId); i++) {
             order = order.removeItem(menuItem);
         }
         orderRepository.updateCurrentOrder(order);
+    }
+
+    public int orderedItemQuantity(int menuItemId) {
+        return (int) orderRepository.getCurrentOrder().items().stream().filter(item -> item.id() == menuItemId).count();
+
     }
 
     @Override
