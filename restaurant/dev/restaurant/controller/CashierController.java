@@ -9,16 +9,14 @@ import dev.restaurant.view.ReceiptView;
 
 public record CashierController(
         OrderService orderService,
-        MenuService menuService,
-        CashierView cashierView,
-        ReceiptView receiptView) {
+        MenuService menuService) {
 
     public void handleAddItemRequest(int menuItemId) {
         MenuItem menuItem = menuService.getById(menuItemId);
         Order order = orderService.getCurrentOrder();
         order = order.addItem(menuItem);
         orderService.updateCurrentOrder(order);
-        cashierView.displayOrder(order);
+        CashierView.displayOrder();
     }
 
     public void handleRemoveItemRequest(int menuItemId) {
@@ -26,16 +24,55 @@ public record CashierController(
         Order order = orderService.getCurrentOrder();
         order = order.removeItem(menuItem);
         orderService.updateCurrentOrder(order);
-        cashierView.displayOrder(order);
+        CashierView.displayOrder();
     }
 
     public void handleCheckoutRequest() {
         Order order = orderService.getCurrentOrder();
-        receiptView.displayReceipt(order);
+        ReceiptView.displayReceipt(order);
         orderService.clearCurrentOrder();
     }
 
     public void handleStartCashierApp() {
-        cashierView.mainMenu(menuService, orderService);
+        CashierView.menuService = menuService;
+        CashierView.orderService = orderService;
+        try {
+            blockMenu:
+            while (true) {
+                CashierView.welcomeMenu();
+                String command = CashierView.handleInput("Enter command");
+                switch (command) {
+                    case "1":
+                    case "order":
+                        CashierView.showMenu();
+                        CashierView.showOrderMenu();
+                        CashierView.handleInput();
+                        break;
+                    case "2":
+                    case "change":
+                        CashierView.showChangeMenu();
+                        CashierView.handleInput();
+                        break;
+                    case "3":
+                    case "remove":
+                        Thread.sleep(1000);
+                        break;
+                    case "4":
+                    case "pay":
+                        CashierView.handleInput();
+                        break;
+                    case "5":
+                    case "exit":
+                        break blockMenu;
+                    default:
+                        System.out.println("Invalid command.");
+                        Thread.sleep(500);
+                        break;
+                }
+            }
+
+        } catch (InterruptedException ignored) {
+        }
+
     }
 }

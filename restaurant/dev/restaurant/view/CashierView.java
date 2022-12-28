@@ -6,20 +6,20 @@ import dev.restaurant.service.MenuService;
 import dev.restaurant.service.OrderService;
 import dev.restaurant.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class CashierView {
     private static final Scanner scanner = new Scanner(System.in);
-    private MenuService menuService;
-    private OrderService orderService;
+    public static MenuService menuService;
+    public static OrderService orderService;
 
-    private static void handleInput() {
+    public static void handleInput() {
         scanner.nextLine();
     }
 
-    private static String handleInput(String out) {
+    public static String handleInput(String out) {
         System.out.print(out + ": ");
         return scanner.nextLine();
     }
@@ -51,7 +51,7 @@ public class CashierView {
     private static String handleInputNotEmpty(String out) {
         System.out.print(out + ": ");
         String input = scanner.nextLine();
-        while (input.isEmpty()) {
+        while (input.isBlank()) {
             System.out.println("Cannot be empty");
             System.out.print(out + ": ");
             input = scanner.nextLine();
@@ -75,40 +75,59 @@ public class CashierView {
         System.out.println("=======================================================================================================");
     }
 
-    public void displayOrder(Order order) {
+    public static void displayOrder() {
+        line();
+        System.out.printf("%-42s%s%41s%n", "=", "Current Order", "=");
+        for (MenuItem item : orderService.getCurrentOrder().items()
+        ) {
+            System.out.printf("%-2s%-100s%s%n", "=", item.name(), "=");
+        }
     }
 
-    private void showOrderMenu() {
-        String order = handleInput("Enter your orders");
+    public static void showOrderMenu() {
+        String order = handleInput("Enter your orders (eg: geprek, lele, kopi)");
         if (order.isEmpty()) {
             System.out.println("Cancelled");
             return;
         }
         String[] parsed = order.split(",");
-        List<MenuItem> orders = new ArrayList<>();
+        Set<MenuItem> tempOrder = new HashSet<>();
         for (String item : parsed
         ) {
             menuService.getAll().stream().filter(menuItem -> {
                 boolean bool = false;
                 if (Utils.isContain(menuItem.name().toLowerCase(), item.strip().toLowerCase())) {
-                    bool = !menuItem.type().equals("paket") || item.strip().toLowerCase().startsWith("paket");
+                    bool = true;
+                    if (menuItem.type().equals("paket") && !item.strip().toLowerCase().startsWith("paket"))
+                        bool = false;
                 }
                 return bool;
-            }).findFirst().ifPresent(orders::add);
+            }).findFirst().ifPresent(tempOrder::add);
         }
-        for (MenuItem item : orders
+        for (MenuItem item : tempOrder
         ) {
-            System.out.println(item);
+            String input = handleInput("Enter quantity for " + item.name() + " (default is 1)");
+            int quantity;
+            if (input.isBlank()) quantity = 1;
+            else
+                quantity = Integer.parseInt(input);
+            for (int i = 0; i < quantity; i++) {
+                orderService.addItem(item);
+            }
+            System.out.println(quantity);
         }
-
+        displayOrder(orderService.getCurrentOrder());
     }
 
-    private void welcomeMenu() {
+    public static void showChangeMenu() {
+    }
+
+    public static void welcomeMenu() {
         header();
         line();
         System.out.printf("%-47s%s%48s%n", "=", "Commands", "=");
         line();
-        String[] menus = {"menu", "order", "change", "delete", "exit"
+        String[] menus = {"order", "change", "remove", "pay", "exit"
         };
         for (String item : menus) {
             System.out.printf("%-2s%-100s%s%n", "=", item, "=");
@@ -116,7 +135,7 @@ public class CashierView {
         line();
     }
 
-    private void showMenu() {
+    public static void showMenu() {
         line();
         System.out.printf("%-46s%s%45s%n", "=", "Menu Makanan", "=");
         line();
@@ -140,41 +159,4 @@ public class CashierView {
         line();
     }
 
-    public void mainMenu(MenuService menuService, OrderService orderService) {
-        this.menuService = menuService;
-        this.orderService = orderService;
-        try {
-            blockMenu:
-            while (true) {
-                clearScr();
-                welcomeMenu();
-                String command = handleInput("Enter command");
-                switch (command) {
-                    case "1":
-                    case "menu":
-                        showMenu();
-                        handleInput();
-                        break;
-                    case "2":
-                    case "order":
-                        showOrderMenu();
-                        handleInput();
-                        break;
-                    case "3":
-                    case "pay":
-                        Thread.sleep(1000);
-                        break;
-                    case "4":
-                    case "exit":
-                        break blockMenu;
-                    default:
-                        System.out.println("Invalid command.");
-                        Thread.sleep(500);
-                        break;
-                }
-            }
-
-        } catch (InterruptedException ignored) {
-        }
-    }
 }

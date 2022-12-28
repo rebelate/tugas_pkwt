@@ -5,6 +5,8 @@ import dev.restaurant.model.Order;
 import dev.restaurant.repository.MenuRepository;
 import dev.restaurant.repository.OrderRepository;
 
+import java.util.List;
+
 public class OrderService extends OrderRepository implements IOrderService {
     private OrderRepository orderRepository;
     private MenuRepository menuRepository;
@@ -15,8 +17,7 @@ public class OrderService extends OrderRepository implements IOrderService {
     }
 
     @Override
-    public void addItem(int menuItemId) {
-        MenuItem menuItem = menuRepository.getById(menuItemId);
+    public void addItem(MenuItem menuItem) {
         Order order = orderRepository.getCurrentOrder();
         order = order.addItem(menuItem);
         orderRepository.updateCurrentOrder(order);
@@ -39,5 +40,9 @@ public class OrderService extends OrderRepository implements IOrderService {
     @Override
     public Order getCurrentOrder() {
         return orderRepository.getCurrentOrder();
+    }
+
+    public List<MenuItem> getCurrentOrderDistinctList() {
+        return orderRepository.getCurrentOrder().items().stream().distinct().toList();
     }
 }

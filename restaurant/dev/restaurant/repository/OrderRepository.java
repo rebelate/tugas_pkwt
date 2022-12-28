@@ -2,8 +2,10 @@ package dev.restaurant.repository;
 
 import dev.restaurant.model.Order;
 
+import java.util.ArrayList;
+
 public class OrderRepository implements IOrderRepository {
-    private Order currentOrder;
+    private Order currentOrder = new Order(new ArrayList<>(),0);
 
     @Override
     public Order getCurrentOrder() {

@@ -28,17 +28,17 @@ public class MenuService implements IMenuService {
                 new MenuItem(8, "Tahu", "makanan", 1500),
                 new MenuItem(9, "Tempe", "makanan", 1500),
 
-                new MenuItem(1, "Teh Manis Panas", "minuman", 3000),
-                new MenuItem(2, "Teh Manis Dingin", "minuman", 3000),
-                new MenuItem(3, "Fanta", "minuman", 5000),
-                new MenuItem(4, "Sprite", "minuman", 5000),
-                new MenuItem(5, "Coca Cola", "minuman", 5000),
-                new MenuItem(6, "Air Mineral", "minuman", 2500),
-                new MenuItem(7, "Kopi Hitam", "makanan", 3000),
+                new MenuItem(10, "Teh Manis Panas", "minuman", 3000),
+                new MenuItem(11, "Teh Manis Dingin", "minuman", 3000),
+                new MenuItem(12, "Fanta", "minuman", 5000),
+                new MenuItem(13, "Sprite", "minuman", 5000),
+                new MenuItem(14, "Coca Cola", "minuman", 5000),
+                new MenuItem(15, "Air Mineral", "minuman", 2500),
+                new MenuItem(16, "Kopi Hitam", "minuman", 3000),
 
-                new MenuItem(1, "(Paket A) Ayam Geprek + Nasi + Es Teh Manis", "paket", 20000),
-                new MenuItem(2, "(Paket B) Ayam Geprek + Nasi + Tahu + Tempe + Es Teh Manis", "paket", 23000),
-                new MenuItem(3, "(Paket C) Ayam Geprek + Nasi + Tahu + Tempe + Sate(Kulit/Usus/Ati Ampela) + Es Teh Manis", "paket", 25000)
+                new MenuItem(17, "(Paket A) Ayam Geprek + Nasi + Es Teh Manis", "paket", 20000),
+                new MenuItem(18, "(Paket B) Ayam Geprek + Nasi + Tahu + Tempe + Es Teh Manis", "paket", 23000),
+                new MenuItem(19, "(Paket C) Ayam Geprek + Nasi + Tahu + Tempe + Sate(Kulit/Usus/Ati Ampela) + Es Teh Manis", "paket", 25000)
         );
     }
 

@@ -15,9 +15,7 @@ public class MainApplication {
 
         MenuService menuService = new MenuService(menuRepository);
         OrderService orderService = new OrderService(orderRepository, menuRepository);
-        CashierView cashierView = new CashierView();
-        ReceiptView receiptView = new ReceiptView();
-        CashierController cashierController = new CashierController(orderService, menuService, cashierView, receiptView);
+        CashierController cashierController = new CashierController(orderService, menuService);
         cashierController.handleStartCashierApp();
     }
 }
