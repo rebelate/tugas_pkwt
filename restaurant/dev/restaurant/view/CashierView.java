@@ -2,9 +2,9 @@ package dev.restaurant.view;
 
 import dev.restaurant.model.MenuItem;
 import dev.restaurant.model.Order;
+import dev.restaurant.service.MenuService;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class CashierView {
@@ -73,31 +73,27 @@ public class CashierView {
     public void displayOrder(Order order) {
     }
 
-    public void displayMenu(List<MenuItem> menus) {
-        List<MenuItem> makanan = menus.stream().filter(menuItem -> menuItem.type().equals("makanan")).toList();
-        List<MenuItem> minuman = menus.stream().filter(menuItem -> menuItem.type().equals("minuman")).toList();
-        List<MenuItem> paket = menus.stream().filter(menuItem -> menuItem.type().equals("paket")).toList();
-
+    public void displayMenu(MenuService menuService) {
         header();
         line();
         System.out.printf("%-46s%s%45s%n", "=", "Menu Makanan", "=");
         line();
-        for (MenuItem item : makanan) {
-            System.out.printf("%-2s%-3s%-91s%-6s%s%n", "=", item.id(),item.name(),item.price(), "=");
+        for (MenuItem item : menuService.getMakanan()) {
+            System.out.printf("%-2s%-3s%-91s%-6s%s%n", "=", item.id(), item.name(), item.price(), "=");
         }
         line();
 
         System.out.printf("%-45s%s%46s%n", "=", "Menu Minuman", "=");
         line();
-        for (MenuItem item : minuman) {
-            System.out.printf("%-2s%-3s%-92s%s%2s%n", "=", item.id(),item.name(),item.price(), "=");
+        for (MenuItem item : menuService.getMinuman()) {
+            System.out.printf("%-2s%-3s%-92s%s%2s%n", "=", item.id(), item.name(), item.price(), "=");
         }
         line();
 
         System.out.printf("%-46s%s%47s%n", "=", "Menu Paket", "=");
         line();
-        for (MenuItem item : paket) {
-            System.out.printf("%-2s%-3s%-91s%s%2s%n", "=", item.id(),item.name(),item.price(), "=");
+        for (MenuItem item : menuService.getPaket()) {
+            System.out.printf("%-2s%-3s%-91s%s%2s%n", "=", item.id(), item.name(), item.price(), "=");
         }
         line();
     }

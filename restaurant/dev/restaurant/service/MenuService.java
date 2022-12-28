@@ -84,4 +84,16 @@ public class MenuService implements IMenuService {
     public List<MenuItem> getAll() {
         return menuRepository.getAll();
     }
+
+    public List<MenuItem> getMakanan() {
+        return menuRepository.getAll().stream().filter(menuItem -> menuItem.type().equals("makanan")).toList();
+    }
+
+    public List<MenuItem> getMinuman() {
+        return menuRepository.getAll().stream().filter(menuItem -> menuItem.type().equals("minuman")).toList();
+    }
+
+    public List<MenuItem> getPaket() {
+        return menuRepository.getAll().stream().filter(menuItem -> menuItem.type().equals("paket")).toList();
+    }
 }

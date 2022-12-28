@@ -7,20 +7,11 @@ import dev.restaurant.service.OrderService;
 import dev.restaurant.view.CashierView;
 import dev.restaurant.view.ReceiptView;
 
-import java.util.List;
-
-public class CashierController {
-    private OrderService orderService;
-    private MenuService menuService;
-    private CashierView cashierView;
-    private ReceiptView receiptView;
-
-    public CashierController(OrderService orderService, MenuService menuService, CashierView cashierView, ReceiptView receiptView) {
-        this.orderService = orderService;
-        this.menuService = menuService;
-        this.cashierView = cashierView;
-        this.receiptView = receiptView;
-    }
+public record CashierController(
+        OrderService orderService,
+        MenuService menuService,
+        CashierView cashierView,
+        ReceiptView receiptView) {
 
     public void handleAddItemRequest(int menuItemId) {
         MenuItem menuItem = menuService.getById(menuItemId);
@@ -50,7 +41,6 @@ public class CashierController {
     }
 
     public void handleViewMenuRequest() {
-        List<MenuItem> menus = menuService.getAll();
-        cashierView.displayMenu(menus);
+        cashierView.displayMenu(menuService);
     }
 }
