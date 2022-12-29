@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderService implements IOrderService {
     private final OrderRepository orderRepository;
 
-    public OrderService(OrderRepository orderRepository, MenuRepository menuRepository) {
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

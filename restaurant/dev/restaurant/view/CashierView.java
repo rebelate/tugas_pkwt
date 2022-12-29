@@ -5,6 +5,9 @@ import dev.restaurant.model.MenuItem;
 import dev.restaurant.model.Order;
 import dev.restaurant.utils.Utils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,7 +78,7 @@ public class CashierView {
 
     public static void displayOrder() {
         line();
-        System.out.printf("%-45s%s%45s%n", "=", "Current Order", "=");
+        System.out.printf("%-47s%s%46s%n", "=", "Your Order", "=");
         line();
         List<MenuItem> uniques = controller.getCurrentOrderDistinctList();
         for (int i = 0; i < uniques.size(); i++) {
@@ -94,6 +97,13 @@ public class CashierView {
     public static void showTotalWithTax(int cost) {
         System.out.printf("%-35s%s%s%35s%n", "=", "Total Cost after tax (11%): ",
                 cost, "=");
+    }
+
+    private static String getCurrentDateTime() {
+        ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+        LocalDateTime current = LocalDateTime.now(zoneId);
+        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return current.format(formatted);
     }
 
     public static void showReceipt() {
@@ -122,12 +132,18 @@ public class CashierView {
             System.out.println("Cash is not sufficient");
             handleInput();
         } else {
+            String dateTime = getCurrentDateTime();
             System.out.println("Here's your receipt");
-            System.out.println("Total with tax (11%): " + totalWithTax);
-            System.out.println("Tax (11%): " + Math.round(taxAmount));
-            System.out.println("Total without tax: " + Math.round(cost));
-            System.out.println("Your cash: " + Math.round(cash));
-            System.out.println("Your change: " + Math.round(cash - totalWithTax));
+            header();
+            System.out.printf("%-81s%s%3s%n", "=", dateTime, "=");
+            displayOrder();
+            line();
+            System.out.printf("%-2s%-100s%s%n", "=", "Total with tax (11%): " + totalWithTax, "=");
+            System.out.printf("%-2s%-100s%s%n", "=", "Tax (11%): " + Math.round(taxAmount), "=");
+            System.out.printf("%-2s%-100s%s%n", "=", "Total without tax: " + Math.round(cost), "=");
+            System.out.printf("%-2s%-100s%s%n", "=", "Your cash: " + Math.round(cash), "=");
+            System.out.printf("%-2s%-100s%s%n", "=", "Your change: " + Math.round(cash - totalWithTax), "=");
+            line();
             System.out.println("Thanks for the visit");
             controller.handleClearOrder();
             handleInput();
