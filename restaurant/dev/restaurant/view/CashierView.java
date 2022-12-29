@@ -1,8 +1,7 @@
 package dev.restaurant.view;
 
+import dev.restaurant.controller.CashierController;
 import dev.restaurant.model.MenuItem;
-import dev.restaurant.service.MenuService;
-import dev.restaurant.service.OrderService;
 import dev.restaurant.utils.Utils;
 
 import java.util.ArrayList;
@@ -11,8 +10,7 @@ import java.util.Scanner;
 
 public class CashierView {
     private static final Scanner scanner = new Scanner(System.in);
-    public static MenuService menuService;
-    public static OrderService orderService;
+    public static CashierController controller;
 
     public static void handleInput() {
         scanner.nextLine();
@@ -78,10 +76,10 @@ public class CashierView {
         line();
         System.out.printf("%-45s%s%45s%n", "=", "Current Order", "=");
         line();
-        List<MenuItem> uniques = orderService.getCurrentOrderDistinctList();
+        List<MenuItem> uniques = controller.getCurrentOrderDistinctList();
         for (int i = 0; i < uniques.size(); i++) {
             MenuItem item = uniques.get(i);
-            int count = orderService.orderedItemQuantity(item.id());
+            int count = controller.orderedItemQuantity(item.id());
             System.out.printf("%-2s%-3s%-97s%s%n", "=", i + 1, item.name(), "=");
             System.out.printf("%-5s%s%-96s%s%n", "=", count, " x " + item.price() + ": " + item.price() * count, "=");
         }
@@ -89,13 +87,13 @@ public class CashierView {
 
     public static void showTotal() {
         System.out.printf("%-42s%s%43s%n", "=", "Total Cost: " +
-                orderService.getCurrentOrder().totalCost(), "=");
+                controller.getCurrentOrderCost(), "=");
     }
 
     public static void showOrderMenu() {
         clearScr();
         showMenu();
-        if (!orderService.getCurrentOrder().items().isEmpty()) {
+        if (!controller.isCurrentOrderEmpty()) {
             displayOrder();
             line();
             showTotal();
@@ -103,9 +101,7 @@ public class CashierView {
         line();
         String order = handleInput("Enter your orders (eg: geprek, lele, kopi)");
         if (order.isEmpty()) {
-            if (!orderService.getCurrentOrder().items().isEmpty())
-                System.out.println("Done");
-            else
+            if (controller.isCurrentOrderEmpty())
                 System.out.println("Cancelled");
             handleInput();
             return;
@@ -114,7 +110,7 @@ public class CashierView {
         List<MenuItem> tempOrder = new ArrayList<>();
         for (String item : parsed
         ) {
-            menuService.getAll().stream().filter(menuItem -> {
+            controller.getMenuStream().filter(menuItem -> {
                 boolean bool = false;
                 if (Utils.isContain(menuItem.name().toLowerCase(), item.strip().toLowerCase())) {
                     bool = true;
@@ -133,14 +129,14 @@ public class CashierView {
             int quantity;
             if (input.isBlank()) quantity = 1;
             else quantity = Integer.parseInt(input);
-            orderService.addMultipleItem(item, quantity);
+            controller.addMultipleItem(item, quantity);
             System.out.println(quantity);
         }
         showOrderMenu();
     }
 
     public static void showChangeMenu() {
-        if (!orderService.getCurrentOrder().items().isEmpty()) {
+        if (!controller.isCurrentOrderEmpty()) {
             displayOrder();
             line();
         } else {
@@ -155,15 +151,15 @@ public class CashierView {
             return;
         }
         try {
-            MenuItem item = orderService.getCurrentOrderDistinctList().get(Integer.parseInt(order) - 1);
+            MenuItem item = controller.getDistinctOrderById(Integer.parseInt(order) - 1);
             String input = handleInput("Enter new quantity for " + item.name());
             if (input.isEmpty() || input.equals("0")) {
                 System.out.println("Cancelled");
                 handleInput();
                 return;
             }
-            orderService.removeMultipleItem(item.id());
-            orderService.addMultipleItem(item, Integer.parseInt(input));
+            controller.removeMultipleItem(item.id());
+            controller.addMultipleItem(item, Integer.parseInt(input));
             System.out.println("Updated order for " + item.name());
             handleInput();
         } catch (IndexOutOfBoundsException e) {
@@ -188,21 +184,21 @@ public class CashierView {
         line();
         System.out.printf("%-46s%s%45s%n", "=", "Menu Makanan", "=");
         line();
-        for (MenuItem item : menuService.getMakanan()) {
+        for (MenuItem item : controller.getMakanan()) {
             System.out.printf("%-2s%-3s%-91s%-6s%s%n", "=", item.id(), item.name(), item.price(), "=");
         }
         line();
 
         System.out.printf("%-45s%s%46s%n", "=", "Menu Minuman", "=");
         line();
-        for (MenuItem item : menuService.getMinuman()) {
+        for (MenuItem item : controller.getMinuman()) {
             System.out.printf("%-2s%-3s%-92s%s%2s%n", "=", item.id(), item.name(), item.price(), "=");
         }
         line();
 
         System.out.printf("%-46s%s%47s%n", "=", "Menu Paket", "=");
         line();
-        for (MenuItem item : menuService.getPaket()) {
+        for (MenuItem item : controller.getPaket()) {
             System.out.printf("%-2s%-3s%-91s%s%2s%n", "=", item.id(), item.name(), item.price(), "=");
         }
     }

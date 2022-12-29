@@ -7,9 +7,16 @@ import dev.restaurant.service.OrderService;
 import dev.restaurant.view.CashierView;
 import dev.restaurant.view.ReceiptView;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 public record CashierController(
         OrderService orderService,
         MenuService menuService) {
+
+    public List<MenuItem> handleGetMakanan() {
+        return menuService.getMakanan();
+    }
 
     public void handleAddItemRequest(int menuItemId) {
         MenuItem menuItem = menuService.getById(menuItemId);
@@ -34,8 +41,7 @@ public record CashierController(
     }
 
     public void handleStartCashierApp() {
-        CashierView.menuService = menuService;
-        CashierView.orderService = orderService;
+        CashierView.controller = this;
         try {
             blockMenu:
             while (true) {
@@ -72,5 +78,49 @@ public record CashierController(
         } catch (InterruptedException ignored) {
         }
 
+    }
+
+    public List<MenuItem> getCurrentOrderDistinctList() {
+        return orderService.getCurrentOrderDistinctList();
+    }
+
+    public int orderedItemQuantity(int id) {
+        return orderService.orderedItemQuantity(id);
+    }
+
+    public double getCurrentOrderCost() {
+        return orderService.getCurrentOrder().totalCost();
+    }
+
+    public boolean isCurrentOrderEmpty() {
+        return orderService.getCurrentOrder().items().isEmpty();
+    }
+
+    public Stream<MenuItem> getMenuStream() {
+        return menuService.getAll().stream();
+    }
+
+    public void addMultipleItem(MenuItem item, int quantity) {
+        orderService.addMultipleItem(item, quantity);
+    }
+
+    public MenuItem getDistinctOrderById(int id) {
+        return orderService.getCurrentOrderDistinctList().get(id);
+    }
+
+    public void removeMultipleItem(int id) {
+        orderService.removeMultipleItem(id);
+    }
+
+    public MenuItem[] getMakanan() {
+        return menuService.getMakanan().toArray(MenuItem[]::new);
+    }
+
+    public MenuItem[] getMinuman() {
+        return menuService.getMinuman().toArray(MenuItem[]::new);
+    }
+
+    public MenuItem[] getPaket() {
+        return menuService.getPaket().toArray(MenuItem[]::new);
     }
 }
