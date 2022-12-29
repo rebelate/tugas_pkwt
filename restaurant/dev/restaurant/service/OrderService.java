@@ -29,14 +29,6 @@ public class OrderService implements IOrderService {
         }
     }
 
-    @Override
-    public void removeItem(int menuItemId) {
-        MenuItem menuItem = menuRepository.getById(menuItemId);
-        Order order = orderRepository.getCurrentOrder();
-        order = order.removeItem(menuItem);
-        orderRepository.updateCurrentOrder(order);
-    }
-
     public void removeMultipleItem(int menuItemId) {
         MenuItem menuItem = menuRepository.getById(menuItemId);
         Order order = orderRepository.getCurrentOrder();
@@ -54,7 +46,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public void checkout() {
-        Order order = orderRepository.getCurrentOrder();
         orderRepository.clearCurrentOrder();
     }
 
@@ -65,10 +56,5 @@ public class OrderService implements IOrderService {
 
     public List<MenuItem> getCurrentOrderDistinctList() {
         return orderRepository.getCurrentOrder().items().stream().distinct().toList();
-    }
-
-    @Override
-    public void clearCurrentOrder() {
-        orderRepository.clearCurrentOrder();
     }
 }

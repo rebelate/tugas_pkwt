@@ -13,10 +13,6 @@ public record CashierController(
         OrderService orderService,
         MenuService menuService) {
 
-    public void handleClearOrder() {
-        orderService.clearCurrentOrder();
-    }
-
     public void handleStartCashierApp() {
         CashierView.controller = this;
         try {
@@ -54,7 +50,10 @@ public record CashierController(
 
         } catch (InterruptedException ignored) {
         }
+    }
 
+    public void handleClearOrder() {
+        orderService.checkout();
     }
 
     public List<MenuItem> getCurrentOrderDistinctList() {
