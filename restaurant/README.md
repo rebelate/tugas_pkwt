@@ -24,3 +24,5 @@
 |   +-- CashierView.java
 |   +-- ReceiptView.java
 ```
+
+**Warning**: Some methods are not optimized (obviously) since this is only prototype
