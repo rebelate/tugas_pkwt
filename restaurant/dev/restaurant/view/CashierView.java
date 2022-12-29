@@ -2,6 +2,7 @@ package dev.restaurant.view;
 
 import dev.restaurant.controller.CashierController;
 import dev.restaurant.model.MenuItem;
+import dev.restaurant.model.Order;
 import dev.restaurant.utils.Utils;
 
 import java.util.ArrayList;
@@ -85,25 +86,66 @@ public class CashierView {
         }
     }
 
-    public static void showTotal() {
+    public static void showTotal(int cost) {
         System.out.printf("%-42s%s%43s%n", "=", "Total Cost: " +
-                controller.getCurrentOrderCost(), "=");
+                cost, "=");
+    }
+
+    public static void showTotalWithTax(int cost) {
+        System.out.printf("%-35s%s%s%35s%n", "=", "Total Cost after tax (11%): ",
+                cost, "=");
+    }
+
+    public static void showReceipt() {
+        Order order = controller.getCurrentOrder();
+        if (controller.isCurrentOrderEmpty()) {
+            System.out.println("You haven't ordered anything");
+            handleInput();
+            return;
+        }
+        double cost = order.totalCost();
+        double tax = 0.11f;
+        double taxAmount = cost * tax;
+        int totalWithTax = (int) Math.round(cost + taxAmount);
+        displayOrder();
+        line();
+        showTotalWithTax(totalWithTax);
+        line();
+        String input = handleInput("Enter Cash");
+        if (input.isBlank()) {
+            System.out.println("Cancelled");
+            handleInput();
+            return;
+        }
+        double cash = Double.parseDouble(input);
+        if (cash < totalWithTax) {
+            System.out.println("Cash is not sufficient");
+            handleInput();
+        } else {
+            System.out.println("Here's your receipt");
+            System.out.println("Total with tax (11%): " + totalWithTax);
+            System.out.println("Tax (11%): " + Math.round(taxAmount));
+            System.out.println("Total without tax: " + Math.round(cost));
+            System.out.println("Your cash: " + Math.round(cash));
+            System.out.println("Your change: " + Math.round(cash - totalWithTax));
+            System.out.println("Thanks for the visit");
+            controller.handleClearOrder();
+            handleInput();
+        }
     }
 
     public static void showOrderMenu() {
-        clearScr();
         showMenu();
         if (!controller.isCurrentOrderEmpty()) {
             displayOrder();
             line();
-            showTotal();
+            showTotal((int) Math.round(controller.getCurrentOrderCost()));
         }
         line();
         String order = handleInput("Enter your orders (eg: geprek, lele, kopi)");
-        if (order.isEmpty()) {
+        if (order.isBlank()) {
             if (controller.isCurrentOrderEmpty())
                 System.out.println("Cancelled");
-            handleInput();
             return;
         }
         String[] parsed = order.split(",");
@@ -132,20 +174,21 @@ public class CashierView {
             controller.addMultipleItem(item, quantity);
             System.out.println(quantity);
         }
+        clearScr();
         showOrderMenu();
     }
 
     public static void showChangeMenu() {
-        if (!controller.isCurrentOrderEmpty()) {
-            displayOrder();
-            line();
-        } else {
+        if (controller.isCurrentOrderEmpty()) {
             System.out.println("You haven't ordered anything");
             handleInput();
             return;
+        } else {
+            displayOrder();
+            line();
         }
         String order = handleInput("Order id that you want to change (eg: 2)");
-        if (order.isEmpty()) {
+        if (order.isBlank()) {
             System.out.println("Cancelled");
             handleInput();
             return;
@@ -153,17 +196,24 @@ public class CashierView {
         try {
             MenuItem item = controller.getDistinctOrderById(Integer.parseInt(order) - 1);
             String input = handleInput("Enter new quantity for " + item.name());
-            if (input.isEmpty() || input.equals("0")) {
+            if (input.isBlank()) {
                 System.out.println("Cancelled");
                 handleInput();
                 return;
             }
             controller.removeMultipleItem(item.id());
-            controller.addMultipleItem(item, Integer.parseInt(input));
+            int quantity = Integer.parseInt(input);
+            if (quantity == 0) {
+                System.out.println("Deleted order for " + item.name());
+                handleInput();
+                return;
+            }
+            controller.addMultipleItem(item, quantity);
             System.out.println("Updated order for " + item.name());
             handleInput();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No matching order");
+            handleInput();
         }
     }
 
@@ -172,7 +222,7 @@ public class CashierView {
         line();
         System.out.printf("%-47s%s%48s%n", "=", "Commands", "=");
         line();
-        String[] menus = {"order", "change", "remove", "pay", "exit"
+        String[] menus = {"order", "change", "pay", "clear", "exit"
         };
         for (String item : menus) {
             System.out.printf("%-2s%-100s%s%n", "=", item, "=");
@@ -203,4 +253,16 @@ public class CashierView {
         }
     }
 
+    public static void showClearMenu() {
+        if (controller.isCurrentOrderEmpty()) {
+            System.out.println("You haven't ordered anything");
+            handleInput();
+            return;
+        }
+        if (handleInput("Are you sure?(y|n)", "y", "n").equals("y")) {
+            controller.handleClearOrder();
+            System.out.println("All Order has been cleared");
+        } else System.out.println("Cancelled");
+        handleInput();
+    }
 }

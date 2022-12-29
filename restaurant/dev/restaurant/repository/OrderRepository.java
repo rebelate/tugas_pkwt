@@ -5,7 +5,7 @@ import dev.restaurant.model.Order;
 import java.util.ArrayList;
 
 public class OrderRepository implements IOrderRepository {
-    private Order currentOrder = new Order(new ArrayList<>(),0);
+    private Order currentOrder = new Order(new ArrayList<>(), 0);
 
     @Override
     public Order getCurrentOrder() {
@@ -19,6 +19,6 @@ public class OrderRepository implements IOrderRepository {
 
     @Override
     public void clearCurrentOrder() {
-        currentOrder = null;
+        currentOrder = new Order(new ArrayList<>(), 0);
     }
 }

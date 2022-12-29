@@ -11,4 +11,6 @@ public interface IOrderService {
     void checkout();
 
     Order getCurrentOrder();
+
+    void clearCurrentOrder();
 }

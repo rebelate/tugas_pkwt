@@ -7,9 +7,9 @@ import dev.restaurant.repository.OrderRepository;
 
 import java.util.List;
 
-public class OrderService extends OrderRepository implements IOrderService {
-    private OrderRepository orderRepository;
-    private MenuRepository menuRepository;
+public class OrderService implements IOrderService {
+    private final OrderRepository orderRepository;
+    private final MenuRepository menuRepository;
 
     public OrderService(OrderRepository orderRepository, MenuRepository menuRepository) {
         this.orderRepository = orderRepository;
@@ -67,4 +67,8 @@ public class OrderService extends OrderRepository implements IOrderService {
         return orderRepository.getCurrentOrder().items().stream().distinct().toList();
     }
 
+    @Override
+    public void clearCurrentOrder() {
+        orderRepository.clearCurrentOrder();
+    }
 }

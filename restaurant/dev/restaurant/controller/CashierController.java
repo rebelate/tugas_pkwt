@@ -5,7 +5,6 @@ import dev.restaurant.model.Order;
 import dev.restaurant.service.MenuService;
 import dev.restaurant.service.OrderService;
 import dev.restaurant.view.CashierView;
-import dev.restaurant.view.ReceiptView;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -14,29 +13,7 @@ public record CashierController(
         OrderService orderService,
         MenuService menuService) {
 
-    public List<MenuItem> handleGetMakanan() {
-        return menuService.getMakanan();
-    }
-
-    public void handleAddItemRequest(int menuItemId) {
-        MenuItem menuItem = menuService.getById(menuItemId);
-        Order order = orderService.getCurrentOrder();
-        order = order.addItem(menuItem);
-        orderService.updateCurrentOrder(order);
-        CashierView.displayOrder();
-    }
-
-    public void handleRemoveItemRequest(int menuItemId) {
-        MenuItem menuItem = menuService.getById(menuItemId);
-        Order order = orderService.getCurrentOrder();
-        order = order.removeItem(menuItem);
-        orderService.updateCurrentOrder(order);
-        CashierView.displayOrder();
-    }
-
-    public void handleCheckoutRequest() {
-        Order order = orderService.getCurrentOrder();
-        ReceiptView.displayReceipt(order);
+    public void handleClearOrder() {
         orderService.clearCurrentOrder();
     }
 
@@ -58,12 +35,12 @@ public record CashierController(
                         CashierView.showChangeMenu();
                         break;
                     case "3":
-                    case "remove":
-                        Thread.sleep(1000);
+                    case "pay":
+                        CashierView.showReceipt();
                         break;
                     case "4":
-                    case "pay":
-                        CashierView.handleInput();
+                    case "clear":
+                        CashierView.showClearMenu();
                         break;
                     case "5":
                     case "exit":
@@ -122,5 +99,9 @@ public record CashierController(
 
     public MenuItem[] getPaket() {
         return menuService.getPaket().toArray(MenuItem[]::new);
+    }
+
+    public Order getCurrentOrder() {
+        return orderService.getCurrentOrder();
     }
 }
