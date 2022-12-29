@@ -2,12 +2,16 @@ package dev.restaurant.service;
 
 import dev.restaurant.model.MenuItem;
 import dev.restaurant.model.Order;
-import dev.restaurant.repository.MenuRepository;
 import dev.restaurant.repository.OrderRepository;
+import dev.restaurant.utils.Utils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class OrderService implements IOrderService {
+    private static final String DATA_FILE_NAME = "logs.txt";
     private final OrderRepository orderRepository;
 
     public OrderService(OrderRepository orderRepository) {
@@ -42,7 +46,28 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void checkout() {
+    public void checkout(IOrderService.Status status) {
+        File dataFile = new File(DATA_FILE_NAME);
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException ignored) {
+            }
+        }
+        if (status == IOrderService.Status.ABORTED) return;
+        List<MenuItem> uniques = getCurrentOrderDistinctList();
+        try (FileWriter writer = new FileWriter(DATA_FILE_NAME, true)) {
+            writer.write(Utils.getCurrentDateTime() + "\n");
+            writer.write("======================================\n");
+            for (MenuItem item : uniques) {
+                int count = orderedItemQuantity(item.id());
+                writer.write(item.name() + " " + count + " pcs\n");
+            }
+            writer.write("======================================\n\n\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         orderRepository.clearCurrentOrder();
     }
 

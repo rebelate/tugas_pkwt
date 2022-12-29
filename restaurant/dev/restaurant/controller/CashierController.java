@@ -2,6 +2,7 @@ package dev.restaurant.controller;
 
 import dev.restaurant.model.MenuItem;
 import dev.restaurant.model.Order;
+import dev.restaurant.service.IOrderService;
 import dev.restaurant.service.MenuService;
 import dev.restaurant.service.OrderService;
 import dev.restaurant.view.CashierView;
@@ -52,8 +53,8 @@ public record CashierController(
         }
     }
 
-    public void handleClearOrder() {
-        orderService.checkout();
+    public void handleClearOrder(IOrderService.Status status) {
+        orderService.checkout(status);
     }
 
     public List<MenuItem> getCurrentOrderDistinctList() {

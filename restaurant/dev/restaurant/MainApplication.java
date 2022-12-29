@@ -5,7 +5,6 @@ import dev.restaurant.repository.MenuRepository;
 import dev.restaurant.repository.OrderRepository;
 import dev.restaurant.service.MenuService;
 import dev.restaurant.service.OrderService;
-import dev.restaurant.view.CashierView;
 
 public class MainApplication {
     public static void main(String[] args) {

@@ -3,11 +3,9 @@ package dev.restaurant.view;
 import dev.restaurant.controller.CashierController;
 import dev.restaurant.model.MenuItem;
 import dev.restaurant.model.Order;
+import dev.restaurant.service.IOrderService.Status;
 import dev.restaurant.utils.Utils;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -90,20 +88,13 @@ public class CashierView {
     }
 
     public static void showTotal(int cost) {
-        System.out.printf("%-42s%s%43s%n", "=", "Total Cost: " +
+        System.out.printf("%-42s%-60s%s%n", "=", "Total Cost: " +
                 cost, "=");
     }
 
     public static void showTotalWithTax(int cost) {
-        System.out.printf("%-35s%s%s%35s%n", "=", "Total Cost after tax (11%): ",
+        System.out.printf("%-35s%-67s%s%n", "=", "Total Cost after tax (11%): " +
                 cost, "=");
-    }
-
-    private static String getCurrentDateTime() {
-        ZoneId zoneId = ZoneId.of("Asia/Jakarta");
-        LocalDateTime current = LocalDateTime.now(zoneId);
-        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        return current.format(formatted);
     }
 
     public static void showReceipt() {
@@ -132,7 +123,7 @@ public class CashierView {
             System.out.println("Cash is not sufficient");
             handleInput();
         } else {
-            String dateTime = getCurrentDateTime();
+            String dateTime = Utils.getCurrentDateTime();
             System.out.println("Here's your receipt");
             header();
             System.out.printf("%-81s%s%3s%n", "=", dateTime, "=");
@@ -145,7 +136,7 @@ public class CashierView {
             System.out.printf("%-2s%-100s%s%n", "=", "Your change: " + Math.round(cash - totalWithTax), "=");
             line();
             System.out.println("Thanks for the visit");
-            controller.handleClearOrder();
+            controller.handleClearOrder(Status.SUCCESS);
             handleInput();
         }
     }
@@ -276,7 +267,7 @@ public class CashierView {
             return;
         }
         if (handleInput("Are you sure?(y|n)", "y", "n").equals("y")) {
-            controller.handleClearOrder();
+            controller.handleClearOrder(Status.ABORTED);
             System.out.println("All Order has been cleared");
         } else System.out.println("Cancelled");
         handleInput();
