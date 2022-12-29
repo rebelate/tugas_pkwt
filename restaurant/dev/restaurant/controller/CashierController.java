@@ -76,7 +76,7 @@ public record CashierController(
         return menuService.getAll().stream();
     }
 
-    public void addMultipleItem(MenuItem item, int quantity) {
+    public void addOrder(MenuItem item, int quantity) {
         orderService.addMultipleItem(item, quantity);
     }
 
@@ -84,8 +84,8 @@ public record CashierController(
         return orderService.getCurrentOrderDistinctList().get(id);
     }
 
-    public void removeMultipleItem(int id) {
-        orderService.removeMultipleItem(id);
+    public void removeOrder(MenuItem item) {
+        orderService.removeMultipleItem(item);
     }
 
     public MenuItem[] getMakanan() {

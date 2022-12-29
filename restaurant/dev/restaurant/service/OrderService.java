@@ -9,11 +9,9 @@ import java.util.List;
 
 public class OrderService implements IOrderService {
     private final OrderRepository orderRepository;
-    private final MenuRepository menuRepository;
 
     public OrderService(OrderRepository orderRepository, MenuRepository menuRepository) {
         this.orderRepository = orderRepository;
-        this.menuRepository = menuRepository;
     }
 
     @Override
@@ -29,12 +27,11 @@ public class OrderService implements IOrderService {
         }
     }
 
-    public void removeMultipleItem(int menuItemId) {
-        MenuItem menuItem = menuRepository.getById(menuItemId);
+    public void removeMultipleItem(MenuItem item) {
         Order order = orderRepository.getCurrentOrder();
 
-        for (int i = 0; i < orderedItemQuantity(menuItemId); i++) {
-            order = order.removeItem(menuItem);
+        for (int i = 0; i < orderedItemQuantity(item.id()); i++) {
+            order = order.removeItem(item);
         }
         orderRepository.updateCurrentOrder(order);
     }

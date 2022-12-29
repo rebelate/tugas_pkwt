@@ -171,7 +171,7 @@ public class CashierView {
             int quantity;
             if (input.isBlank()) quantity = 1;
             else quantity = Integer.parseInt(input);
-            controller.addMultipleItem(item, quantity);
+            controller.addOrder(item, quantity);
             System.out.println(quantity);
         }
         clearScr();
@@ -201,14 +201,14 @@ public class CashierView {
                 handleInput();
                 return;
             }
-            controller.removeMultipleItem(item.id());
+            controller.removeOrder(item);
             int quantity = Integer.parseInt(input);
             if (quantity == 0) {
                 System.out.println("Deleted order for " + item.name());
                 handleInput();
                 return;
             }
-            controller.addMultipleItem(item, quantity);
+            controller.addOrder(item, quantity);
             System.out.println("Updated order for " + item.name());
             handleInput();
         } catch (IndexOutOfBoundsException e) {
