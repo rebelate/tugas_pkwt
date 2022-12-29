@@ -47,27 +47,27 @@ public class OrderService implements IOrderService {
 
     @Override
     public void checkout(IOrderService.Status status) {
-        File dataFile = new File(DATA_FILE_NAME);
-        if (!dataFile.exists()) {
-            try {
-                dataFile.createNewFile();
-            } catch (IOException ignored) {
+        if (status == Status.SUCCESS) {
+            File dataFile = new File(DATA_FILE_NAME);
+            if (!dataFile.exists()) {
+                try {
+                    dataFile.createNewFile();
+                } catch (IOException ignored) {
+                }
+            }
+            List<MenuItem> uniques = getCurrentOrderDistinctList();
+            try (FileWriter writer = new FileWriter(DATA_FILE_NAME, true)) {
+                writer.write(Utils.getCurrentDateTime() + "\n");
+                writer.write("======================================\n");
+                for (MenuItem item : uniques) {
+                    int count = orderedItemQuantity(item.id());
+                    writer.write(item.name() + " " + count + " pcs\n");
+                }
+                writer.write("======================================\n\n\n");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        if (status == IOrderService.Status.ABORTED) return;
-        List<MenuItem> uniques = getCurrentOrderDistinctList();
-        try (FileWriter writer = new FileWriter(DATA_FILE_NAME, true)) {
-            writer.write(Utils.getCurrentDateTime() + "\n");
-            writer.write("======================================\n");
-            for (MenuItem item : uniques) {
-                int count = orderedItemQuantity(item.id());
-                writer.write(item.name() + " " + count + " pcs\n");
-            }
-            writer.write("======================================\n\n\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         orderRepository.clearCurrentOrder();
     }
 
