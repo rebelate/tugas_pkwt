@@ -12,20 +12,20 @@ public class Response extends ResponseEntity<Object> {
         super(data, status);
     }
 
-    public static Response generateResponse(Object data) {
+    public static Response generate(Object data) {
         Map<String, Object> map = new HashMap<>();
         map.put("data", data);
         return new Response(map, HttpStatus.OK);
     }
 
-    public static Response generateResponse(Object data, String message) {
+    public static Response generate(Object data, String message) {
         Map<String, Object> map = new HashMap<>();
         map.put("data", data);
         map.put("message", message);
         return new Response(map, HttpStatus.OK);
     }
 
-    public static Response generateResponse(HttpStatus status, String message) {
+    public static Response generate(HttpStatus status, String message) {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
         return new Response(map, status);

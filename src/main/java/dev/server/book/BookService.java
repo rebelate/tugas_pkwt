@@ -18,16 +18,16 @@ public class BookService implements IBookService {
 
     @Override
     public Response getBooks() {
-        return Response.generateResponse(bookRepository.findAll());
+        return Response.generate(bookRepository.findAll());
     }
 
     @Override
     public Response getBookById(Long bookId) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isEmpty()) {
-            return Response.generateResponse(HttpStatus.BAD_REQUEST, "Book does not exist");
+            return Response.generate(HttpStatus.BAD_REQUEST, "Book does not exist");
         }
-        return Response.generateResponse(optionalBook.get());
+        return Response.generate(optionalBook.get());
     }
 
     @Override
@@ -37,9 +37,9 @@ public class BookService implements IBookService {
             var book = new Book(bookDto.title(), bookDto.author(), bookDto.publisher(), bookDto.description());
             var savedBook = bookRepository.save(book);
             Logger.info("[BOOK]: CREATED NEW BOOK WITH ID " + savedBook.getId());
-            return Response.generateResponse(savedBook, "book created successfully");
+            return Response.generate(savedBook, "book created successfully");
         } else
-            return Response.generateResponse(HttpStatus.BAD_REQUEST, "failed to create new book");
+            return Response.generate(HttpStatus.BAD_REQUEST, "failed to create new book");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class BookService implements IBookService {
             book.setDescription(bookDto.description());
         }
         Logger.info("UPDATED BOOK WITH ID " + book.getId());
-        return book;
+        return bookRepository.save(book);
     }
 
     @Override
