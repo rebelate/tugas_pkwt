@@ -9,7 +9,7 @@ public interface IBookService {
 
     Response createBook(BookDto bookDto);
 
-    Book updateBookById(Long bookId, BookDto bookDto);
+    Response updateBookById(Long bookId, BookDto bookDto);
 
-    String deleteBookById(Long bookId);
+    Response deleteBookById(Long bookId);
 }

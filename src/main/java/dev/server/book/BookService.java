@@ -1,16 +1,20 @@
 package dev.server.book;
 
 import dev.server.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.tinylog.Logger;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 
 @Service
 public class BookService implements IBookService {
     private final BookRepository bookRepository;
+    private static final String NOT_EXIST = "Book does not exist";
+    private static final String CREATE_FAILED = "Failed creating new book";
+
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -25,7 +29,7 @@ public class BookService implements IBookService {
     public Response getBookById(Long bookId) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isEmpty()) {
-            return Response.generate(HttpStatus.BAD_REQUEST, "Book does not exist");
+            return Response.generate(BAD_REQUEST, NOT_EXIST);
         }
         return Response.generate(optionalBook.get());
     }
@@ -39,13 +43,16 @@ public class BookService implements IBookService {
             Logger.info("[BOOK]: CREATED NEW BOOK WITH ID " + savedBook.getId());
             return Response.generate(savedBook, "book created successfully");
         } else
-            return Response.generate(HttpStatus.BAD_REQUEST, "failed to create new book");
+            return Response.generate(BAD_REQUEST, CREATE_FAILED);
     }
 
     @Override
-    public Book updateBookById(Long bookId, BookDto bookDto) {
-        var book = bookRepository.findById(bookId).orElseThrow(() ->
-                new IllegalStateException("Book does not exist"));
+    public Response updateBookById(Long bookId, BookDto bookDto) {
+        var optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isEmpty()) {
+            return Response.generate(BAD_REQUEST, NOT_EXIST);
+        }
+        var book = optionalBook.get();
         if (bookDto.author() != null
         ) {
             book.setAuthor(bookDto.author());
@@ -63,16 +70,17 @@ public class BookService implements IBookService {
             book.setDescription(bookDto.description());
         }
         Logger.info("UPDATED BOOK WITH ID " + book.getId());
-        return bookRepository.save(book);
+        return Response.generate(bookRepository.save(book));
     }
 
     @Override
-    public String deleteBookById(Long bookId) {
+    public Response deleteBookById(Long bookId) {
         var bookExist = bookRepository.existsById(bookId);
         if (bookExist)
             bookRepository.deleteById(bookId);
-        else throw new IllegalStateException("Book does not exist");
+        else
+            return Response.generate(BAD_REQUEST, NOT_EXIST);
         Logger.info("DELETED BOOK WITH ID " + bookId);
-        return String.format("id %s deleted", bookId);
+        return Response.generate(String.format("id %s deleted", bookId));
     }
 }

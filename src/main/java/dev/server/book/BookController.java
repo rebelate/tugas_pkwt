@@ -28,12 +28,12 @@ public class BookController {
     }
 
     @PutMapping("/{bookId}")
-    Book Put(@PathVariable("bookId") Long id, @RequestBody BookDto bookDto) {
+    Response Put(@PathVariable("bookId") Long id, @RequestBody BookDto bookDto) {
         return bookService.updateBookById(id, bookDto);
     }
 
     @DeleteMapping("/{bookId}")
-    String Delete(@PathVariable("bookId") Long id) {
+    Response Delete(@PathVariable("bookId") Long id) {
         return bookService.deleteBookById(id);
     }
 
