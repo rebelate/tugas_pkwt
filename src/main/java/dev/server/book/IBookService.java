@@ -3,7 +3,7 @@ package dev.server.book;
 import dev.server.Response;
 
 public interface IBookService {
-    Response getBooks();
+    Response getBookList();
 
     Response getBookById(Long bookId);
 
@@ -12,4 +12,5 @@ public interface IBookService {
     Response updateBookById(Long bookId, BookDto bookDto);
 
     Response deleteBookById(Long bookId);
+
 }

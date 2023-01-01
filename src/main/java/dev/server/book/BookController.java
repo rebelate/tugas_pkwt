@@ -14,7 +14,7 @@ public class BookController {
 
     @GetMapping
     Response Get() {
-        return bookService.getBooks();
+        return bookService.getBookList();
     }
 
     @PostMapping
@@ -25,6 +25,13 @@ public class BookController {
     @GetMapping("/{bookId}")
     Response Get(@PathVariable("bookId") Long id) {
         return bookService.getBookById(id);
+    }
+
+    @GetMapping("/search")
+    Response Get(@RequestParam(name = "title", required = false) String title,
+                 @RequestParam(name = "author", required = false) String author,
+                 @RequestParam(name = "publisher", required = false) String publisher) {
+        return bookService.findBook(title, author, publisher);
     }
 
     @PutMapping("/{bookId}")

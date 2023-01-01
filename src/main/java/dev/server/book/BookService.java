@@ -1,9 +1,12 @@
 package dev.server.book;
 
 import dev.server.Response;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.tinylog.Logger;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -21,7 +24,7 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Response getBooks() {
+    public Response getBookList() {
         return Response.generate(bookRepository.findAll());
     }
 
@@ -32,6 +35,19 @@ public class BookService implements IBookService {
             return Response.generate(BAD_REQUEST, NOT_EXIST);
         }
         return Response.generate(optionalBook.get());
+    }
+
+    public Response findBook(String title, String author, String publisher) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("title", match -> match.contains().ignoreCase())
+                .withMatcher("author", match -> match.startsWith().ignoreCase())
+                .withMatcher("publisher", match -> match.startsWith().ignoreCase());
+        Book book = new Book();
+        book.setTitle(title).setAuthor(author).setPublisher(publisher);
+        Example<Book> bookExample = Example.of(book, matcher);
+
+        List<Book> bookList = bookRepository.findAll(bookExample);
+        return Response.generate(bookList);
     }
 
     @Override
