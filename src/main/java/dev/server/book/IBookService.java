@@ -1,11 +1,15 @@
 package dev.server.book;
 
-import java.util.List;
+import dev.server.Response;
 
 public interface IBookService {
-    List<Book> getBooks();
+    Response getBooks();
 
-    Book getBookById(Long bookId);
+    Response getBookById(Long bookId);
+
+    Response createBook(BookDto bookDto);
 
     Book updateBookById(Long bookId, BookDto bookDto);
+
+    String deleteBookById(Long bookId);
 }

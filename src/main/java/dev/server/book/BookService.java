@@ -1,9 +1,12 @@
 package dev.server.book;
 
-import jakarta.transaction.Transactional;
+import dev.server.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.tinylog.Logger;
 
-import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class BookService implements IBookService {
@@ -14,36 +17,62 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
+    public Response getBooks() {
+        return Response.generateResponse(bookRepository.findAll());
     }
 
     @Override
-    public Book getBookById(Long bookId) {
-        return bookRepository.findById(bookId).orElseThrow(() -> new IllegalStateException("Book not found"));
+    public Response getBookById(Long bookId) {
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isEmpty()) {
+            return Response.generateResponse(HttpStatus.BAD_REQUEST, "Book does not exist");
+        }
+        return Response.generateResponse(optionalBook.get());
     }
 
     @Override
-    @Transactional
+    public Response createBook(BookDto bookDto) {
+        if (bookDto.author() != null && bookDto.title() != null && bookDto.publisher() != null && bookDto.description() != null
+        ) {
+            var book = new Book(bookDto.title(), bookDto.author(), bookDto.publisher(), bookDto.description());
+            var savedBook = bookRepository.save(book);
+            Logger.info("[BOOK]: CREATED NEW BOOK WITH ID " + savedBook.getId());
+            return Response.generateResponse(savedBook, "book created successfully");
+        } else
+            return Response.generateResponse(HttpStatus.BAD_REQUEST, "failed to create new book");
+    }
+
+    @Override
     public Book updateBookById(Long bookId, BookDto bookDto) {
-        Book requestedBook = bookRepository.findById(bookId).orElseThrow(() ->
-                new IllegalStateException("Book not found"));
+        var book = bookRepository.findById(bookId).orElseThrow(() ->
+                new IllegalStateException("Book does not exist"));
         if (bookDto.author() != null
         ) {
-            requestedBook.setAuthor(bookDto.author());
+            book.setAuthor(bookDto.author());
         }
         if (bookDto.title() != null
         ) {
-            requestedBook.setTitle(bookDto.title());
+            book.setTitle(bookDto.title());
         }
         if (bookDto.publisher() != null
         ) {
-            requestedBook.setPublisher(bookDto.publisher());
+            book.setPublisher(bookDto.publisher());
         }
         if (bookDto.description() != null
         ) {
-            requestedBook.setDescription(bookDto.description());
+            book.setDescription(bookDto.description());
         }
-        return requestedBook;
+        Logger.info("UPDATED BOOK WITH ID " + book.getId());
+        return book;
+    }
+
+    @Override
+    public String deleteBookById(Long bookId) {
+        var bookExist = bookRepository.existsById(bookId);
+        if (bookExist)
+            bookRepository.deleteById(bookId);
+        else throw new IllegalStateException("Book does not exist");
+        Logger.info("DELETED BOOK WITH ID " + bookId);
+        return String.format("id %s deleted", bookId);
     }
 }
