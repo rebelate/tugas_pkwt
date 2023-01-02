@@ -1,6 +1,5 @@
-package dev.server.user;
+package dev.server.entity;
 
-import dev.server.book.Book;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -24,12 +23,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "borrowed_books",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private Set<Book> borrowedBooks;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "borrowed_books",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id"))
+//    private Set<Book> borrowedBooks;
 
     public User() {
     }
@@ -39,7 +38,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.borrowedBooks = borrowedBooks;
+//        this.borrowedBooks = borrowedBooks;
     }
 
     public Long getId() {
@@ -87,12 +86,12 @@ public class User {
         return this;
     }
 
-    public Set<Book> getBorrowedBooks() {
-        return borrowedBooks;
-    }
-
-    public User setBorrowedBooks(Set<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
-        return this;
-    }
+//    public Set<Book> getBorrowedBooks() {
+//        return borrowedBooks;
+//    }
+//
+//    public User setBorrowedBooks(Set<Book> borrowedBooks) {
+//        this.borrowedBooks = borrowedBooks;
+//        return this;
+//    }
 }

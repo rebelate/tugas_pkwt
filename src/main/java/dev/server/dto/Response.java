@@ -1,4 +1,4 @@
-package dev.server;
+package dev.server.dto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class Response extends ResponseEntity<Object> {
         return new Response(map, HttpStatus.OK);
     }
 
-    public static Response generate(Object data, String message) {
+    public static Response generate(String message, Object data) {
         Map<String, Object> map = new HashMap<>();
         map.put("data", data);
         map.put("message", message);

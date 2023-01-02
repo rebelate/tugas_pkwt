@@ -1,6 +1,7 @@
-package dev.server.book;
+package dev.server.service;
 
-import dev.server.Response;
+import dev.server.dto.Response;
+import dev.server.dto.BookDto;
 
 public interface IBookService {
     Response getBookList();

@@ -1,11 +1,6 @@
-package dev.server.book;
+package dev.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.server.user.User;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table
@@ -23,11 +18,11 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "borrowedBooks")
-    private Set<User> users = new HashSet<>();
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "category_fk",referencedColumnName = "id")
+    private Category category;
 
-    protected Book() {
+    public Book() {
     }
 
     public Book(String title, String author, String publisher, String description) {
@@ -35,6 +30,14 @@ public class Book {
         this.author = author;
         this.publisher = publisher;
         this.description = description;
+    }
+
+    public Book(String title, String author, String publisher, String description, Category category) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.description = description;
+        this.category = category;
     }
 
     public Long getId() {
@@ -82,12 +85,12 @@ public class Book {
         return this;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Category getCategory() {
+        return category;
     }
 
-    public Book setUsers(Set<User> users) {
-        this.users = users;
+    public Book setCategory(Category category) {
+        this.category = category;
         return this;
     }
 }

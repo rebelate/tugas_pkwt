@@ -1,6 +1,8 @@
-package dev.server.book;
+package dev.server.controller;
 
-import dev.server.Response;
+import dev.server.service.BookService;
+import dev.server.dto.Response;
+import dev.server.dto.BookDto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

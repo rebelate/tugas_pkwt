@@ -1,5 +1,6 @@
-package dev.server.book;
+package dev.server.repository;
 
+import dev.server.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
