@@ -1,10 +1,11 @@
 package dev.server.book;
 
 import dev.server.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.tinylog.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Service
 public class BookService implements IBookService {
     private final BookRepository bookRepository;
+    Logger logger = LoggerFactory.getLogger("Book Service");
     private static final String NOT_EXIST = "Book does not exist";
     private static final String CREATE_FAILED = "Failed creating new book";
 
@@ -56,7 +58,7 @@ public class BookService implements IBookService {
         ) {
             var book = new Book(bookDto.title(), bookDto.author(), bookDto.publisher(), bookDto.description());
             var savedBook = bookRepository.save(book);
-            Logger.info("[BOOK]: CREATED NEW BOOK WITH ID " + savedBook.getId());
+            logger.info("CREATED NEW BOOK WITH ID " + savedBook.getId());
             return Response.generate(savedBook, "book created successfully");
         } else
             return Response.generate(BAD_REQUEST, CREATE_FAILED);
@@ -85,7 +87,7 @@ public class BookService implements IBookService {
         ) {
             book.setDescription(bookDto.description());
         }
-        Logger.info("UPDATED BOOK WITH ID " + book.getId());
+        logger.info("UPDATED BOOK WITH ID " + book.getId());
         return Response.generate(bookRepository.save(book));
     }
 
@@ -96,7 +98,8 @@ public class BookService implements IBookService {
             bookRepository.deleteById(bookId);
         else
             return Response.generate(BAD_REQUEST, NOT_EXIST);
-        Logger.info("DELETED BOOK WITH ID " + bookId);
+        logger.info("DELETED BOOK WITH ID " + bookId);
         return Response.generate(String.format("id %s deleted", bookId));
     }
+
 }

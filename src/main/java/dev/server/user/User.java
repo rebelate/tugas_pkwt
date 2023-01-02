@@ -1,25 +1,46 @@
 package dev.server.user;
 
+import dev.server.book.Book;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "borrowed_books",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private Set<Book> borrowedBooks;
+
+    public User() {
+    }
+
+    public User(String username, String name, String email, String password, Set<Book> borrowedBooks) {
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.borrowedBooks = borrowedBooks;
+    }
 
     public Long getId() {
         return id;
@@ -63,6 +84,15 @@ public class User {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Set<Book> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public User setBorrowedBooks(Set<Book> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
         return this;
     }
 }

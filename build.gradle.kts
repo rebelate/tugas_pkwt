@@ -17,8 +17,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	implementation("org.tinylog:tinylog-api:2.5.0")
-	implementation("org.tinylog:tinylog-impl:2.5.0")
 }
 
 tasks.withType<Test> {
