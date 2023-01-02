@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Configuration
@@ -25,18 +24,19 @@ public class AppConfig {
     CommandLineRunner commandLineRunner(UserRepository userRepository, CategoryRepository categoryRepository, BookRepository bookRepository) {
         return _args -> {
             var novel = new Category("novel");
+            var cs = new Category("computer science");
             Category savedNovel = categoryRepository.save(novel);
+            Category savedCS = categoryRepository.save(cs);
 
-            Book webGL = new Book("Khronos", "Khronos", "Advanced Shader WebGL", "");
+            Book webGL = new Book("Khronos", "Khronos", "Advanced Shader WebGL", "", savedCS);
             Book dilan = new Book("Dilan 1990", "Marijn Haverbeke", "Ipsum", "", savedNovel);
-            Book rn = new Book("React Native", "Meta", "Meta", "");
-            var savedBooks = bookRepository.saveAll(List.of(webGL, dilan, rn));
+            Book rn = new Book("React Native", "Meta", "Meta", "", savedCS);
+            bookRepository.saveAll(List.of(webGL, dilan, rn));
 
-            var borrowed = new HashSet<Book>();
-            borrowed.add(savedBooks.get(0));
-            borrowed.add(savedBooks.get(1));
-            User user = new User("admin", "admin", "admin@example.com", "12345", borrowed);
-            userRepository.save(user);
+            User user1 = new User("admin", "admin", "admin@example.com", "12345");
+            User user2 = new User("foo", "foo", "foo@example.com", "12345");
+            User user3 = new User("bar", "bar", "bar@example.com", "12345");
+            userRepository.saveAll(List.of(user1, user2, user3));
             logger.info("Config executed successfully");
         };
     }

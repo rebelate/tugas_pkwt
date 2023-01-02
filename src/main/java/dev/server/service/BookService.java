@@ -1,10 +1,10 @@
 package dev.server.service;
 
-import dev.server.dto.Response;
-import dev.server.repository.CategoryRepository;
 import dev.server.dto.BookDto;
+import dev.server.dto.Response;
 import dev.server.entity.Book;
 import dev.server.repository.BookRepository;
+import dev.server.repository.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -26,6 +24,7 @@ public class BookService implements IBookService {
     private static final String BOOK_NOT_EXIST = "Book does not exist";
     private static final String CATEGORY_NOT_EXIST = "Category does not exist";
     private static final String CREATE_FAILED = "Failed creating new book";
+    private static final String CREATE_SUCCESS = "Book created successfully";
 
 
     public BookService(BookRepository bookRepository, CategoryRepository categoryRepository) {
@@ -83,7 +82,7 @@ public class BookService implements IBookService {
         if (errors.isEmpty()) {
             var savedBook = bookRepository.save(book);
             logger.info("CREATED NEW BOOK WITH ID " + savedBook.getId());
-            return Response.generate("book created successfully", savedBook);
+            return Response.generate(CREATE_SUCCESS, savedBook);
         } else {
             String parsedErrors
                     = "Need to specify " + errors.toString()
@@ -123,7 +122,7 @@ public class BookService implements IBookService {
             var category = categoryRepository.findById(bookDto.category());
             if (category.isEmpty()) return Response.generate(BAD_REQUEST, CATEGORY_NOT_EXIST);
             book.setCategory(category.get());
-        }else {
+        } else {
             book.setCategory(null);
         }
         logger.info("UPDATED BOOK WITH ID " + book.getId());

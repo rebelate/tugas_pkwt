@@ -1,6 +1,5 @@
 package dev.server.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,16 +9,14 @@ import jakarta.persistence.Id;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @JsonIgnore
     private Integer id;
-
     private String name;
 
     public Category(String name) {
         this.name = name;
     }
 
-    protected Category() {
+    public Category() {
     }
 
     public Integer getId() {

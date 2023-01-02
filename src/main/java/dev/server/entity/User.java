@@ -23,22 +23,17 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "borrowed_books",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "book_id"))
-//    private Set<Book> borrowedBooks;
+    @OneToMany(mappedBy = "user")
+    private Set<BookLoan> bookLoan;
 
     public User() {
     }
 
-    public User(String username, String name, String email, String password, Set<Book> borrowedBooks) {
+    public User(String username, String name, String email, String password) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
-//        this.borrowedBooks = borrowedBooks;
     }
 
     public Long getId() {

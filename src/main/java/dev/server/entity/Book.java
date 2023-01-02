@@ -2,6 +2,8 @@ package dev.server.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table
 public class Book {
@@ -18,8 +20,14 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(columnDefinition = "integer default 1")
+    private int copies;
+
+    @OneToMany(mappedBy = "book")
+    private Set<BookLoan> bookLoan;
+
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "category_fk",referencedColumnName = "id")
+    @JoinColumn(name = "category_fk", referencedColumnName = "id")
     private Category category;
 
     public Book() {
@@ -91,6 +99,15 @@ public class Book {
 
     public Book setCategory(Category category) {
         this.category = category;
+        return this;
+    }
+
+    public int getCopies() {
+        return copies;
+    }
+
+    public Book setCopies(int copies) {
+        this.copies = copies;
         return this;
     }
 }
