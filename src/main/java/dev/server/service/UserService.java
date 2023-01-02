@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -33,7 +31,7 @@ public class UserService implements IUserService {
 
     @Override
     public Response getUserById(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        var optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             return Response.generate(BAD_REQUEST, NOT_EXIST);
         }
@@ -42,7 +40,7 @@ public class UserService implements IUserService {
 
     @Override
     public Response createUser(UserDto userDto) {
-        List<String> errors = new ArrayList<>();
+        var errors = new ArrayList<String>();
         var user = new User();
         if (userDto.username() != null
         ) {

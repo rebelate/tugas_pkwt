@@ -40,7 +40,7 @@ public class BookService implements IBookService {
 
     @Override
     public Response getBookById(Long bookId) {
-        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        var optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isEmpty()) {
             return Response.generate(BAD_REQUEST, BOOK_NOT_EXIST);
         }
@@ -54,15 +54,15 @@ public class BookService implements IBookService {
                 .withMatcher("publisher", match -> match.startsWith().ignoreCase());
         Book book = new Book();
         book.setTitle(title).setAuthor(author).setPublisher(publisher);
-        Example<Book> bookExample = Example.of(book, matcher);
+        var bookExample = Example.of(book, matcher);
 
-        List<Book> bookList = bookRepository.findAll(bookExample);
+        var bookList = bookRepository.findAll(bookExample);
         return Response.generate(bookList);
     }
 
     @Override
     public Response createBook(BookDto bookDto) {
-        List<String> errors = new ArrayList<>();
+        var errors = new ArrayList<String>();
         var book = new Book();
         if (bookDto.author() != null
         ) {
@@ -123,6 +123,8 @@ public class BookService implements IBookService {
             var category = categoryRepository.findById(bookDto.category());
             if (category.isEmpty()) return Response.generate(BAD_REQUEST, CATEGORY_NOT_EXIST);
             book.setCategory(category.get());
+        }else {
+            book.setCategory(null);
         }
         logger.info("UPDATED BOOK WITH ID " + book.getId());
         return Response.generate(bookRepository.save(book));
