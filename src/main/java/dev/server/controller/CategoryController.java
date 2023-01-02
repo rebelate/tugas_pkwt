@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{categoryId}")
-    Response Put(@PathVariable("userId") int id, @RequestBody CategoryDto categoryDto) {
+    Response Put(@PathVariable("categoryId") int id, @RequestBody CategoryDto categoryDto) {
         return userService.updateCategoryById(id, categoryDto);
     }
 

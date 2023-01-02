@@ -14,4 +14,5 @@ public interface IBookService {
 
     Response deleteBookById(Long bookId);
 
+    boolean alreadyExist(String name);
 }

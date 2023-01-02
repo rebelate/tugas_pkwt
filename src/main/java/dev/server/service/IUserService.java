@@ -14,4 +14,5 @@ public interface IUserService {
 
     Response deleteUserById(Long userId);
 
+    boolean alreadyExist(String name);
 }

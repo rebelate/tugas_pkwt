@@ -21,10 +21,13 @@ public class BookService implements IBookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     Logger logger = LoggerFactory.getLogger("Book Service");
+    private static final String BOOK_ALREADY_EXIST = "Book with the same title already exist";
     private static final String BOOK_NOT_EXIST = "Book does not exist";
     private static final String CATEGORY_NOT_EXIST = "Category does not exist";
-    private static final String CREATE_FAILED = "Failed creating new book";
-    private static final String CREATE_SUCCESS = "Book created successfully";
+    private static final String BOOK_CREATE_FAIL = "Failed creating new book";
+    private static final String BOOK_CREATE_SUCCESS = "Book created successfully";
+    private static final String BOOK_UPDATE_SUCCESS = "Book updated successfully";
+    private static final String BOOK_UPDATE_EMPTY = "Nothing updated";
 
 
     public BookService(BookRepository bookRepository, CategoryRepository categoryRepository) {
@@ -61,8 +64,11 @@ public class BookService implements IBookService {
 
     @Override
     public Response createBook(BookDto bookDto) {
+        if (alreadyExist(bookDto.title())) return Response.generate(BAD_REQUEST, BOOK_ALREADY_EXIST);
+
         var errors = new ArrayList<String>();
         var book = new Book();
+
         if (bookDto.author() != null
         ) {
             book.setAuthor(bookDto.author());
@@ -82,7 +88,7 @@ public class BookService implements IBookService {
         if (errors.isEmpty()) {
             var savedBook = bookRepository.save(book);
             logger.info("CREATED NEW BOOK WITH ID " + savedBook.getId());
-            return Response.generate(CREATE_SUCCESS, savedBook);
+            return Response.generate(BOOK_CREATE_SUCCESS, savedBook);
         } else {
             String parsedErrors
                     = "Need to specify " + errors.toString()
@@ -90,16 +96,21 @@ public class BookService implements IBookService {
                     .replace("]", "")
                     .replace(" ", "")
                     .replace(",", ", ");
-            return Response.generate(BAD_REQUEST, CREATE_FAILED + ": " + parsedErrors);
+            return Response.generate(BAD_REQUEST, BOOK_CREATE_FAIL + ": " + parsedErrors);
         }
     }
 
     @Override
     public Response updateBookById(Long bookId, BookDto bookDto) {
+        if (alreadyExist(bookDto.title())) return Response.generate(BAD_REQUEST, BOOK_ALREADY_EXIST);
+
         var optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isEmpty()) {
             return Response.generate(BAD_REQUEST, BOOK_NOT_EXIST);
         }
+        if (bookDto.isEmpty())
+            return Response.generate(BAD_REQUEST, BOOK_UPDATE_EMPTY);
+
         var book = optionalBook.get();
         if (bookDto.author() != null
         ) {
@@ -117,16 +128,16 @@ public class BookService implements IBookService {
         ) {
             book.setDescription(bookDto.description());
         }
-        if (bookDto.category() > 0
+        if (bookDto.category() != null
         ) {
-            var category = categoryRepository.findById(bookDto.category());
+            var category = categoryRepository.findByName(bookDto.category());
             if (category.isEmpty()) return Response.generate(BAD_REQUEST, CATEGORY_NOT_EXIST);
             book.setCategory(category.get());
         } else {
             book.setCategory(null);
         }
         logger.info("UPDATED BOOK WITH ID " + book.getId());
-        return Response.generate(bookRepository.save(book));
+        return Response.generate(BOOK_UPDATE_SUCCESS, bookRepository.save(book));
     }
 
     @Override
@@ -140,4 +151,8 @@ public class BookService implements IBookService {
         return Response.generate(String.format("id %s deleted", bookId));
     }
 
+    @Override
+    public boolean alreadyExist(String name) {
+        return bookRepository.findByTitle(name).isPresent();
+    }
 }

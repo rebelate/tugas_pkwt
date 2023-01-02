@@ -14,4 +14,5 @@ public interface ICategoryService {
 
     Response deleteCategoryById(int categoryId);
 
+    boolean alreadyExist(String name);
 }

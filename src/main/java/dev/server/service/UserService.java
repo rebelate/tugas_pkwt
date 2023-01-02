@@ -16,9 +16,11 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class UserService implements IUserService {
     private final UserRepository userRepository;
     Logger logger = LoggerFactory.getLogger("User Service");
+    private static final String ALREADY_EXIST = "Username already exist";
     private static final String NOT_EXIST = "User does not exist";
-    private static final String CREATE_FAILED = "Failed creating new user";
+    private static final String CREATE_FAIL = "Failed creating new user";
     private static final String CREATE_SUCCESS = "User created successfully";
+    private static final String UPDATE = "User updated successfully";
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -40,6 +42,8 @@ public class UserService implements IUserService {
 
     @Override
     public Response createUser(UserDto userDto) {
+        if (alreadyExist(userDto.username())) return Response.generate(BAD_REQUEST, ALREADY_EXIST);
+
         var errors = new ArrayList<String>();
         var user = new User();
         if (userDto.username() != null
@@ -69,16 +73,19 @@ public class UserService implements IUserService {
                     .replace("]", "")
                     .replace(" ", "")
                     .replace(",", ", ");
-            return Response.generate(BAD_REQUEST, CREATE_FAILED + ": " + parsedErrors);
+            return Response.generate(BAD_REQUEST, CREATE_FAIL + ": " + parsedErrors);
         }
     }
 
     @Override
     public Response updateUserById(Long userId, UserDto userDto) {
+        if (alreadyExist(userDto.username())) return Response.generate(BAD_REQUEST, ALREADY_EXIST);
+
         var optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             return Response.generate(BAD_REQUEST, NOT_EXIST);
         }
+
         var user = optionalUser.get();
         if (userDto.username() != null
         ) {
@@ -97,7 +104,7 @@ public class UserService implements IUserService {
             user.setPassword(userDto.password());
         }
         logger.info("UPDATED BOOK WITH ID " + user.getId());
-        return Response.generate(userRepository.save(user));
+        return Response.generate(UPDATE, userRepository.save(user));
     }
 
     @Override
@@ -109,5 +116,10 @@ public class UserService implements IUserService {
             return Response.generate(BAD_REQUEST, NOT_EXIST);
         logger.info("DELETED USER WITH ID " + userId);
         return Response.generate(String.format("id %s deleted", userId));
+    }
+
+    @Override
+    public boolean alreadyExist(String name) {
+        return userRepository.findByUsername(name).isPresent();
     }
 }
