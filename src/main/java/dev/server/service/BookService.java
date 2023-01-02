@@ -22,7 +22,7 @@ public class BookService implements IBookService {
     private final CategoryRepository categoryRepository;
     Logger logger = LoggerFactory.getLogger("Book Service");
     private static final String BOOK_ALREADY_EXIST = "Book with the same title already exist";
-    private static final String BOOK_NOT_EXIST = "Book does not exist";
+    static final String BOOK_NOT_EXIST = "Book does not exist";
     private static final String CATEGORY_NOT_EXIST = "Category does not exist";
     private static final String BOOK_CREATE_FAIL = "Failed creating new book";
     private static final String BOOK_CREATE_SUCCESS = "Book created successfully";

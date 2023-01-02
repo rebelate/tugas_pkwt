@@ -19,9 +19,7 @@ public class Book {
 
     @Column(columnDefinition = "TEXT")
     private String description;
-
-    @Column(columnDefinition = "integer default 1")
-    private int copies;
+    private int copies = 1;
 
     @OneToMany(mappedBy = "book")
     private Set<BookLoan> bookLoan;
@@ -46,6 +44,16 @@ public class Book {
         this.publisher = publisher;
         this.description = description;
         this.category = category;
+    }
+
+    public Book loanBook() {
+        copies = copies - 1;
+        return this;
+    }
+
+    public Book returnBook() {
+        copies = copies + 1;
+        return this;
     }
 
     public Long getId() {

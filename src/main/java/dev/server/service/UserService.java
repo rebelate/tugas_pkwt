@@ -17,7 +17,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     Logger logger = LoggerFactory.getLogger("User Service");
     private static final String ALREADY_EXIST = "Username already exist";
-    private static final String NOT_EXIST = "User does not exist";
+    static final String USER_NOT_EXIST = "User does not exist";
     private static final String CREATE_FAIL = "Failed creating new user";
     private static final String CREATE_SUCCESS = "User created successfully";
     private static final String UPDATE = "User updated successfully";
@@ -35,7 +35,7 @@ public class UserService implements IUserService {
     public Response getUserById(Long userId) {
         var optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
-            return Response.generate(BAD_REQUEST, NOT_EXIST);
+            return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
         }
         return Response.generate(optionalUser.get());
     }
@@ -83,7 +83,7 @@ public class UserService implements IUserService {
 
         var optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
-            return Response.generate(BAD_REQUEST, NOT_EXIST);
+            return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
         }
 
         var user = optionalUser.get();
@@ -113,7 +113,7 @@ public class UserService implements IUserService {
         if (bookExist)
             userRepository.deleteById(userId);
         else
-            return Response.generate(BAD_REQUEST, NOT_EXIST);
+            return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
         logger.info("DELETED USER WITH ID " + userId);
         return Response.generate(String.format("id %s deleted", userId));
     }
