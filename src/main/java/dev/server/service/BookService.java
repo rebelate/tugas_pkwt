@@ -3,8 +3,10 @@ package dev.server.service;
 import dev.server.dto.BookDto;
 import dev.server.dto.Response;
 import dev.server.entity.Book;
+import dev.server.repository.BookLoanRepository;
 import dev.server.repository.BookRepository;
 import dev.server.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
@@ -19,6 +21,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Service
 public class BookService implements IBookService {
     private final BookRepository bookRepository;
+    private final BookLoanRepository bookLoanRepository;
     private final CategoryRepository categoryRepository;
     Logger logger = LoggerFactory.getLogger("Book Service");
     private static final String BOOK_ALREADY_EXIST = "Book with the same title already exist";
@@ -30,8 +33,9 @@ public class BookService implements IBookService {
     private static final String BOOK_UPDATE_EMPTY = "Nothing updated";
 
 
-    public BookService(BookRepository bookRepository, CategoryRepository categoryRepository) {
+    public BookService(BookRepository bookRepository, BookLoanRepository bookLoanRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.bookLoanRepository = bookLoanRepository;
         this.categoryRepository = categoryRepository;
     }
 
@@ -142,11 +146,12 @@ public class BookService implements IBookService {
 
     @Override
     public Response deleteBookById(Long bookId) {
-        var bookExist = bookRepository.existsById(bookId);
-        if (bookExist)
+        var optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isPresent()) {
+            var book = optionalBook.get();
+            if (bookLoanRepository.existsByBook(book)) bookLoanRepository.deleteByBook(book);
             bookRepository.deleteById(bookId);
-        else
-            return Response.generate(BAD_REQUEST, BOOK_NOT_EXIST);
+        } else return Response.generate(BAD_REQUEST, BOOK_NOT_EXIST);
         logger.info("DELETED BOOK WITH ID " + bookId);
         return Response.generate(String.format("id %s deleted", bookId));
     }

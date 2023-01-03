@@ -26,6 +26,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class BookLoanService {
     private static final String NOT_EXIST = "Book loan does not exist";
     private static final String NO_COPIES = "Book is not available to loan at the moment";
+    private static final String BOOK_LOAN_CREATE = "Book loan created successfully";
     private final BookLoanRepository bookLoanRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
@@ -70,7 +71,7 @@ public class BookLoanService {
         LocalDate localDate = LocalDate.now(ZoneId.of("Asia/Jakarta"));
         LocalDate dueDate = localDate.plusDays(duration);
         BookLoan bookLoan = new BookLoan(user, book, dueDate);
-        return Response.generate(bookLoanRepository.save(bookLoan));
+        return Response.generate(BOOK_LOAN_CREATE,bookLoanRepository.save(bookLoan));
     }
 
     public Response returnBookLoan(Integer userId, Integer bookId) {
@@ -92,7 +93,8 @@ public class BookLoanService {
             return Response.generate(BAD_REQUEST, NOT_EXIST);
         BookLoan bookloan = optionalBookLoan.get();
         bookloan.getBook().returnBook();
-        bookLoanRepository.delete(optionalBookLoan.get());
+        bookloan.setReturned(true);
+        bookLoanRepository.save(bookloan);
         return Response.generate(String.format("Book with id %s returned", bookId));
     }
 }

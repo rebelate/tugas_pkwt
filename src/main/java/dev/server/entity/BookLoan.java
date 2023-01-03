@@ -26,6 +26,7 @@ public class BookLoan {
     @JoinColumn(name = "book_id")
     @JsonIgnore
     private Book book;
+    private boolean isReturned;
 
     @Transient
     private int remainingDay;
@@ -69,6 +70,15 @@ public class BookLoan {
 
     public BookLoan setBook(Book book) {
         this.book = book;
+        return this;
+    }
+
+    public boolean isReturned() {
+        return isReturned;
+    }
+
+    public BookLoan setReturned(boolean returned) {
+        isReturned = returned;
         return this;
     }
 
