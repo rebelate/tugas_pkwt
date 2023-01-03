@@ -1,5 +1,7 @@
 package dev.server.service;
 
+import dev.server.dto.BookLoanDto;
+import dev.server.dto.BookLoanMapper;
 import dev.server.dto.Response;
 import dev.server.entity.Book;
 import dev.server.entity.BookLoan;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static dev.server.service.BookService.BOOK_NOT_EXIST;
@@ -27,6 +30,7 @@ public class BookLoanService {
     private static final String NOT_EXIST = "Book loan does not exist";
     private static final String NO_COPIES = "Book is not available to loan at the moment";
     private static final String BOOK_LOAN_CREATE = "Book loan created successfully";
+    private static final String ALREADY_RETURNED = "Book loan already returned";
     private final BookLoanRepository bookLoanRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
@@ -40,10 +44,22 @@ public class BookLoanService {
     }
 
     public Response getBookLoanList() {
-        return Response.generate(bookLoanRepository.findAll());
+        List<BookLoan> bookLoans = bookLoanRepository.findAll();
+        List<BookLoanDto> bookLoanDtos = bookLoans.stream().map(BookLoanMapper.INSTANCE::bookLoanDto).toList();
+
+        return Response.generate(bookLoanDtos);
     }
 
-    public Response createBookLoan(Integer userId, Integer bookId, Integer duration) {
+    public Response getBookLoanListByUserId(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
+        User user = optionalUser.get();
+        List<BookLoanDto> bookLoans = bookLoanRepository.findAllByUser(user).stream().map(BookLoanMapper.INSTANCE::bookLoanDto).toList();
+        return Response.generate(bookLoans);
+    }
+
+
+    public Response createBookLoan(Long userId, Long bookId, Integer duration) {
         var errors = new ArrayList<String>();
         if (userId == null) errors.add("userId");
         if (bookId == null) errors.add("bookId");
@@ -57,8 +73,8 @@ public class BookLoanService {
                     .replace(",", ", ");
             return Response.generate(BAD_REQUEST, parsedErrors);
         }
-        Optional<User> optionalUser = userRepository.findById(userId.longValue());
-        Optional<Book> optionalBook = bookRepository.findById(bookId.longValue());
+        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalUser.isEmpty())
             return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
         if (optionalBook.isEmpty())
@@ -71,10 +87,12 @@ public class BookLoanService {
         LocalDate localDate = LocalDate.now(ZoneId.of("Asia/Jakarta"));
         LocalDate dueDate = localDate.plusDays(duration);
         BookLoan bookLoan = new BookLoan(user, book, dueDate);
-        return Response.generate(BOOK_LOAN_CREATE,bookLoanRepository.save(bookLoan));
+        BookLoan savedBookLoan = bookLoanRepository.save(bookLoan);
+
+        return Response.generate(BOOK_LOAN_CREATE, BookLoanMapper.INSTANCE.bookLoanDto(savedBookLoan));
     }
 
-    public Response returnBookLoan(Integer userId, Integer bookId) {
+    public Response returnBookLoan(Long userId, Long bookId) {
         var errors = new ArrayList<String>();
         if (userId == null) errors.add("userId");
         if (bookId == null) errors.add("bookId");
@@ -87,14 +105,15 @@ public class BookLoanService {
                     .replace(",", ", ");
             return Response.generate(BAD_REQUEST, parsedErrors);
         }
-        BookLoanKey bookLoanKey = new BookLoanKey(userId.longValue(), bookId.longValue());
+        BookLoanKey bookLoanKey = new BookLoanKey(userId, bookId);
         Optional<BookLoan> optionalBookLoan = bookLoanRepository.findById(bookLoanKey);
-        if (optionalBookLoan.isEmpty())
-            return Response.generate(BAD_REQUEST, NOT_EXIST);
+        if (optionalBookLoan.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
         BookLoan bookloan = optionalBookLoan.get();
+        if (bookloan.isReturned()) return Response.generate(BAD_REQUEST, ALREADY_RETURNED);
         bookloan.getBook().returnBook();
         bookloan.setReturned(true);
         bookLoanRepository.save(bookloan);
         return Response.generate(String.format("Book with id %s returned", bookId));
     }
+
 }

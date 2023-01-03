@@ -6,7 +6,6 @@ import dev.server.entity.Book;
 import dev.server.repository.BookLoanRepository;
 import dev.server.repository.BookRepository;
 import dev.server.repository.CategoryRepository;
-import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
@@ -89,6 +88,18 @@ public class BookService implements IBookService {
         ) {
             book.setDescription(bookDto.description());
         }
+        if (bookDto.category() != null
+        ) {
+            var category = categoryRepository.findByName(bookDto.category());
+            if (category.isEmpty()) return Response.generate(BAD_REQUEST, CATEGORY_NOT_EXIST);
+            book.setCategory(category.get());
+        } else {
+            book.setCategory(null);
+        }
+        if (bookDto.copies() != null
+        ) {
+            book.setCopies(bookDto.copies());
+        }
         if (errors.isEmpty()) {
             var savedBook = bookRepository.save(book);
             logger.info("CREATED NEW BOOK WITH ID " + savedBook.getId());
@@ -112,8 +123,6 @@ public class BookService implements IBookService {
         if (optionalBook.isEmpty()) {
             return Response.generate(BAD_REQUEST, BOOK_NOT_EXIST);
         }
-        if (bookDto.isEmpty())
-            return Response.generate(BAD_REQUEST, BOOK_UPDATE_EMPTY);
 
         var book = optionalBook.get();
         if (bookDto.author() != null
@@ -139,6 +148,10 @@ public class BookService implements IBookService {
             book.setCategory(category.get());
         } else {
             book.setCategory(null);
+        }
+        if (bookDto.copies() != null
+        ) {
+            book.setCopies(bookDto.copies());
         }
         logger.info("UPDATED BOOK WITH ID " + book.getId());
         return Response.generate(BOOK_UPDATE_SUCCESS, bookRepository.save(book));

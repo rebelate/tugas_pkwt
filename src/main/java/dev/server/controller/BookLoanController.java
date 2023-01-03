@@ -1,9 +1,7 @@
 package dev.server.controller;
 
-import dev.server.dto.BookDto;
 import dev.server.dto.Response;
 import dev.server.service.BookLoanService;
-import dev.server.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,15 +18,21 @@ public class BookLoanController {
         return bookLoanService.getBookLoanList();
     }
 
+    @GetMapping("/{userId}")
+    Response Get(@PathVariable("userId") Long userId) {
+        return bookLoanService.getBookLoanListByUserId(userId);
+    }
+
     @GetMapping("/loan")
-    Response NewBookLoan(@RequestParam(name = "userId", required = false) Integer userId,
-                         @RequestParam(name = "bookId", required = false) Integer bookId,
+    Response NewBookLoan(@RequestParam(name = "userId", required = false) Long userId,
+                         @RequestParam(name = "bookId", required = false) Long bookId,
                          @RequestParam(name = "duration", required = false) Integer day) {
         return bookLoanService.createBookLoan(userId, bookId, day);
     }
+
     @GetMapping("/return")
-    Response ReturnBookLoan(@RequestParam(name = "userId", required = false) Integer userId,
-                         @RequestParam(name = "bookId", required = false) Integer bookId){
+    Response ReturnBookLoan(@RequestParam(name = "userId", required = false) Long userId,
+                            @RequestParam(name = "bookId", required = false) Long bookId) {
         return bookLoanService.returnBookLoan(userId, bookId);
     }
 }

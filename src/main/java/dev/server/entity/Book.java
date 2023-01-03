@@ -46,6 +46,15 @@ public class Book {
         this.category = category;
     }
 
+    public Book(String title, String author, String publisher, String description, Category category, int copies) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.description = description;
+        this.category = category;
+        this.copies = copies;
+    }
+
     public Book loanBook() {
         copies = copies - 1;
         return this;
