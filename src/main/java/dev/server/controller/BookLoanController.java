@@ -20,7 +20,7 @@ public class BookLoanController {
 
     @GetMapping("/{loanId}")
     Response Get(@PathVariable("loanId") Long loanId) {
-        return bookLoanService.getBookLoanListById(loanId);
+        return bookLoanService.getBookLoanById(loanId);
     }
 
     @GetMapping("/user/{userId}")

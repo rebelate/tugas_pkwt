@@ -45,19 +45,19 @@ public class BookLoanService {
     public Response getBookLoanList() {
         List<BookLoan> bookLoans = bookLoanRepository.findAll();
         List<BookLoanDto> bookLoanDtos = bookLoans.stream().map(BookLoanMapper.INSTANCE::bookLoanDto).toList();
-
+        if (bookLoans.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
         return Response.generate(bookLoanDtos);
     }
 
     public Response getBookLoanListByUserId(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isEmpty()) return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
-        User user = optionalUser.get();
-        List<BookLoanDto> bookLoans = bookLoanRepository.findAllByUser(user).stream().map(BookLoanMapper.INSTANCE::bookLoanDto).toList();
+        boolean userExist = userRepository.existsById(userId);
+        if (!userExist) return Response.generate(BAD_REQUEST, USER_NOT_EXIST);
+        List<BookLoanDto> bookLoans = bookLoanRepository.findByUserId(userId).stream().map(BookLoanMapper.INSTANCE::bookLoanDto).toList();
+        if (bookLoans.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
         return Response.generate(bookLoans);
     }
 
-    public Response getBookLoanListById(Long loanId) {
+    public Response getBookLoanById(Long loanId) {
         Optional<BookLoan> optionalBookLoan = bookLoanRepository.findById(loanId);
         if (optionalBookLoan.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
         return Response.generate(BookLoanMapper.INSTANCE.bookLoanDto(optionalBookLoan.get()));
@@ -103,9 +103,10 @@ public class BookLoanService {
         BookLoan bookloan = optionalBookLoan.get();
         if (bookloan.isReturned()) return Response.generate(BAD_REQUEST, ALREADY_RETURNED);
         Book book = bookloan.getBook();
+        Long userId = bookloan.getUser().getId();
         book.returnBook();
         bookloan.setReturned(true);
         bookLoanRepository.save(bookloan);
-        return Response.generate(String.format("Book with id %s returned", book.getId()));
+        return Response.generate(String.format("Book with id %s has been returned by user with id %s", book.getId(), userId));
     }
 }
