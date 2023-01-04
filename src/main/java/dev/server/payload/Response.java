@@ -1,4 +1,4 @@
-package dev.server.dto;
+package dev.server.payload;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

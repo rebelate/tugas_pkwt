@@ -1,7 +1,7 @@
 package dev.server.service;
 
 import dev.server.dto.BookDto;
-import dev.server.dto.Response;
+import dev.server.payload.Response;
 import dev.server.entity.Book;
 import dev.server.repository.BookLoanRepository;
 import dev.server.repository.BookRepository;

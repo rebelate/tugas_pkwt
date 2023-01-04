@@ -1,8 +1,7 @@
 package dev.server.controller;
 
 import dev.server.dto.CategoryDto;
-import dev.server.dto.Response;
-import dev.server.dto.UserDto;
+import dev.server.payload.Response;
 import dev.server.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package dev.server.controller;
 
-import dev.server.dto.Response;
+import dev.server.payload.Response;
 import dev.server.service.BookLoanService;
 import org.springframework.web.bind.annotation.*;
 

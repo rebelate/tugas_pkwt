@@ -2,7 +2,7 @@ package dev.server.service;
 
 import dev.server.dto.BookLoanDto;
 import dev.server.dto.BookLoanMapper;
-import dev.server.dto.Response;
+import dev.server.payload.Response;
 import dev.server.entity.Book;
 import dev.server.entity.BookLoan;
 import dev.server.entity.BookLoanKey;

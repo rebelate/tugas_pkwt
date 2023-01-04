@@ -2,10 +2,10 @@ package dev.server.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,9 +22,12 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+//
+//    @OneToMany(mappedBy = "user")
+//    private Set<BookLoan> bookLoan;
 
-    @OneToMany(mappedBy = "user")
-    private Set<BookLoan> bookLoan;
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<UserRole> userRoles;
 
     public User() {
     }
@@ -81,12 +84,12 @@ public class User {
         return this;
     }
 
-//    public Set<Book> getBorrowedBooks() {
-//        return borrowedBooks;
-//    }
-//
-//    public User setBorrowedBooks(Set<Book> borrowedBooks) {
-//        this.borrowedBooks = borrowedBooks;
-//        return this;
-//    }
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public User setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+        return this;
+    }
 }

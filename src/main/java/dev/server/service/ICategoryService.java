@@ -1,6 +1,6 @@
 package dev.server.service;
 
-import dev.server.dto.Response;
+import dev.server.payload.Response;
 import dev.server.dto.CategoryDto;
 
 public interface ICategoryService {

@@ -1,6 +1,6 @@
 package dev.server.service;
 
-import dev.server.dto.Response;
+import dev.server.payload.Response;
 import dev.server.dto.UserDto;
 import dev.server.entity.User;
 import dev.server.repository.UserRepository;
