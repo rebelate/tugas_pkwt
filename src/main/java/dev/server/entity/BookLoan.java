@@ -1,5 +1,6 @@
 package dev.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -8,16 +9,15 @@ import java.time.temporal.ChronoUnit;
 
 @Entity
 public class BookLoan {
-    @EmbeddedId
-    private BookLoanKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @ManyToOne
-    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @MapsId("bookId")
     @JoinColumn(name = "book_id")
     private Book book;
     private boolean isReturned;
@@ -33,18 +33,17 @@ public class BookLoan {
     }
 
     public BookLoan(User user, Book book, LocalDate dueDate) {
-        this.id = new BookLoanKey(user.getId(), book.getId());
         this.user = user;
         this.book = book;
         this.dueDate = dueDate;
         this.createdDate = LocalDate.now(ZoneId.of("Asia/Jakarta"));
     }
 
-    public BookLoanKey getId() {
+    public Long getId() {
         return id;
     }
 
-    public BookLoan setId(BookLoanKey id) {
+    public BookLoan setId(Long id) {
         this.id = id;
         return this;
     }

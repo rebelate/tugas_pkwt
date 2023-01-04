@@ -5,7 +5,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,22 +27,19 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-    /**
-     * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
-     * microservices environment, this key would be kept on a config-server.
-     */
-    @Value("${security.jwt.token.secret-key:secret-key}")
+    @Value("${security.jwt.token.secret-key}")
+    private String rawSecretKey;
     private SecretKey secretKey;
 
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    @Value("${security.jwt.token.expire-length}")
+    private final long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
     private AppUserDetails appUserDetails;
 
     @PostConstruct
     protected void init() {
-        secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey.toString()));
+        secretKey = Keys.hmacShaKeyFor(rawSecretKey.getBytes());
     }
 
     public String createToken(String username, List<UserRole> appUserRoles) {

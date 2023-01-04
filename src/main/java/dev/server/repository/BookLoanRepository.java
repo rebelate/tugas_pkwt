@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BookLoanRepository extends JpaRepository<BookLoan, BookLoanKey> {
+public interface BookLoanRepository extends JpaRepository<BookLoan, Long> {
     @Transactional
     void deleteByBook(Book book);
 
@@ -20,5 +20,5 @@ public interface BookLoanRepository extends JpaRepository<BookLoan, BookLoanKey>
 
     List<BookLoan> findAllByUser(User user);
 
-    Optional<BookLoan> findByUserAndBook(User user, Book book);
+    Optional<BookLoan> findByUserIdAndBookId(Long userId, Long bookId);
 }

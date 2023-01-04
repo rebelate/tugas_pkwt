@@ -3,12 +3,42 @@ package dev.server.dto;
 import java.time.LocalDate;
 
 public class BookLoanDto {
+    private Long id;
     private Long userId;
+    private String username;
     private Long bookId;
+    private String bookTitle;
     private Integer remainingDay;
     private LocalDate dueDate;
     private LocalDate createdDate;
     private boolean isReturned;
+
+    public Long getId() {
+        return id;
+    }
+
+    public BookLoanDto setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public BookLoanDto setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public BookLoanDto setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+        return this;
+    }
 
     public Long getUserId() {
         return userId;

@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity()
+@EnableMethodSecurity
 public class WebSecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -37,10 +37,10 @@ public class WebSecurityConfig {
 
         // Entry points
         http.authorizeHttpRequests((auth) -> auth.requestMatchers("/users/signin").permitAll()//
-                .requestMatchers("/users/signup").permitAll()//
-                .requestMatchers("/h2-console/**/**").permitAll()
+                .requestMatchers("/users/signup").permitAll()
                 // Disallow everything else..
-                .anyRequest().authenticated());
+                .anyRequest().permitAll()
+        );
 
 
         // If a user try to access a resource without having enough permissions
@@ -58,17 +58,7 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         // Allow swagger to be accessed without authentication
         return (web) ->
-                web.ignoring().requestMatchers("/v2/api-docs")//
-                        .requestMatchers("/swagger-resources/**")//
-                        .requestMatchers("/swagger-ui.html")//
-                        .requestMatchers("/configuration/**")//
-                        .requestMatchers("/webjars/**")//
-                        .requestMatchers("/public")
-
-                        // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
-                        .and()
-                        .ignoring()
-                        .requestMatchers("/h2-console/**/**");
+                web.ignoring().requestMatchers("/api-docs");
 
     }
 

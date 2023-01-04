@@ -18,21 +18,25 @@ public class BookLoanController {
         return bookLoanService.getBookLoanList();
     }
 
-    @GetMapping("/{userId}")
-    Response Get(@PathVariable("userId") Long userId) {
+    @GetMapping("/{loanId}")
+    Response Get(@PathVariable("loanId") Long loanId) {
+        return bookLoanService.getBookLoanListById(loanId);
+    }
+
+    @GetMapping("/user/{userId}")
+    Response GetByUserId(@PathVariable("userId") Long userId) {
         return bookLoanService.getBookLoanListByUserId(userId);
     }
 
-    @GetMapping("/loan")
+    @PostMapping
     Response NewBookLoan(@RequestParam(name = "userId", required = false) Long userId,
                          @RequestParam(name = "bookId", required = false) Long bookId,
                          @RequestParam(name = "duration", required = false) Integer day) {
         return bookLoanService.createBookLoan(userId, bookId, day);
     }
 
-    @GetMapping("/return")
-    Response ReturnBookLoan(@RequestParam(name = "userId", required = false) Long userId,
-                            @RequestParam(name = "bookId", required = false) Long bookId) {
-        return bookLoanService.returnBookLoan(userId, bookId);
+    @GetMapping("/{loanId}/return")
+    Response ReturnBookLoan(@PathVariable("loanId") Long loanId) {
+        return bookLoanService.returnBookLoan(loanId);
     }
 }

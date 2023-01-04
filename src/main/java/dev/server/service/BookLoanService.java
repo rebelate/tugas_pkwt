@@ -2,11 +2,10 @@ package dev.server.service;
 
 import dev.server.dto.BookLoanDto;
 import dev.server.dto.BookLoanMapper;
-import dev.server.payload.Response;
 import dev.server.entity.Book;
 import dev.server.entity.BookLoan;
-import dev.server.entity.BookLoanKey;
 import dev.server.entity.User;
+import dev.server.payload.Response;
 import dev.server.repository.BookLoanRepository;
 import dev.server.repository.BookRepository;
 import dev.server.repository.UserRepository;
@@ -58,6 +57,11 @@ public class BookLoanService {
         return Response.generate(bookLoans);
     }
 
+    public Response getBookLoanListById(Long loanId) {
+        Optional<BookLoan> optionalBookLoan = bookLoanRepository.findById(loanId);
+        if (optionalBookLoan.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
+        return Response.generate(BookLoanMapper.INSTANCE.bookLoanDto(optionalBookLoan.get()));
+    }
 
     public Response createBookLoan(Long userId, Long bookId, Integer duration) {
         var errors = new ArrayList<String>();
@@ -92,28 +96,16 @@ public class BookLoanService {
         return Response.generate(BOOK_LOAN_CREATE, BookLoanMapper.INSTANCE.bookLoanDto(savedBookLoan));
     }
 
-    public Response returnBookLoan(Long userId, Long bookId) {
-        var errors = new ArrayList<String>();
-        if (userId == null) errors.add("userId");
-        if (bookId == null) errors.add("bookId");
-        if (!errors.isEmpty()) {
-            String parsedErrors
-                    = "Need to specify " + errors.toString()
-                    .replace("[", "")
-                    .replace("]", "")
-                    .replace(" ", "")
-                    .replace(",", ", ");
-            return Response.generate(BAD_REQUEST, parsedErrors);
-        }
-        BookLoanKey bookLoanKey = new BookLoanKey(userId, bookId);
-        Optional<BookLoan> optionalBookLoan = bookLoanRepository.findById(bookLoanKey);
+    public Response returnBookLoan(Long bookLoanId) {
+        if (bookLoanId == null) return Response.generate(BAD_REQUEST, "Need to specify book loan's id");
+        Optional<BookLoan> optionalBookLoan = bookLoanRepository.findById(bookLoanId);
         if (optionalBookLoan.isEmpty()) return Response.generate(BAD_REQUEST, NOT_EXIST);
         BookLoan bookloan = optionalBookLoan.get();
         if (bookloan.isReturned()) return Response.generate(BAD_REQUEST, ALREADY_RETURNED);
-        bookloan.getBook().returnBook();
+        Book book = bookloan.getBook();
+        book.returnBook();
         bookloan.setReturned(true);
         bookLoanRepository.save(bookloan);
-        return Response.generate(String.format("Book with id %s returned", bookId));
+        return Response.generate(String.format("Book with id %s returned", book.getId()));
     }
-
 }
